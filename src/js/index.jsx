@@ -3,16 +3,15 @@ import React from 'react'
 import {render} from 'react-dom'
 import {Provider} from 'react-redux'
 
+import Container from './components/Container'
 import configureStore from './store'
-import App from './App'
 import {initialize} from './redux'
 
 const store = configureStore()
+store.dispatch(initialize())
 
 render((
   <Provider store={store}>
-    <App />
+    <Container />
   </Provider>
 ), document.getElementById('root'))
-
-store.dispatch(initialize())
