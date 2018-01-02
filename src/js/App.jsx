@@ -1,12 +1,11 @@
 
 import React, {PureComponent} from 'react'
+import Container from './components/Container'
 
 class App extends PureComponent {
   render () {
     return (
-      <div>
-        {'Hello world!'}
-      </div>
+      <Container />
     )
   }
 }
