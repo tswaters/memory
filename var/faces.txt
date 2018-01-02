@@ -1,0 +1,102 @@
+1F466 ;	emoji ;	L1 ;	primary ;	j	# V6.0 (👦) BOY
+1F467 ;	emoji ;	L1 ;	primary ;	j	# V6.0 (👧) GIRL
+1F468 ;	emoji ;	L1 ;	primary ;	j	# V6.0 (👨) MAN
+1F469 ;	emoji ;	L1 ;	primary ;	j	# V6.0 (👩) WOMAN
+1F46A ;	emoji ;	L1 ;	none ;	j w	# V6.0 (👪) FAMILY
+1F46E ;	emoji ;	L1 ;	primary ;	j	# V6.0 (👮) POLICE OFFICER
+1F470 ;	emoji ;	L1 ;	primary ;	j	# V6.0 (👰) BRIDE WITH VEIL
+1F471 ;	emoji ;	L1 ;	primary ;	j	# V6.0 (👱) PERSON WITH BLOND HAIR
+1F472 ;	emoji ;	L1 ;	primary ;	j	# V6.0 (👲) MAN WITH GUA PI MAO
+1F473 ;	emoji ;	L1 ;	primary ;	j	# V6.0 (👳) MAN WITH TURBAN
+1F474 ;	emoji ;	L1 ;	primary ;	j	# V6.0 (👴) OLDER MAN
+1F475 ;	emoji ;	L1 ;	primary ;	j	# V6.0 (👵) OLDER WOMAN
+1F476 ;	emoji ;	L1 ;	primary ;	j	# V6.0 (👶) BABY
+1F477 ;	emoji ;	L1 ;	primary ;	j	# V6.0 (👷) CONSTRUCTION WORKER
+1F478 ;	emoji ;	L1 ;	primary ;	j	# V6.0 (👸) PRINCESS
+1F479 ;	emoji ;	L1 ;	none ;	j	# V6.0 (👹) JAPANESE OGRE
+1F47A ;	emoji ;	L1 ;	none ;	j	# V6.0 (👺) JAPANESE GOBLIN
+1F47B ;	emoji ;	L1 ;	none ;	j	# V6.0 (👻) GHOST
+1F47C ;	emoji ;	L1 ;	primary ;	j	# V6.0 (👼) BABY ANGEL
+1F47D ;	emoji ;	L1 ;	none ;	j w	# V6.0 (👽) EXTRATERRESTRIAL ALIEN
+1F47E ;	emoji ;	L1 ;	none ;	j	# V6.0 (👾) ALIEN MONSTER
+1F47F ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (👿) IMP
+1F480 ;	emoji ;	L1 ;	none ;	j	# V6.0 (💀) SKULL
+1F481 ;	emoji ;	L1 ;	primary ;	j	# V6.0 (💁) INFORMATION DESK PERSON
+1F482 ;	emoji ;	L1 ;	primary ;	j	# V6.0 (💂) GUARDSMAN
+1F600 ;	emoji ;	L1 ;	secondary ;	x	# V6.1 (😀) GRINNING FACE
+1F601 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😁) GRINNING FACE WITH SMILING EYES
+1F602 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😂) FACE WITH TEARS OF JOY
+1F603 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😃) SMILING FACE WITH OPEN MOUTH
+1F604 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😄) SMILING FACE WITH OPEN MOUTH AND SMILING EYES
+1F605 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😅) SMILING FACE WITH OPEN MOUTH AND COLD SWEAT
+1F606 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😆) SMILING FACE WITH OPEN MOUTH AND TIGHTLY-CLOSED EYES
+1F607 ;	emoji ;	L1 ;	secondary ;	x	# V6.0 (😇) SMILING FACE WITH HALO
+1F608 ;	emoji ;	L1 ;	secondary ;	x	# V6.0 (😈) SMILING FACE WITH HORNS
+1F609 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😉) WINKING FACE
+1F60A ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😊) SMILING FACE WITH SMILING EYES
+1F60B ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😋) FACE SAVOURING DELICIOUS FOOD
+1F60C ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😌) RELIEVED FACE
+1F60D ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😍) SMILING FACE WITH HEART-SHAPED EYES
+1F60E ;	emoji ;	L1 ;	secondary ;	x	# V6.0 (😎) SMILING FACE WITH SUNGLASSES
+1F60F ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😏) SMIRKING FACE
+1F610 ;	emoji ;	L1 ;	secondary ;	w	# V6.0 (😐) NEUTRAL FACE
+1F611 ;	emoji ;	L1 ;	secondary ;	x	# V6.1 (😑) EXPRESSIONLESS FACE
+1F612 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😒) UNAMUSED FACE
+1F613 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😓) FACE WITH COLD SWEAT
+1F614 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😔) PENSIVE FACE
+1F615 ;	emoji ;	L1 ;	secondary ;	x	# V6.1 (😕) CONFUSED FACE
+1F616 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😖) CONFOUNDED FACE
+1F617 ;	emoji ;	L1 ;	secondary ;	x	# V6.1 (😗) KISSING FACE
+1F618 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😘) FACE THROWING A KISS
+1F619 ;	emoji ;	L1 ;	secondary ;	x	# V6.1 (😙) KISSING FACE WITH SMILING EYES
+1F61A ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😚) KISSING FACE WITH CLOSED EYES
+1F61B ;	emoji ;	L1 ;	secondary ;	x	# V6.1 (😛) FACE WITH STUCK-OUT TONGUE
+1F61C ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😜) FACE WITH STUCK-OUT TONGUE AND WINKING EYE
+1F61D ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😝) FACE WITH STUCK-OUT TONGUE AND TIGHTLY-CLOSED EYES
+1F61E ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😞) DISAPPOINTED FACE
+1F61F ;	emoji ;	L1 ;	secondary ;	x	# V6.1 (😟) WORRIED FACE
+1F620 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😠) ANGRY FACE
+1F621 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😡) POUTING FACE
+1F622 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😢) CRYING FACE
+1F623 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😣) PERSEVERING FACE
+1F624 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😤) FACE WITH LOOK OF TRIUMPH
+1F625 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😥) DISAPPOINTED BUT RELIEVED FACE
+1F626 ;	emoji ;	L1 ;	secondary ;	x	# V6.1 (😦) FROWNING FACE WITH OPEN MOUTH
+1F627 ;	emoji ;	L1 ;	secondary ;	x	# V6.1 (😧) ANGUISHED FACE
+1F628 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😨) FEARFUL FACE
+1F629 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😩) WEARY FACE
+1F62A ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😪) SLEEPY FACE
+1F62B ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😫) TIRED FACE
+1F62C ;	emoji ;	L1 ;	secondary ;	x	# V6.1 (😬) GRIMACING FACE
+1F62D ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😭) LOUDLY CRYING FACE
+1F62E ;	emoji ;	L1 ;	secondary ;	x	# V6.1 (😮) FACE WITH OPEN MOUTH
+1F62F ;	emoji ;	L1 ;	secondary ;	x	# V6.1 (😯) HUSHED FACE
+1F630 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😰) FACE WITH OPEN MOUTH AND COLD SWEAT
+1F631 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😱) FACE SCREAMING IN FEAR
+1F632 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😲) ASTONISHED FACE
+1F633 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😳) FLUSHED FACE
+1F634 ;	emoji ;	L1 ;	secondary ;	x	# V6.1 (😴) SLEEPING FACE
+1F635 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😵) DIZZY FACE
+1F636 ;	emoji ;	L1 ;	secondary ;	x	# V6.0 (😶) FACE WITHOUT MOUTH
+1F637 ;	emoji ;	L1 ;	secondary ;	j	# V6.0 (😷) FACE WITH MEDICAL MASK
+1F638 ;	emoji ;	L1 ;	none ;	j	# V6.0 (😸) GRINNING CAT FACE WITH SMILING EYES
+1F639 ;	emoji ;	L1 ;	none ;	j	# V6.0 (😹) CAT FACE WITH TEARS OF JOY
+1F63A ;	emoji ;	L1 ;	none ;	j	# V6.0 (😺) SMILING CAT FACE WITH OPEN MOUTH
+1F63B ;	emoji ;	L1 ;	none ;	j	# V6.0 (😻) SMILING CAT FACE WITH HEART-SHAPED EYES
+1F63C ;	emoji ;	L1 ;	none ;	j	# V6.0 (😼) CAT FACE WITH WRY SMILE
+1F63D ;	emoji ;	L1 ;	none ;	j	# V6.0 (😽) KISSING CAT FACE WITH CLOSED EYES
+1F63E ;	emoji ;	L1 ;	none ;	j	# V6.0 (😾) POUTING CAT FACE
+1F63F ;	emoji ;	L1 ;	none ;	j	# V6.0 (😿) CRYING CAT FACE
+1F640 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🙀) WEARY CAT FACE
+1F641 ;	emoji ;	L2 ;	secondary ;	x	# V7.0 (🙁) SLIGHTLY FROWNING FACE
+1F642 ;	emoji ;	L2 ;	secondary ;	x	# V7.0 (🙂) SLIGHTLY SMILING FACE
+1F643 ;	emoji ;	L2 ;	secondary ;	x	# V8.0 (🙃) UPSIDE-DOWN FACE
+1F644 ;	emoji ;	L2 ;	secondary ;	x	# V8.0 (🙄) FACE WITH ROLLING EYES
+1F910 ;	emoji ;	L2 ;	secondary ;	x	# V8.0 (🤐) ZIPPER-MOUTH FACE
+1F911 ;	emoji ;	L2 ;	secondary ;	x	# V8.0 (🤑) MONEY-MOUTH FACE
+1F912 ;	emoji ;	L2 ;	secondary ;	x	# V8.0 (🤒) FACE WITH THERMOMETER
+1F913 ;	emoji ;	L2 ;	secondary ;	x	# V8.0 (🤓) NERD FACE
+1F914 ;	emoji ;	L2 ;	secondary ;	x	# V8.0 (🤔) THINKING FACE
+1F915 ;	emoji ;	L2 ;	secondary ;	x	# V8.0 (🤕) FACE WITH HEAD-BANDAGE
+1F916 ;	emoji ;	L2 ;	none ;	x	# V8.0 (🤖) ROBOT FACE
+1F917 ;	emoji ;	L2 ;	secondary ;	x	# V8.0 (🤗) HUGGING FACE

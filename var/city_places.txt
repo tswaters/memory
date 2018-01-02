@@ -1,0 +1,80 @@
+26EA ;	emoji ;	L1 ;	none ;	a j	# V5.2 (⛪) CHURCH
+26F0 ;	text ;	L2 ;	none ;	a	# V5.2 (⛰) MOUNTAIN
+26F2 ;	emoji ;	L1 ;	none ;	a j	# V5.2 (⛲) FOUNTAIN
+26FA ;	emoji ;	L1 ;	none ;	a j	# V5.2 (⛺) TENT
+26FD ;	emoji ;	L1 ;	none ;	a j	# V5.2 (⛽) FUEL PUMP
+1F306 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌆) CITYSCAPE AT DUSK
+1F307 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌇) SUNSET OVER BUILDINGS
+1F309 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌉) BRIDGE AT NIGHT
+1F3A0 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🎠) CAROUSEL HORSE
+1F3A1 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🎡) FERRIS WHEEL
+1F3A2 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🎢) ROLLER COASTER
+1F3AA ;	emoji ;	L1 ;	none ;	j	# V6.0 (🎪) CIRCUS TENT
+1F3B0 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🎰) SLOT MACHINE
+1F3E0 ;	emoji ;	L1 ;	none ;	j w	# V6.0 (🏠) HOUSE BUILDING
+1F3E1 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🏡) HOUSE WITH GARDEN
+1F3E2 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🏢) OFFICE BUILDING
+1F3E3 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🏣) JAPANESE POST OFFICE
+1F3E4 ;	emoji ;	L1 ;	none ;	x	# V6.0 (🏤) EUROPEAN POST OFFICE
+1F3E5 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🏥) HOSPITAL
+1F3E6 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🏦) BANK
+1F3E7 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🏧) AUTOMATED TELLER MACHINE
+1F3E8 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🏨) HOTEL
+1F3E9 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🏩) LOVE HOTEL
+1F3EA ;	emoji ;	L1 ;	none ;	j	# V6.0 (🏪) CONVENIENCE STORE
+1F3EB ;	emoji ;	L1 ;	none ;	j	# V6.0 (🏫) SCHOOL
+1F3EC ;	emoji ;	L1 ;	none ;	j	# V6.0 (🏬) DEPARTMENT STORE
+1F3ED ;	emoji ;	L1 ;	none ;	j w	# V6.0 (🏭) FACTORY
+1F3D4 ;	text ;	L2 ;	none ;	w	# V7.0 (🏔) SNOW CAPPED MOUNTAIN
+1F3D5 ;	text ;	L2 ;	none ;	w	# V7.0 (🏕) CAMPING
+1F3D6 ;	text ;	L2 ;	none ;	w	# V7.0 (🏖) BEACH WITH UMBRELLA
+1F3D7 ;	text ;	L2 ;	none ;	w	# V7.0 (🏗) BUILDING CONSTRUCTION
+1F3D8 ;	text ;	L2 ;	none ;	w	# V7.0 (🏘) HOUSE BUILDINGS
+1F3D9 ;	text ;	L2 ;	none ;	w	# V7.0 (🏙) CITYSCAPE
+1F3DA ;	text ;	L2 ;	none ;	w	# V7.0 (🏚) DERELICT HOUSE BUILDING
+1F3DB ;	text ;	L2 ;	none ;	w	# V7.0 (🏛) CLASSICAL BUILDING
+1F3DC ;	text ;	L2 ;	none ;	w	# V7.0 (🏜) DESERT
+1F3DD ;	text ;	L2 ;	none ;	w	# V7.0 (🏝) DESERT ISLAND
+1F3DE ;	text ;	L2 ;	none ;	w	# V7.0 (🏞) NATIONAL PARK
+1F3DF ;	text ;	L2 ;	none ;	w	# V7.0 (🏟) STADIUM
+1F3EF ;	emoji ;	L1 ;	none ;	j	# V6.0 (🏯) JAPANESE CASTLE
+1F3F0 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🏰) EUROPEAN CASTLE
+1F54C ;	emoji ;	L2 ;	none ;	x	# V8.0 (🕌) MOSQUE
+1F54D ;	emoji ;	L2 ;	none ;	x	# V8.0 (🕍) SYNAGOGUE
+1F680 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🚀) ROCKET
+1F681 ;	emoji ;	L1 ;	none ;	x	# V6.0 (🚁) HELICOPTER
+1F682 ;	emoji ;	L1 ;	none ;	x	# V6.0 (🚂) STEAM LOCOMOTIVE
+1F683 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🚃) RAILWAY CAR
+1F684 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🚄) HIGH-SPEED TRAIN
+1F685 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🚅) HIGH-SPEED TRAIN WITH BULLET NOSE
+1F686 ;	emoji ;	L1 ;	none ;	x	# V6.0 (🚆) TRAIN
+1F687 ;	emoji ;	L1 ;	none ;	j w	# V6.0 (🚇) METRO
+1F688 ;	emoji ;	L1 ;	none ;	x	# V6.0 (🚈) LIGHT RAIL
+1F689 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🚉) STATION
+1F68A ;	emoji ;	L1 ;	none ;	x	# V6.0 (🚊) TRAM
+1F68B ;	emoji ;	L1 ;	none ;	x	# V6.0 (🚋) TRAM CAR
+1F68C ;	emoji ;	L1 ;	none ;	j	# V6.0 (🚌) BUS
+1F68D ;	emoji ;	L1 ;	none ;	w	# V6.0 (🚍) ONCOMING BUS
+1F68E ;	emoji ;	L1 ;	none ;	x	# V6.0 (🚎) TROLLEYBUS
+1F68F ;	emoji ;	L1 ;	none ;	j	# V6.0 (🚏) BUS STOP
+1F690 ;	emoji ;	L1 ;	none ;	x	# V6.0 (🚐) MINIBUS
+1F691 ;	emoji ;	L1 ;	none ;	j w	# V6.0 (🚑) AMBULANCE
+1F692 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🚒) FIRE ENGINE
+1F693 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🚓) POLICE CAR
+1F694 ;	emoji ;	L1 ;	none ;	w	# V6.0 (🚔) ONCOMING POLICE CAR
+1F695 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🚕) TAXI
+1F696 ;	emoji ;	L1 ;	none ;	x	# V6.0 (🚖) ONCOMING TAXI
+1F697 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🚗) AUTOMOBILE
+1F698 ;	emoji ;	L1 ;	none ;	w	# V6.0 (🚘) ONCOMING AUTOMOBILE
+1F699 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🚙) RECREATIONAL VEHICLE
+1F69A ;	emoji ;	L1 ;	none ;	j	# V6.0 (🚚) DELIVERY TRUCK
+1F69B ;	emoji ;	L1 ;	none ;	x	# V6.0 (🚛) ARTICULATED LORRY
+1F69C ;	emoji ;	L1 ;	none ;	x	# V6.0 (🚜) TRACTOR
+1F69D ;	emoji ;	L1 ;	none ;	x	# V6.0 (🚝) MONORAIL
+1F69E ;	emoji ;	L1 ;	none ;	x	# V6.0 (🚞) MOUNTAIN RAILWAY
+1F69F ;	emoji ;	L1 ;	none ;	x	# V6.0 (🚟) SUSPENSION RAILWAY
+1F6A0 ;	emoji ;	L1 ;	none ;	x	# V6.0 (🚠) MOUNTAIN CABLEWAY
+1F6A1 ;	emoji ;	L1 ;	none ;	x	# V6.0 (🚡) AERIAL TRAMWAY
+1F6A2 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🚢) SHIP
+1F6A3 ;	emoji ;	L1 ;	secondary ;	x	# V6.0 (🚣) ROWBOAT
+1F6A4 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🚤) SPEEDBOAT

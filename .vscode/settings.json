@@ -6,7 +6,8 @@
     "**/CVS": true,
     "**/.DS_Store": true,
     "node_modules": true,
-    "dist": true
+    "dist": true,
+    "var/*.json": true
   },
   "search.exclude": {
     "node_modules": true,

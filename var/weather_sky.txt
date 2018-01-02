@@ -1,0 +1,43 @@
+1F311 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌑) NEW MOON SYMBOL
+1F312 ;	emoji ;	L1 ;	none ;	x	# V6.0 (🌒) WAXING CRESCENT MOON SYMBOL
+1F313 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌓) FIRST QUARTER MOON SYMBOL
+1F314 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌔) WAXING GIBBOUS MOON SYMBOL
+1F315 ;	emoji ;	L1 ;	none ;	j w	# V6.0 (🌕) FULL MOON SYMBOL
+1F316 ;	emoji ;	L1 ;	none ;	x	# V6.0 (🌖) WANING GIBBOUS MOON SYMBOL
+1F317 ;	emoji ;	L1 ;	none ;	x	# V6.0 (🌗) LAST QUARTER MOON SYMBOL
+1F318 ;	emoji ;	L1 ;	none ;	x	# V6.0 (🌘) WANING CRESCENT MOON SYMBOL
+1F319 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌙) CRESCENT MOON
+1F31A ;	emoji ;	L1 ;	none ;	x	# V6.0 (🌚) NEW MOON WITH FACE
+1F31B ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌛) FIRST QUARTER MOON WITH FACE
+1F31C ;	emoji ;	L1 ;	none ;	w	# V6.0 (🌜) LAST QUARTER MOON WITH FACE
+1F31D ;	emoji ;	L1 ;	none ;	x	# V6.0 (🌝) FULL MOON WITH FACE
+1F31E ;	emoji ;	L1 ;	none ;	x	# V6.0 (🌞) SUN WITH FACE
+1F31F ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌟) GLOWING STAR
+1F320 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌠) SHOOTING STAR
+1F321 ;	text ;	L2 ;	none ;	w	# V7.0 (🌡) THERMOMETER
+1F324 ;	text ;	L2 ;	none ;	w	# V7.0 (🌤) WHITE SUN WITH SMALL CLOUD
+1F325 ;	text ;	L2 ;	none ;	w	# V7.0 (🌥) WHITE SUN BEHIND CLOUD
+1F326 ;	text ;	L2 ;	none ;	w	# V7.0 (🌦) WHITE SUN BEHIND CLOUD WITH RAIN
+1F327 ;	text ;	L2 ;	none ;	w	# V7.0 (🌧) CLOUD WITH RAIN
+1F328 ;	text ;	L2 ;	none ;	w	# V7.0 (🌨) CLOUD WITH SNOW
+1F329 ;	text ;	L2 ;	none ;	w	# V7.0 (🌩) CLOUD WITH LIGHTNING
+1F32A ;	text ;	L2 ;	none ;	w	# V7.0 (🌪) CLOUD WITH TORNADO
+1F32B ;	text ;	L2 ;	none ;	w	# V7.0 (🌫) FOG
+1F32C ;	text ;	L2 ;	none ;	w	# V7.0 (🌬) WIND BLOWING FACE
+1F308 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌈) RAINBOW
+1F30C ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌌) MILKY WAY
+1F30D ;	emoji ;	L1 ;	none ;	w	# V6.0 (🌍) EARTH GLOBE EUROPE-AFRICA
+1F30E ;	emoji ;	L1 ;	none ;	w	# V6.0 (🌎) EARTH GLOBE AMERICAS
+1F30F ;	emoji ;	L1 ;	none ;	j w	# V6.0 (🌏) EARTH GLOBE ASIA-AUSTRALIA
+1F310 ;	emoji ;	L1 ;	none ;	x	# V6.0 (🌐) GLOBE WITH MERIDIANS
+2602 ;	text ;	L2 ;	none ;	a	# V1.1 (☂) UMBRELLA
+2603 ;	text ;	L2 ;	none ;	a	# V1.1 (☃) SNOWMAN
+2604 ;	text ;	L2 ;	none ;	x	# V1.1 (☄) COMET
+26C8 ;	text ;	L2 ;	none ;	a	# V5.2 (⛈) THUNDER CLOUD AND RAIN
+1F301 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌁) FOGGY
+1F302 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌂) CLOSED UMBRELLA
+1F303 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌃) NIGHT WITH STARS
+1F304 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌄) SUNRISE OVER MOUNTAINS
+1F305 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌅) SUNRISE
+1F306 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌆) CITYSCAPE AT DUSK
+1F307 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌇) SUNSET OVER BUILDINGS

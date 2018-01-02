@@ -1,0 +1,20 @@
+2620 ;	text ;	L2 ;	none ;	x	# V1.1 (☠) SKULL AND CROSSBONES
+2622 ;	text ;	L2 ;	none ;	x	# V1.1 (☢) RADIOACTIVE SIGN
+2623 ;	text ;	L2 ;	none ;	x	# V1.1 (☣) BIOHAZARD SIGN
+2626 ;	text ;	L2 ;	none ;	x	# V1.1 (☦) ORTHODOX CROSS
+262A ;	text ;	L2 ;	none ;	w	# V1.1 (☪) STAR AND CRESCENT
+262E ;	text ;	L2 ;	none ;	x	# V1.1 (☮) PEACE SYMBOL
+262F ;	text ;	L2 ;	none ;	w	# V1.1 (☯) YIN YANG
+2638 ;	text ;	L2 ;	none ;	w	# V1.1 (☸) WHEEL OF DHARMA
+267B ;	text ;	L1 ;	none ;	j	# V3.2 (♻) BLACK UNIVERSAL RECYCLING SYMBOL
+267F ;	emoji ;	L1 ;	none ;	j w	# V4.1 (♿) WHEELCHAIR SYMBOL
+2692 ;	text ;	L2 ;	none ;	x	# V4.1 (⚒) HAMMER AND PICK
+2693 ;	emoji ;	L1 ;	none ;	a j	# V4.1 (⚓) ANCHOR
+2694 ;	text ;	L2 ;	none ;	x	# V4.1 (⚔) CROSSED SWORDS
+2696 ;	text ;	L2 ;	none ;	x	# V4.1 (⚖) SCALES
+2697 ;	text ;	L2 ;	none ;	x	# V4.1 (⚗) ALEMBIC
+2699 ;	text ;	L2 ;	none ;	x	# V4.1 (⚙) GEAR
+269B ;	text ;	L2 ;	none ;	x	# V4.1 (⚛) ATOM SYMBOL
+269C ;	text ;	L2 ;	none ;	x	# V4.1 (⚜) FLEUR-DE-LIS
+26A0 ;	text ;	L1 ;	none ;	j	# V4.0 (⚠) WARNING SIGN
+26A1 ;	emoji ;	L1 ;	none ;	a j	# V4.0 (⚡) HIGH VOLTAGE SIGN

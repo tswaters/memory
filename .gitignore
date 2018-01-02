@@ -1,2 +1,4 @@
 node_modules
 dist
+var/*.json
+var/index.js

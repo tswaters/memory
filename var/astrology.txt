@@ -1,0 +1,12 @@
+2648 ;	emoji ;	L1 ;	none ;	j w	# V1.1 (♈) ARIES
+2649 ;	emoji ;	L1 ;	none ;	j w	# V1.1 (♉) TAURUS
+264A ;	emoji ;	L1 ;	none ;	j w	# V1.1 (♊) GEMINI
+264B ;	emoji ;	L1 ;	none ;	j w	# V1.1 (♋) CANCER
+264C ;	emoji ;	L1 ;	none ;	j w	# V1.1 (♌) LEO
+264D ;	emoji ;	L1 ;	none ;	j w	# V1.1 (♍) VIRGO
+264E ;	emoji ;	L1 ;	none ;	j w	# V1.1 (♎) LIBRA
+264F ;	emoji ;	L1 ;	none ;	j w	# V1.1 (♏) SCORPIUS
+2650 ;	emoji ;	L1 ;	none ;	j w	# V1.1 (♐) SAGITTARIUS
+2651 ;	emoji ;	L1 ;	none ;	j w	# V1.1 (♑) CAPRICORN
+2652 ;	emoji ;	L1 ;	none ;	j w	# V1.1 (♒) AQUARIUS
+2653 ;	emoji ;	L1 ;	none ;	j w	# V1.1 (♓) PISCES

@@ -1,0 +1,19 @@
+1F331 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌱) SEEDLING
+1F332 ;	emoji ;	L1 ;	none ;	x	# V6.0 (🌲) EVERGREEN TREE
+1F333 ;	emoji ;	L1 ;	none ;	x	# V6.0 (🌳) DECIDUOUS TREE
+1F334 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌴) PALM TREE
+1F335 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌵) CACTUS
+1F336 ;	text ;	L2 ;	none ;	w	# V7.0 (🌶) HOT PEPPER
+1F337 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌷) TULIP
+1F338 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌸) CHERRY BLOSSOM
+1F339 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌹) ROSE
+1F33A ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌺) HIBISCUS
+1F33B ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌻) SUNFLOWER
+1F33C ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌼) BLOSSOM
+1F33D ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌽) EAR OF MAIZE
+1F33E ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌾) EAR OF RICE
+1F33F ;	emoji ;	L1 ;	none ;	j	# V6.0 (🌿) HERB
+1F340 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🍀) FOUR LEAF CLOVER
+1F341 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🍁) MAPLE LEAF
+1F342 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🍂) FALLEN LEAF
+1F343 ;	emoji ;	L1 ;	none ;	j	# V6.0 (🍃) LEAF FLUTTERING IN WIND
