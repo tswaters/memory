@@ -1,32 +1,41 @@
 import {createSelector} from 'reselect'
+import * as tilesets from '../../var'
 
 const INITIALIZE = 'INITIALiZE'
+const RESTART = 'RESTART'
 const CHANGE_TOTAL = 'CHANGE_TOTAL'
 const CHANGE_TILESET = 'CHANGE_TILESET'
 const CHANGE_STATE = 'CHANGE_STATE'
 const SELECT_CARD = 'SELECT_CARD'
 const DESELECT_CARD = 'DESELECT_CARD'
 const SUCCESS = 'SUCCESS'
+const LOCK = 'LOCK'
 
 export const getStats = createSelector([
-  state => state.cards.filter(card => card.clickable),
+  state => state.cards.filter(card => card.finished),
   state => state.total,
   state => state.state
 ], (
-  clickable,
+  finished,
   total,
   state
 ) => ({
-  clickable,
+  left: total - finished.length,
   total,
   state
 }))
 
 export const initialize = () => (dispatch, getState) => {
-  const {total, tiles} = getState()
+  const {total, tileset} = getState()
+  const tiles = tilesets[tileset]
   let available = new Set()
   const seen = new Set()
   const cards = []
+
+// todo: show error to user on form
+  if (tiles.length < total / 2) {
+    throw new Error('not enough!')
+  }
 
   // pick random tiles from tileset, total / 2; convert to array
   do { available.add(tiles[Math.floor(Math.random() * tiles.length)]) }
@@ -36,15 +45,16 @@ export const initialize = () => (dispatch, getState) => {
   // place 2 of each of these files randomly in an array
   // pick a random index, if we've seen it remove from array
   do {
-    const index = Math.floor(Math.random() * tiles.length)
-    const value = tiles[index]
-    if (seen.has(value)) { tiles.splice(index, 1) }
+    const index = Math.floor(Math.random() * available.length)
+    const value = available[index]
+    if (seen.has(value)) { available.splice(index, 1) }
     seen.add(value)
     cards.push({
       value,
       index: cards.length,
       clickable: true,
-      revealed: false
+      revealed: false,
+      finished: false
     })
   } while (cards.length < total)
 
@@ -55,24 +65,35 @@ export const initialize = () => (dispatch, getState) => {
   })
 }
 
+export const restart = () => ({
+  type: RESTART
+})
+
 export const changeTotal = total => dispatch => {
   localStorage.setItem('total', total)
   dispatch({type: CHANGE_TOTAL, total})
 }
 
-export const changeTileset = (name, tileset) => dispatch => {
-  localStorage.setItem('tileset_values', JSON.stringify(tileset))
-  localStorage.setItem('tileset_name', name)
-  dispatch({type: CHANGE_TILESET, tileset, name})
+export const changeTileset = name => dispatch => {
+  localStorage.setItem('tileset', name)
+  dispatch({type: CHANGE_TILESET, name})
 }
+
+export const lockCards = () => ({type: LOCK, clickable: false})
+
+export const unlockCards = () => ({type: LOCK, clickable: true})
 
 export const clickCard = index => (dispatch, getState) => {
 
   const {selected, cards} = getState()
 
+  dispatch(lockCards())
+
   // if no card selected
   if (selected == null) {
-    return dispatch({type: SELECT_CARD, index})
+    dispatch({type: SELECT_CARD, index})
+    setTimeout(() => dispatch(unlockCards()), 500)
+    return
   }
 
   // match!
@@ -80,8 +101,10 @@ export const clickCard = index => (dispatch, getState) => {
 
     dispatch({type: SUCCESS, index: selected})
     dispatch({type: SUCCESS, index})
+    setTimeout(() => dispatch(unlockCards()), 500)
 
-    if (getStats(getState()).clickable.length === 0) {
+    const {left} = getStats(getState())
+    if (left === 0) {
       setTimeout(() => {
         dispatch({type: CHANGE_STATE, state: 'won'})
       }, 500)
@@ -96,18 +119,25 @@ export const clickCard = index => (dispatch, getState) => {
     setTimeout(() => {
       dispatch({type: DESELECT_CARD, index})
       dispatch({type: DESELECT_CARD, index: selected})
+      setTimeout(() => dispatch(unlockCards()), 500)
     }, 500)
 
   }
 }
 
+let total = localStorage.getItem('total')
+if (!total) total = 24
+else { total = parseInt(total, 10) }
+
+let tileset = localStorage.getItem('tileset')
+if (!tileset) { tileset = 'animals' }
+
 const initialState = {
   state: 'initializing',
-  total: null,
   selected: null,
-  tiles: null,
-  tileset: null,
-  cards: [/*{value, clickable, revealed, index}*/]
+  total,
+  tileset,
+  cards: [/*{value, clickable, revealed, finished, index}*/]
 }
 
 export default (state = initialState, action) => {
@@ -116,8 +146,7 @@ export default (state = initialState, action) => {
     case CHANGE_TILESET:
       return {
         ...state,
-        tileset: action.name,
-        tiles: action.tileset
+        tileset: action.name
       }
 
     case CHANGE_TOTAL:
@@ -134,6 +163,14 @@ export default (state = initialState, action) => {
         total: action.total,
         cards: action.cards
       }
+
+    case RESTART:
+      return {
+        ...state,
+        selected: null,
+        cards: state.cards.map(card => ({...card, revealed: false}))
+      }
+
     case CHANGE_STATE:
       return {
         ...state,
@@ -144,7 +181,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         selected: null,
-        cards: state.cards.map((card, index) => action.index !== index ? card : {...card, revealed: true, clickable: false})
+        cards: state.cards.map((card, index) => action.index !== index ? card : {...card, revealed: true, finished: true, clickable: false})
       }
 
     case SELECT_CARD:
@@ -159,6 +196,12 @@ export default (state = initialState, action) => {
         ...state,
         selected: null,
         cards: state.cards.map((card, index) => action.index !== index ? card : {...card, revealed: false})
+      }
+
+    case LOCK:
+      return {
+        ...state,
+        cards: state.cards.map(card => ({...card, clickable: action.clickable}))
       }
 
     default:

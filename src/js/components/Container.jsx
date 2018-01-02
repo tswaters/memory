@@ -14,20 +14,20 @@ class Container extends PureComponent {
 
   static propTypes = {
     total: PropTypes.number.isRequired,
-    initializing: PropTypes.bool.isRequired
+    init: PropTypes.bool.isRequired
   }
 
   render () {
     const cards = []
 
-    if (!this.props.initializing) {
+    if (!this.props.init) {
       for (let x = 0; x < this.props.total; x++) {
         cards.push(<Card key={x} index={x} />)
       }
     }
 
     return (
-      <div className={cx(container, {[initializing]: this.props.initializing})}>
+      <div className={cx(container, {[initializing]: this.props.init})}>
         <Header />
         <Menu />
         <div className={cx(cardContainer)}>
@@ -39,17 +39,16 @@ class Container extends PureComponent {
 }
 
 const selector = createSelector([
-  state => state.total,
+  state => state.cards.length,
   state => state.state === 'initializing'
 ], (
   total,
-  initializing
+  init
 ) => ({
   total,
-  initializing
+  init
 }))
 
 const mapStateToProps = state => selector(state)
-const mapDispatchToProps = dispatch => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(Container)
+export default connect(mapStateToProps)(Container)

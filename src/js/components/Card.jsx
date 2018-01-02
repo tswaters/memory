@@ -12,7 +12,7 @@ class Card extends PureComponent {
 
   static propTypes = {
     value: PropTypes.string.isRequired,
-    showing: PropTypes.bool.isRequired,
+    revealed: PropTypes.bool.isRequired,
     index: PropTypes.number.isRequired,
     clickable: PropTypes.bool.isRequired,
     handleClick: PropTypes.func.isRequired
@@ -22,28 +22,19 @@ class Card extends PureComponent {
     super(props)
 
     this.handleClick = this.handleClick.bind(this)
-
-    this.state = {
-      showing: false
-    }
-
-  }
-
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.showing !== this.props.showing) {
-      this.setState({showing: nextProps.showing})
-    }
   }
 
   handleClick () {
-    if (!this.props.clickable) { return }
+    if (this.props.revealed || !this.props.clickable) {
+      return
+    }
     this.props.handleClick(this.props.index)
   }
 
   render () {
     const classes = cx(card, {
       [clickable]: this.props.clickable,
-      [flip]: this.state.showing}
+      [flip]: this.props.revealed}
     )
 
     return (
@@ -61,7 +52,7 @@ const selector = createSelector([
   (state, ownProps) => state.cards[ownProps.index]
 ], _card => ({
   value: _card.value,
-  showing: _card.revealed,
+  revealed: _card.revealed,
   clickable: _card.clickable
 }))
 
