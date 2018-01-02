@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import cx from 'classnames'
 
 import {clickCard} from '../redux'
-import {card, clickable, flipper, flip, front, back} from '../less/card'
+import {card, clickable, flipper, flip, front, back} from '../../less/card'
 
 class Card extends PureComponent {
 

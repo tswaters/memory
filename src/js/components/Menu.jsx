@@ -7,8 +7,8 @@ import cx from 'classnames'
 import {createSelector} from 'reselect'
 import {initialize, restart, changeTotal, changeTileset} from '../redux'
 
-import {menu, open, close} from '../less/menu'
-import {button} from '../less/button'
+import {menu, open} from '../../less/menu'
+import {button, close} from '../../less/button'
 import * as tilesets from '../../../var'
 
 class Menu extends PureComponent {

@@ -5,8 +5,8 @@ import cx from 'classnames'
 import {connect} from 'react-redux'
 import {createSelector} from 'reselect'
 
-import {restart as restartClass} from '../less/container'
-import {button} from '../less/button'
+import {restart as restartClass} from '../../less/container'
+import {button} from '../../less/button'
 import {getStats, restart, initialize} from '../redux'
 
 class Header extends PureComponent {

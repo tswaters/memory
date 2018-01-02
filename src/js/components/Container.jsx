@@ -7,8 +7,8 @@ import cx from 'classnames'
 import Header from './Header'
 import Card from './Card'
 import Menu from './Menu'
-import {cardContainer} from '../less/card'
-import {container, initializing} from '../less/container'
+import {cardContainer} from '../../less/card'
+import {container, initializing} from '../../less/container'
 
 class Container extends PureComponent {
 
