@@ -11,6 +11,8 @@ const DESELECT_CARD = 'DESELECT_CARD'
 const SUCCESS = 'SUCCESS'
 const LOCK = 'LOCK'
 
+const FLIP_TIMEOUT = 500
+
 export const getStats = createSelector([
   state => state.cards.filter(card => card.finished),
   state => state.total,
@@ -52,7 +54,6 @@ export const initialize = () => (dispatch, getState) => {
     cards.push({
       value,
       index: cards.length,
-      clickable: true,
       revealed: false,
       finished: false
     })
@@ -87,12 +88,9 @@ export const clickCard = index => (dispatch, getState) => {
 
   const {selected, cards} = getState()
 
-  dispatch(lockCards())
-
   // if no card selected
   if (selected == null) {
     dispatch({type: SELECT_CARD, index})
-    setTimeout(() => dispatch(unlockCards()), 500)
     return
   }
 
@@ -101,26 +99,25 @@ export const clickCard = index => (dispatch, getState) => {
 
     dispatch({type: SUCCESS, index: selected})
     dispatch({type: SUCCESS, index})
-    setTimeout(() => dispatch(unlockCards()), 500)
+    setTimeout(() => dispatch(unlockCards()), FLIP_TIMEOUT)
 
     const {left} = getStats(getState())
     if (left === 0) {
-      setTimeout(() => {
-        dispatch({type: CHANGE_STATE, state: 'won'})
-      }, 500)
+      setTimeout(() => dispatch({type: CHANGE_STATE, state: 'won'}), FLIP_TIMEOUT)
     }
 
   } else {
 
     // toggle the card
     dispatch({type: SELECT_CARD, index})
+    setTimeout(() => dispatch(lockCards()))
 
     // wait a few seconds then untoggle both
     setTimeout(() => {
       dispatch({type: DESELECT_CARD, index})
       dispatch({type: DESELECT_CARD, index: selected})
-      setTimeout(() => dispatch(unlockCards()), 500)
-    }, 500)
+      setTimeout(() => dispatch(unlockCards()), FLIP_TIMEOUT)
+    }, FLIP_TIMEOUT)
 
   }
 }
@@ -135,9 +132,10 @@ if (!tileset) { tileset = 'animals' }
 const initialState = {
   state: 'initializing',
   selected: null,
+  clickable: true,
   total,
   tileset,
-  cards: [/*{value, clickable, revealed, finished, index}*/]
+  cards: [/*{value, revealed, finished, index}*/]
 }
 
 export default (state = initialState, action) => {
@@ -181,7 +179,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         selected: null,
-        cards: state.cards.map((card, index) => action.index !== index ? card : {...card, revealed: true, finished: true, clickable: false})
+        cards: state.cards.map((card, index) => action.index !== index ? card : {...card, revealed: true, finished: true})
       }
 
     case SELECT_CARD:
@@ -201,7 +199,7 @@ export default (state = initialState, action) => {
     case LOCK:
       return {
         ...state,
-        cards: state.cards.map(card => ({...card, clickable: action.clickable}))
+        clickable: action.clickable
       }
 
     default:

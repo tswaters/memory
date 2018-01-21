@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {createSelector} from 'reselect'
@@ -7,14 +7,23 @@ import cx from 'classnames'
 import Header from './Header'
 import Card from './Card'
 import Menu from './Menu'
-import {cardContainer} from '../../less/card'
+import {cardContainer, clickable} from '../../less/card'
 import {container, initializing} from '../../less/container'
 
-class Container extends PureComponent {
+class Container extends Component {
 
   static propTypes = {
     total: PropTypes.number.isRequired,
-    init: PropTypes.bool.isRequired
+    init: PropTypes.bool.isRequired,
+    clickable: PropTypes.bool.isRequired
+  }
+
+  shouldComponentUpdate (nextProps) {
+    return this.props.clickable === nextProps.clickable
+  }
+
+  componentWillReceiveProps (nextProps) {
+    this.ref.classList.toggle(clickable, nextProps.clickable)
   }
 
   render () {
@@ -30,7 +39,7 @@ class Container extends PureComponent {
       <div className={cx(container, {[initializing]: this.props.init})}>
         <Header />
         <Menu />
-        <div className={cx(cardContainer)}>
+        <div ref={_ref => this.ref = _ref} className={cx(cardContainer, {[clickable]: this.props.clickable})}>
           {cards}
         </div>
       </div>
@@ -40,13 +49,16 @@ class Container extends PureComponent {
 
 const selector = createSelector([
   state => state.cards.length,
-  state => state.state === 'initializing'
+  state => state.state === 'initializing',
+  state => state.clickable
 ], (
   total,
-  init
+  init,
+  clickable
 ) => ({
   total,
-  init
+  init,
+  clickable
 }))
 
 const mapStateToProps = state => selector(state)
