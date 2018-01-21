@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const OfflinePlugin = require('offline-plugin')
 
 module.exports = (isProd => {
 
@@ -83,6 +84,11 @@ module.exports = (isProd => {
     new ExtractTextPlugin({
       filename: `styles.${chunkhash}.css`,
       allChunks: true
+    }),
+    new OfflinePlugin({
+      ServiceWorker: {
+        minify: process.env.NODE_ENV === 'production'
+      }
     }),
   ]
 
