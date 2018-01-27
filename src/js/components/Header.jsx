@@ -14,6 +14,8 @@ class Header extends PureComponent {
   static propTypes = {
     left: PropTypes.number.isRequired,
     state: PropTypes.string.isRequired,
+    clicks: PropTypes.number.isRequired,
+    efficiency: PropTypes.number.isRequired,
     handleRestart: PropTypes.func.isRequired
   }
 
@@ -25,12 +27,17 @@ class Header extends PureComponent {
       children.push(`Cards Left: ${this.props.left}`)
     }
 
+    children.push(
+      `Clicks: ${this.props.clicks}`,
+      `Efficiency: ${this.props.efficiency}%`
+    )
+
     return [
       <h1 key="header">
         {'Memory'}
       </h1>,
       <h2 key="stats">
-        {children}
+        {children.join('; ')}
       </h2>,
       this.props.state === 'won' ? (
         <div className={cx(button, restartClass)} onClick={this.props.handleRestart} key="restart">{'🔄'}</div>
@@ -39,10 +46,7 @@ class Header extends PureComponent {
   }
 }
 
-const selector = createSelector(getStats, stats => ({
-  left: stats.left,
-  state: stats.state
-}))
+const selector = createSelector(getStats, stats => stats)
 
 const mapStateToProps = state => selector(state)
 

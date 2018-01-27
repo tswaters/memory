@@ -6,6 +6,7 @@ const RESTART = 'RESTART'
 const CHANGE_TOTAL = 'CHANGE_TOTAL'
 const CHANGE_TILESET = 'CHANGE_TILESET'
 const CHANGE_STATE = 'CHANGE_STATE'
+const CLICK_CARD = 'CLICK_CARD'
 const SELECT_CARD = 'SELECT_CARD'
 const DESELECT_CARD = 'DESELECT_CARD'
 const SUCCESS = 'SUCCESS'
@@ -16,15 +17,19 @@ const FLIP_TIMEOUT = 500
 export const getStats = createSelector([
   state => state.cards.filter(card => card.finished),
   state => state.total,
-  state => state.state
+  state => state.state,
+  state => state.clicks
 ], (
   finished,
   total,
-  state
+  state,
+  clicks
 ) => ({
   left: total - finished.length,
   total,
-  state
+  state,
+  clicks,
+  efficiency: parseInt(clicks === 0 ? 0 : finished.length / clicks * 100, 10)
 }))
 
 export const initialize = () => (dispatch, getState) => {
@@ -88,6 +93,8 @@ export const clickCard = index => (dispatch, getState) => {
 
   const {selected, cards} = getState()
 
+  dispatch({type: CLICK_CARD})
+
   // if no card selected
   if (selected == null) {
     dispatch({type: SELECT_CARD, index})
@@ -133,6 +140,7 @@ const initialState = {
   state: 'initializing',
   selected: null,
   clickable: true,
+  clicks: 0,
   total,
   tileset,
   cards: [/*{value, revealed, finished, index}*/]
@@ -156,6 +164,7 @@ export default (state = initialState, action) => {
     case INITIALIZE:
       return {
         ...state,
+        clicks: 0,
         state: 'started',
         selected: null,
         total: action.total,
@@ -173,6 +182,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         state: action.state
+      }
+
+    case CLICK_CARD:
+      return {
+        ...state,
+        clicks: state.clicks + 1
       }
 
     case SUCCESS:
