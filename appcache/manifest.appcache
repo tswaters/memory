@@ -1,11 +1,11 @@
 CACHE MANIFEST
-#ver:1/20/2018, 11:20:44 PM
+#ver:2018-1-27 13:58:04
 #plugin:4.9.0
 
 CACHE:
-../memory.fc43290aaa4a7244a453.js
-../vendor.bundle.87c28167fb0d670a8267.js
-../styles..fc43290aaa4a7244a453.css
+../memory.js
+../vendor.bundle.js
+../styles..css
 ../
 
 NETWORK:

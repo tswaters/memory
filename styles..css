@@ -1,0 +1,108 @@
+.src-less-container__container--elydE {
+  width: 80vw;
+  margin: 0 auto;
+  padding: 10px;
+  position: relative;
+}
+.src-less-container__container--elydE.src-less-container__initializing--1vOz- {
+  display: none;
+}
+h1 {
+  display: none;
+}
+h2 {
+  margin: 5px;
+  font-family: sans-serif;
+  display: inline-block;
+}
+.src-less-container__restart--1W4yh {
+  position: absolute;
+  top: 15px;
+}
+.src-less-button__button--3FfEr {
+  cursor: pointer;
+  margin-left: 5px;
+  display: inline-block;
+  text-align: center;
+  font-size: 16px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+}
+.src-less-button__button--3FfEr.src-less-button__close--1OEcm {
+  color: red;
+}
+.src-less-card__card-container--2PsYZ {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.src-less-card__card-container--2PsYZ .src-less-card__card--22Jyj {
+  cursor: default;
+}
+.src-less-card__card-container--2PsYZ.src-less-card__clickable--1H_LW .src-less-card__card--22Jyj {
+  cursor: pointer;
+}
+.src-less-card__card-container--2PsYZ.src-less-card__clickable--1H_LW .src-less-card__card--22Jyj.src-less-card__revealed--3WUNg {
+  cursor: default;
+}
+.src-less-card__card--22Jyj {
+  height: 10vw;
+  flex-basis: calc((100% / 6) - 2px - 10px);
+  border: 1px solid black;
+  background-color: transparent;
+  border-radius: 6px;
+  text-align: center;
+  perspective: 1000px;
+  margin: 5px;
+  line-height: 10vw;
+  font-size: 5vw;
+}
+.src-less-card__card--22Jyj .src-less-card__front--2zzF8,
+.src-less-card__card--22Jyj .src-less-card__back--31xar,
+.src-less-card__card--22Jyj .src-less-card__flipper--1fReA {
+  width: 100%;
+  height: 100%;
+}
+.src-less-card__card--22Jyj.src-less-card__flip--2GfCj .src-less-card__flipper--1fReA {
+  transform: rotateY(180deg);
+}
+.src-less-card__card--22Jyj .src-less-card__flipper--1fReA {
+  transition: 500ms;
+  transform-style: preserve-3d;
+  position: relative;
+}
+.src-less-card__card--22Jyj .src-less-card__front--2zzF8,
+.src-less-card__card--22Jyj .src-less-card__back--31xar {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.src-less-card__card--22Jyj .src-less-card__front--2zzF8 {
+  z-index: 2;
+  transform: rotateY(0deg);
+  background: repeating-linear-gradient(45deg, #606dbc, #606dbc 5%, #465298 5%, #465298 10%);
+}
+.src-less-card__card--22Jyj .src-less-card__back--31xar {
+  transform: rotateY(180deg);
+}
+.src-less-menu__menu--3C088 {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+.src-less-menu__menu--3C088.src-less-menu__open--2W70J {
+  border-width: 0;
+  text-align: right;
+}
+.src-less-menu__menu--3C088 label,
+.src-less-menu__menu--3C088 input,
+.src-less-menu__menu--3C088 select {
+  display: inline-block;
+}
+.src-less-menu__menu--3C088 label,
+.src-less-menu__menu--3C088 input,
+.src-less-menu__menu--3C088 select {
+  margin-left: 5px;
+}
