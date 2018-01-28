@@ -29,7 +29,7 @@ class Menu extends PureComponent {
     this.handleChangeTileset = this.handleChangeTileset.bind(this)
     this.handleRestart = this.handleRestart.bind(this)
     this.state = {
-      expanded: false,
+      expanded: null,
       total: props.total,
       tileset: props.tileset
     }
@@ -58,57 +58,83 @@ class Menu extends PureComponent {
       this.props.handleChangeTotal(this.state.total)
       this.props.handleChangeTileset(this.state.tileset)
       this.props.initialize()
-      this.setState({expanded: false})
+      this.setState({expanded: null})
     }, 500)
   }
 
-  handleClick () {
-    this.setState({expanded: !this.state.expanded})
+  handleClick (expanded) {
+    return () => this.setState({expanded})
+  }
+
+  getMenu () {
+    return [
+      <label key="tileset">
+        {'tileset'}
+        <select value={this.state.tileset} onChange={this.handleChangeTileset}>
+          {Object.keys(tilesets).map(key => (
+            <option value={key} key={key}>
+              {key}
+            </option>
+          ))}
+        </select>
+      </label>,
+      <label key="tiles">
+        {'total'}
+        <input value={this.state.total} size="2" onChange={this.handleChangeTotal} />
+      </label>,
+      <div
+        key="restart"
+        onClick={this.handleRestart}
+        className={cx(button)}
+        arial-label="Restart">
+        {'🔄︎'}
+      </div>,
+      <div
+        key="close"
+        className={cx(button, close)}
+        onClick={this.handleClick(null)}
+        aria-label="Close Menu">
+        {'❌︎'}
+      </div>
+    ]
+  }
+
+  getAbout () {
+    return [
+      `Memory v${process.env.version}`,
+      <div
+        key="close"
+        className={cx(button, close)}
+        onClick={this.handleClick(null)}
+        aria-label="Close Menu">
+        {'❌︎'}
+      </div>
+    ]
   }
 
   render () {
 
     const children = []
 
-    if (this.state.expanded) {
-      children.push(
-        <label key="tileset">
-          {'tileset'}
-          <select value={this.state.tileset} onChange={this.handleChangeTileset}>
-            {Object.keys(tilesets).map(key => (
-              <option value={key} key={key}>
-                {key}
-              </option>
-            ))}
-          </select>
-        </label>,
-        <label key="tiles">
-          {'total'}
-          <input value={this.state.total} size="2" onChange={this.handleChangeTotal} />
-        </label>,
-        <div
-          key="restart"
-          onClick={this.handleRestart}
-          className={cx(button)}
-          arial-label="Restart">
-          {'🔄'}
-        </div>,
-        <div
-          key="close"
-          className={cx(button, close)}
-          onClick={this.handleClick}
-          aria-label="Close Menu">
-          {'❌'}
-        </div>
-      )
+    if (this.state.expanded === 'menu') {
+      children.push(...this.getMenu())
+    } else if (this.state.expanded === 'about') {
+      children.push(...this.getAbout())
     } else {
       children.push(
         <div
           key="open"
           className={cx(button)}
-          onClick={this.handleClick}
+          onClick={this.handleClick('menu')}
           aria-label="Open Menu">
-          {'☰'}
+          {'☰︎'}
+        </div>,
+        <div
+          key="about"
+          className={cx(button)}
+          onClick={this.handleClick('about')}
+          aria-label="About">
+          {'❓︎'}
         </div>
       )
     }

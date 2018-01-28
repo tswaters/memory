@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const OfflinePlugin = require('offline-plugin')
+const packageJson = require('./package.json')
 
 module.exports = (isProd => {
 
@@ -67,7 +68,8 @@ module.exports = (isProd => {
 
   const plugins = [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(isProd ? 'production' : 'development')
+      'process.env.NODE_ENV': JSON.stringify(isProd ? 'production' : 'development'),
+      'process.env.version': JSON.stringify(packageJson.version)
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
