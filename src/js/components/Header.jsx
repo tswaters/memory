@@ -40,7 +40,7 @@ class Header extends PureComponent {
         {children.join('; ')}
       </h2>,
       this.props.state === 'won' ? (
-        <div className={cx(button, restartClass)} onClick={this.props.handleRestart} key="restart">{'🔄'}</div>
+        <div className={cx(button, restartClass)} onClick={this.props.handleRestart} key="restart">{'🔄︎'}</div>
       ) : null
     ]
   }
