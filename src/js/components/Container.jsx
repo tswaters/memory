@@ -4,18 +4,20 @@ import {connect} from 'react-redux'
 import {createSelector} from 'reselect'
 import cx from 'classnames'
 
+import FireworksComponent from './FireworksComponent'
 import Header from './Header'
 import Card from './Card'
 import Menu from './Menu'
 import {cardContainer, clickable} from '../../less/card'
-import {container, initializing} from '../../less/container'
+import {container, initializing, won} from '../../less/container'
 
 class Container extends Component {
 
   static propTypes = {
     total: PropTypes.number.isRequired,
     init: PropTypes.bool.isRequired,
-    clickable: PropTypes.bool.isRequired
+    clickable: PropTypes.bool.isRequired,
+    won: PropTypes.bool.isRequired
   }
 
   shouldComponentUpdate (nextProps) {
@@ -37,9 +39,15 @@ class Container extends Component {
 
     return (
       <div className={cx(container, {[initializing]: this.props.init})}>
+        {this.props.won && <FireworksComponent active={this.props.won} />}
         <Header />
         <Menu />
-        <div ref={_ref => this.ref = _ref} className={cx(cardContainer, {[clickable]: this.props.clickable})}>
+        <div
+          ref={_ref => this.ref = _ref}
+          className={cx(cardContainer, {
+            [won]: this.props.won,
+            [clickable]: this.props.clickable
+          })}>
           {cards}
         </div>
       </div>
@@ -50,14 +58,17 @@ class Container extends Component {
 const selector = createSelector([
   state => state.cards.length,
   state => state.state === 'initializing',
+  state => state.state === 'won',
   state => state.clickable
 ], (
   total,
   init,
+  won,
   clickable
 ) => ({
   total,
   init,
+  won,
   clickable
 }))
 

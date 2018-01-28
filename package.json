@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.36",
+    "fireworks-canvas": "^2.1.2",
     "offline-plugin": "^4.9.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
