@@ -89,7 +89,8 @@ module.exports = (isProd => {
     }),
     new OfflinePlugin({
       ServiceWorker: {
-        minify: process.env.NODE_ENV === 'production'
+        minify: process.env.NODE_ENV === 'production',
+        events: true
       }
     }),
   ]

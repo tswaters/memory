@@ -8,7 +8,10 @@ import configureStore from './store'
 import {initialize} from './redux'
 import * as offline  from 'offline-plugin/runtime'
 
-offline.install()
+offline.install({
+  onUpdateReady () { offline.applyUpdate() },
+  onUpdated () { window.location.reload() }
+})
 
 const store = configureStore()
 store.dispatch(initialize())
