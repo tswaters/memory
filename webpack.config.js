@@ -1,16 +1,17 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const OfflinePlugin = require('offline-plugin')
 const packageJson = require('./package.json')
 
-module.exports = (isProd => {
+module.exports = (env, argv) => {
 
-  const chunkhash = isProd ? '.[chunkhash]' : ''
+  const chunkhash = argv.mode === 'production' ? '.[chunkhash]' : ''
 
-  const loaders = [{
+  const rules = [{
     test: /\.jsx?$/,
     exclude: /node_modules/,
     use: {
@@ -22,91 +23,69 @@ module.exports = (isProd => {
           '@babel/plugin-proposal-object-rest-spread'
         ],
         presets: [
-          ['@babel/preset-env', {targets: {node: 'current'}}],
+          ['@babel/preset-env', {targets: '> 1%, not dead, not ie < 13'}],
           '@babel/preset-react'
         ],
         sourceMap: true,
-        retainLines: true,
-        env: {
-          instrument: {
-            plugins: [
-              'istanbul'
-            ]
-          }
-        }
+        retainLines: true
       }
     }
-  }, {
-    test: /\.json$/,
-    loader: 'json-loader'
   }, {
     test: /\.html$/,
     loader: 'html-loader'
   }, {
     test: /\.(css|less)$/,
-    use: ExtractTextPlugin.extract({
-      fallback: 'style-loader',
-      use: [{
-        loader: 'css-loader',
-        options: {
-          sourceMap: true,
-          modules: true,
-          camelCase: true,
-          importLoaders: 1,
-          localIdentName: isProd ? '[hash:base64:5]' : '[path][name]__[local]--[hash:base64:5]'
-        }
-      }, {
-        loader: 'less-loader',
-        options: {
-          sourceMap: true,
-          relativeUrls: true,
-          noIeCompat: true
-        }
-      }]
-    })
+    use: [{
+      loader: MiniCssExtractPlugin.loader
+    }, {
+      loader: 'css-loader',
+      options: {
+        sourceMap: true,
+        modules: true,
+        camelCase: true,
+        importLoaders: 1,
+        localIdentName: argv.mode === 'production'
+          ? '[hash:base64:5]'
+          : '[path][name]__[local]--[hash:base64:5]'
+      }
+    }, {
+      loader: 'less-loader',
+      options: {
+        sourceMap: true,
+        relativeUrls: true,
+        noIeCompat: true
+      }
+    }]
   }]
 
   const plugins = [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(isProd ? 'production' : 'development'),
       'process.env.version': JSON.stringify(packageJson.version)
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: ({resource}) => (/node_modules/).test(resource),
-      filename: `vendor.bundle${chunkhash}.js`
     }),
     new HtmlWebpackPlugin({
       template: './src/html/index.html',
       filename: './index.html',
       minify: {
-        collapseWhitespace: isProd
+        collapseWhitespace: argv.mode === 'production'
       }
     }),
-    new ExtractTextPlugin({
-      filename: `styles.${chunkhash}.css`,
-      allChunks: true
+    new MiniCssExtractPlugin({
+      filename: `[name]${chunkhash}.css`,
+      chunkFilename: `[id]${chunkhash}.css`
     }),
     new OfflinePlugin({
       ServiceWorker: {
-        minify: process.env.NODE_ENV === 'production',
+        minify: argv.mode === 'production',
         events: true
       }
     }),
   ]
 
-  if (isProd) {
-    plugins.push(
-      new webpack.LoaderOptionsPlugin({
-        minimize: true
-      }),
-      new UglifyJSPlugin()
-    )
-  }
-
   return ({
     name: 'memory',
-    devtool: isProd ? 'hidden-source-map' : 'eval-source-map',
+    devtool: argv.mode === 'production'
+      ? 'hidden-source-map'
+      : 'eval-source-map',
     entry: {
       memory: './src/js'
     },
@@ -114,6 +93,15 @@ module.exports = (isProd => {
     output: {
       path: path.resolve('./dist'),
       filename: `memory${chunkhash}.js`
+    },
+    optimization: {
+      splitChunks: {
+        chunks: 'all'
+      },
+      minimizer: [
+        new TerserPlugin(),
+        new OptimizeCSSAssetsPlugin({})
+      ]
     },
     resolve: {
       extensions: [
@@ -126,8 +114,8 @@ module.exports = (isProd => {
       ]
     },
     module: {
-      loaders
+      rules
     },
     plugins
   })
-})(process.env.NODE_ENV === 'production')
+}
