@@ -1,60 +1,41 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+import React, { useCallback } from 'react'
 import cx from 'classnames'
-import { connect } from 'react-redux'
-import { createSelector } from 'reselect'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { restart as restartClass } from '../../less/container'
 import { button } from '../../less/button'
-import { getStats, restart, initialize } from '../redux'
+import { getStats, restart, initialize, getHasWon } from '../redux'
 
-class Header extends PureComponent {
-  static propTypes = {
-    left: PropTypes.number.isRequired,
-    state: PropTypes.string.isRequired,
-    clicks: PropTypes.number.isRequired,
-    efficiency: PropTypes.number.isRequired,
-    handleRestart: PropTypes.func.isRequired
-  }
+const Header = () => {
+  const dispatch = useDispatch()
+  const hasWon = useSelector(getHasWon)
+  const { left, clicks, efficiency } = useSelector(getStats)
 
-  render() {
-    const children = []
-    if (this.props.state === 'won') {
-      children.push('You won!')
-    } else {
-      children.push(`Cards Left: ${this.props.left}`)
-    }
-
-    children.push(
-      `Clicks: ${this.props.clicks}`,
-      `Efficiency: ${this.props.efficiency}%`
-    )
-
-    return [
-      <h1 key="header">{'Memory'}</h1>,
-      <h2 key="stats">{children.join('; ')}</h2>,
-      this.props.state === 'won' ? (
-        <div
-          className={cx(button, restartClass)}
-          onClick={this.props.handleRestart}
-          key="restart"
-        >
-          {'🔄︎'}
-        </div>
-      ) : null
-    ]
-  }
-}
-
-const selector = createSelector(getStats, stats => stats)
-
-const mapStateToProps = state => selector(state)
-
-const mapDispatchToProps = dispatch => ({
-  handleRestart: () => {
+  const handleRestart = useCallback(() => {
     dispatch(restart())
     setTimeout(() => dispatch(initialize()), 500)
-  }
-})
+  }, [dispatch])
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+  const children = [
+    hasWon ? 'You won!' : `Cards Left: ${left}`,
+    `Clicks: ${clicks}`,
+    `Efficiency: ${efficiency}%`
+  ]
+
+  return (
+    <>
+      <h1>{'Memory'}</h1>
+      <h2>{children.join('; ')}</h2>
+      {hasWon && (
+        <button
+          className={cx(button, restartClass)}
+          onClick={() => handleRestart()}
+        >
+          {'🔄︎'}
+        </button>
+      )}
+    </>
+  )
+}
+
+export default Header

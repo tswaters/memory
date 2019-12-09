@@ -14,17 +14,19 @@ const LOCK = 'LOCK'
 
 const FLIP_TIMEOUT = 500
 
+export const getHasWon = createSelector(
+  state => state.state,
+  state => state === 'won'
+)
+
 export const getStats = createSelector(
   [
     state => state.cards.filter(card => card.finished),
     state => state.total,
-    state => state.state,
     state => state.clicks
   ],
-  (finished, total, state, clicks) => ({
+  (finished, total, clicks) => ({
     left: total - finished.length,
-    total,
-    state,
     clicks,
     efficiency: parseInt(
       clicks === 0 ? 0 : (finished.length / clicks) * 100,
