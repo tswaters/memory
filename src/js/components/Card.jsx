@@ -1,15 +1,13 @@
-
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {createSelector} from 'reselect'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { createSelector } from 'reselect'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-import {clickCard} from '../redux'
-import {card, revealed, flipper, flip, front, back} from '../../less/card'
+import { clickCard } from '../redux'
+import { card, revealed, flipper, flip, front, back } from '../../less/card'
 
 class Card extends Component {
-
   static propTypes = {
     value: PropTypes.string.isRequired,
     revealed: PropTypes.bool.isRequired,
@@ -18,24 +16,24 @@ class Card extends Component {
     handleClick: PropTypes.func.isRequired
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.handleClick = this.handleClick.bind(this)
   }
 
-  shouldComponentUpdate (nextProps) {
+  shouldComponentUpdate(nextProps) {
     return this.props.clickable === nextProps.clickable
   }
 
-  handleClick () {
+  handleClick() {
     if (this.props.revealed || !this.props.clickable) {
       return
     }
     this.props.handleClick(this.props.index)
   }
 
-  render () {
+  render() {
     const classes = cx(card, {
       [revealed]: this.props.revealed,
       [flip]: this.props.revealed
@@ -51,17 +49,14 @@ class Card extends Component {
   }
 }
 
-const selector = createSelector([
-  (state, ownProps) => state.cards[ownProps.index],
-  state => state.clickable
-], (
-  _card,
-  clickable
-) => ({
-  value: _card.value,
-  revealed: _card.revealed,
-  clickable
-}))
+const selector = createSelector(
+  [(state, ownProps) => state.cards[ownProps.index], state => state.clickable],
+  (_card, clickable) => ({
+    value: _card.value,
+    revealed: _card.revealed,
+    clickable
+  })
+)
 
 const mapStateToProps = (state, ownProps) => selector(state, ownProps)
 

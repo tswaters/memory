@@ -1,18 +1,17 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {createSelector} from 'reselect'
+import { connect } from 'react-redux'
+import { createSelector } from 'reselect'
 import cx from 'classnames'
 
 import FireworksComponent from './FireworksComponent'
 import Header from './Header'
 import Card from './Card'
 import Menu from './Menu'
-import {cardContainer, clickable} from '../../less/card'
-import {container, initializing, won} from '../../less/container'
+import { cardContainer, clickable } from '../../less/card'
+import { container, initializing, won } from '../../less/container'
 
 class Container extends Component {
-
   static propTypes = {
     total: PropTypes.number.isRequired,
     init: PropTypes.bool.isRequired,
@@ -20,15 +19,15 @@ class Container extends Component {
     won: PropTypes.bool.isRequired
   }
 
-  shouldComponentUpdate (nextProps) {
+  shouldComponentUpdate(nextProps) {
     return this.props.clickable === nextProps.clickable
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.ref.classList.toggle(clickable, nextProps.clickable)
   }
 
-  render () {
+  render() {
     const cards = []
 
     if (!this.props.init) {
@@ -38,16 +37,17 @@ class Container extends Component {
     }
 
     return (
-      <div className={cx(container, {[initializing]: this.props.init})}>
+      <div className={cx(container, { [initializing]: this.props.init })}>
         {this.props.won && <FireworksComponent active={this.props.won} />}
         <Header />
         <Menu />
         <div
-          ref={_ref => this.ref = _ref}
+          ref={_ref => (this.ref = _ref)}
           className={cx(cardContainer, {
             [won]: this.props.won,
             [clickable]: this.props.clickable
-          })}>
+          })}
+        >
           {cards}
         </div>
       </div>
@@ -55,22 +55,20 @@ class Container extends Component {
   }
 }
 
-const selector = createSelector([
-  state => state.cards.length,
-  state => state.state === 'initializing',
-  state => state.state === 'won',
-  state => state.clickable
-], (
-  total,
-  init,
-  won,
-  clickable
-) => ({
-  total,
-  init,
-  won,
-  clickable
-}))
+const selector = createSelector(
+  [
+    state => state.cards.length,
+    state => state.state === 'initializing',
+    state => state.state === 'won',
+    state => state.clickable
+  ],
+  (total, init, won, clickable) => ({
+    total,
+    init,
+    won,
+    clickable
+  })
+)
 
 const mapStateToProps = state => selector(state)
 

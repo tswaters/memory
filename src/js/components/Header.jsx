@@ -1,16 +1,14 @@
-
-import React, {PureComponent} from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
-import {connect} from 'react-redux'
-import {createSelector} from 'reselect'
+import { connect } from 'react-redux'
+import { createSelector } from 'reselect'
 
-import {restart as restartClass} from '../../less/container'
-import {button} from '../../less/button'
-import {getStats, restart, initialize} from '../redux'
+import { restart as restartClass } from '../../less/container'
+import { button } from '../../less/button'
+import { getStats, restart, initialize } from '../redux'
 
 class Header extends PureComponent {
-
   static propTypes = {
     left: PropTypes.number.isRequired,
     state: PropTypes.string.isRequired,
@@ -19,7 +17,7 @@ class Header extends PureComponent {
     handleRestart: PropTypes.func.isRequired
   }
 
-  render () {
+  render() {
     const children = []
     if (this.props.state === 'won') {
       children.push('You won!')
@@ -33,14 +31,16 @@ class Header extends PureComponent {
     )
 
     return [
-      <h1 key="header">
-        {'Memory'}
-      </h1>,
-      <h2 key="stats">
-        {children.join('; ')}
-      </h2>,
+      <h1 key="header">{'Memory'}</h1>,
+      <h2 key="stats">{children.join('; ')}</h2>,
       this.props.state === 'won' ? (
-        <div className={cx(button, restartClass)} onClick={this.props.handleRestart} key="restart">{'🔄︎'}</div>
+        <div
+          className={cx(button, restartClass)}
+          onClick={this.props.handleRestart}
+          key="restart"
+        >
+          {'🔄︎'}
+        </div>
       ) : null
     ]
   }

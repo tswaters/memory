@@ -1,24 +1,22 @@
-
-import React, {PureComponent} from 'react'
+import React, { PureComponent } from 'react'
 import cx from 'classnames'
 import Fireworks from 'fireworks-canvas'
 
-import {fireworks} from '../../less/fireworks'
+import { fireworks } from '../../less/fireworks'
 
 class FireworksComponent extends PureComponent {
-
-  componentDidMount () {
+  componentDidMount() {
     this.fireworks = new Fireworks(this.container)
     this.fireworks.start()
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.fireworks.stop()
   }
 
-  render () {
+  render() {
     return (
-      <div className={cx(fireworks)} ref={_ref => this.container = _ref} />
+      <div className={cx(fireworks)} ref={_ref => (this.container = _ref)} />
     )
   }
 }

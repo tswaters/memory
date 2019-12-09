@@ -1,18 +1,16 @@
-
-import React, {PureComponent} from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import cx from 'classnames'
 
-import {createSelector} from 'reselect'
-import {initialize, restart, changeTotal, changeTileset} from '../redux'
+import { createSelector } from 'reselect'
+import { initialize, restart, changeTotal, changeTileset } from '../redux'
 
-import {menu, open} from '../../less/menu'
-import {button, close} from '../../less/button'
+import { menu, open } from '../../less/menu'
+import { button, close } from '../../less/button'
 import * as tilesets from '../../../var'
 
 class Menu extends PureComponent {
-
   static propTypes = {
     total: PropTypes.number.isRequired,
     tileset: PropTypes.string.isRequired,
@@ -22,7 +20,7 @@ class Menu extends PureComponent {
     restart: PropTypes.func.isRequired
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.handleClick = this.handleClick.bind(this)
     this.handleChangeTotal = this.handleChangeTotal.bind(this)
@@ -35,8 +33,11 @@ class Menu extends PureComponent {
     }
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (this.props.total !== nextProps.total || this.props.tileset !== nextProps.tileset) {
+  componentWillReceiveProps(nextProps) {
+    if (
+      this.props.total !== nextProps.total ||
+      this.props.tileset !== nextProps.tileset
+    ) {
       this.setState({
         total: nextProps.total,
         tileset: nextProps.tileset
@@ -44,29 +45,29 @@ class Menu extends PureComponent {
     }
   }
 
-  handleChangeTotal (e) {
-    this.setState({total: parseInt(e.target.value, 10)})
+  handleChangeTotal(e) {
+    this.setState({ total: parseInt(e.target.value, 10) })
   }
 
-  handleChangeTileset (e) {
-    this.setState({tileset: e.target.value})
+  handleChangeTileset(e) {
+    this.setState({ tileset: e.target.value })
   }
 
-  handleRestart () {
+  handleRestart() {
     this.props.restart()
     setTimeout(() => {
       this.props.handleChangeTotal(this.state.total)
       this.props.handleChangeTileset(this.state.tileset)
       this.props.initialize()
-      this.setState({expanded: null})
+      this.setState({ expanded: null })
     }, 500)
   }
 
-  handleClick (expanded) {
-    return () => this.setState({expanded})
+  handleClick(expanded) {
+    return () => this.setState({ expanded })
   }
 
-  getMenu () {
+  getMenu() {
     return [
       <label key="tileset">
         {'tileset'}
@@ -80,40 +81,46 @@ class Menu extends PureComponent {
       </label>,
       <label key="tiles">
         {'total'}
-        <input value={this.state.total} size="2" onChange={this.handleChangeTotal} />
+        <input
+          value={this.state.total}
+          size="2"
+          onChange={this.handleChangeTotal}
+        />
       </label>,
       <div
         key="restart"
         onClick={this.handleRestart}
         className={cx(button)}
-        arial-label="Restart">
+        arial-label="Restart"
+      >
         {'🔄︎'}
       </div>,
       <div
         key="close"
         className={cx(button, close)}
         onClick={this.handleClick(null)}
-        aria-label="Close Menu">
+        aria-label="Close Menu"
+      >
         {'❌︎'}
       </div>
     ]
   }
 
-  getAbout () {
+  getAbout() {
     return [
       `Memory v${process.env.version}`,
       <div
         key="close"
         className={cx(button, close)}
         onClick={this.handleClick(null)}
-        aria-label="Close Menu">
+        aria-label="Close Menu"
+      >
         {'❌︎'}
       </div>
     ]
   }
 
-  render () {
-
+  render() {
     const children = []
 
     if (this.state.expanded === 'menu') {
@@ -126,37 +133,36 @@ class Menu extends PureComponent {
           key="open"
           className={cx(button)}
           onClick={this.handleClick('menu')}
-          aria-label="Open Menu">
+          aria-label="Open Menu"
+        >
           {'☰︎'}
         </div>,
         <div
           key="about"
           className={cx(button)}
           onClick={this.handleClick('about')}
-          aria-label="About">
+          aria-label="About"
+        >
           {'❓︎'}
         </div>
       )
     }
 
     return (
-      <div className={cx(menu, {[open]: this.state.expanded})}>
+      <div className={cx(menu, { [open]: this.state.expanded })}>
         {children}
       </div>
     )
   }
 }
 
-const selector = createSelector([
-  state => state.total,
-  state => state.tileset
-], (
-  total,
-  tileset
-) => ({
-  total,
-  tileset
-}))
+const selector = createSelector(
+  [state => state.total, state => state.tileset],
+  (total, tileset) => ({
+    total,
+    tileset
+  })
+)
 
 const mapStateToProps = state => selector(state)
 
@@ -164,7 +170,8 @@ const mapDispatchToProps = dispatch => ({
   restart: () => dispatch(restart()),
   initialize: () => dispatch(initialize()),
   handleChangeTotal: total => dispatch(changeTotal(total)),
-  handleChangeTileset: (tileset, tiles) => dispatch(changeTileset(tileset, tiles))
+  handleChangeTileset: (tileset, tiles) =>
+    dispatch(changeTileset(tileset, tiles))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Menu)

@@ -1,14 +1,10 @@
-
-import {createStore, applyMiddleware} from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
-import {createLogger} from 'redux-logger'
+import { createLogger } from 'redux-logger'
 import reducer from './redux'
 
 export default state => {
-
-  const middleware = [
-    thunkMiddleware
-  ]
+  const middleware = [thunkMiddleware]
 
   const logger = createLogger({
     diff: true,
@@ -19,9 +15,5 @@ export default state => {
     middleware.push(logger)
   }
 
-  return createStore(
-    reducer,
-    state,
-    applyMiddleware(...middleware)
-  )
+  return createStore(reducer, state, applyMiddleware(...middleware))
 }

@@ -8,56 +8,64 @@ const OfflinePlugin = require('offline-plugin')
 const packageJson = require('./package.json')
 
 module.exports = (env, argv) => {
-
   const chunkhash = argv.mode === 'production' ? '.[chunkhash]' : ''
 
-  const rules = [{
-    test: /\.jsx?$/,
-    exclude: /node_modules/,
-    use: {
-      loader: 'babel-loader',
-      options: {
-        plugins: [
-          '@babel/plugin-transform-runtime',
-          '@babel/plugin-proposal-class-properties',
-          '@babel/plugin-proposal-object-rest-spread'
-        ],
-        presets: [
-          ['@babel/preset-env', {targets: '> 1%, not dead, not ie < 13'}],
-          '@babel/preset-react'
-        ],
-        sourceMap: true,
-        retainLines: true
+  const rules = [
+    {
+      test: /\.jsx?$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          plugins: [
+            '@babel/plugin-transform-runtime',
+            '@babel/plugin-proposal-class-properties',
+            '@babel/plugin-proposal-object-rest-spread'
+          ],
+          presets: [
+            ['@babel/preset-env', { targets: '> 1%, not dead, not ie < 13' }],
+            '@babel/preset-react'
+          ],
+          sourceMap: true,
+          retainLines: true
+        }
       }
-    }
-  }, {
-    test: /\.html$/,
-    loader: 'html-loader'
-  }, {
-    test: /\.(css|less)$/,
-    use: [{
-      loader: MiniCssExtractPlugin.loader
-    }, {
-      loader: 'css-loader',
-      options: {
-        sourceMap: true,
-        modules: {
-          localIdentName: argv.mode === 'production'
-            ? '[hash:base64:5]'
-            : '[path][name]__[local]--[hash:base64:5]'
+    },
+    {
+      test: /\.html$/,
+      loader: 'html-loader'
+    },
+    {
+      test: /\.(css|less)$/,
+      use: [
+        {
+          loader: MiniCssExtractPlugin.loader
         },
-        localsConvention: 'camelCase',
-        importLoaders: 1
-      }
-    }, {
-      loader: 'less-loader',
-      options: {
-        sourceMap: true,
-        relativeUrls: true,
-        noIeCompat: true
-      }
-    }]
-  }]
+        {
+          loader: 'css-loader',
+          options: {
+            sourceMap: true,
+            modules: {
+              localIdentName:
+                argv.mode === 'production'
+                  ? '[hash:base64:5]'
+                  : '[path][name]__[local]--[hash:base64:5]'
+            },
+            localsConvention: 'camelCase',
+            importLoaders: 1
+          }
+        },
+        {
+          loader: 'less-loader',
+          options: {
+            sourceMap: true,
+            relativeUrls: true,
+            noIeCompat: true
+          }
+        }
+      ]
+    }
+  ]
 
   const plugins = [
     new webpack.DefinePlugin({
@@ -79,14 +87,13 @@ module.exports = (env, argv) => {
         minify: argv.mode === 'production',
         events: true
       }
-    }),
+    })
   ]
 
-  return ({
+  return {
     name: 'memory',
-    devtool: argv.mode === 'production'
-      ? 'hidden-source-map'
-      : 'eval-source-map',
+    devtool:
+      argv.mode === 'production' ? 'hidden-source-map' : 'eval-source-map',
     entry: {
       memory: './src/js'
     },
@@ -99,24 +106,14 @@ module.exports = (env, argv) => {
       splitChunks: {
         chunks: 'all'
       },
-      minimizer: [
-        new TerserPlugin(),
-        new OptimizeCSSAssetsPlugin({})
-      ]
+      minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin({})]
     },
     resolve: {
-      extensions: [
-        '.webpack.js',
-        '.web.js',
-        '.js',
-        '.jsx',
-        '.less',
-        '.json'
-      ]
+      extensions: ['.webpack.js', '.web.js', '.js', '.jsx', '.less', '.json']
     },
     module: {
       rules
     },
     plugins
-  })
+  }
 }
