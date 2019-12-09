@@ -11,6 +11,7 @@ const SELECT_CARD = 'SELECT_CARD'
 const DESELECT_CARD = 'DESELECT_CARD'
 const SUCCESS = 'SUCCESS'
 const LOCK = 'LOCK'
+const TOGGLE_DARKMODE = 'TOGGLE_DARKMODE'
 
 const FLIP_TIMEOUT = 500
 
@@ -81,6 +82,11 @@ export const restart = () => ({
   type: RESTART
 })
 
+export const toggleDarkMode = () => (dispatch, getState) => {
+  localStorage.setItem('darkMode', getState().darkMode !== true)
+  dispatch({ type: TOGGLE_DARKMODE })
+}
+
 export const changeTotal = total => dispatch => {
   localStorage.setItem('total', total)
   dispatch({ type: CHANGE_TOTAL, total })
@@ -134,15 +140,16 @@ export const clickCard = index => (dispatch, getState) => {
 }
 
 let total = localStorage.getItem('total')
-if (!total) total = 24
-else {
-  total = parseInt(total, 10)
-}
+if (total == null) total = 24
+else total = parseInt(total, 10)
 
 let tileset = localStorage.getItem('tileset')
-if (!tileset) {
-  tileset = 'animals'
-}
+if (tileset == null) tileset = 'animals'
+
+let darkMode = localStorage.getItem('darkMode')
+if (darkMode == null)
+  darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+else darkMode = darkMode === 'true'
 
 const initialState = {
   state: 'initializing',
@@ -151,6 +158,7 @@ const initialState = {
   clicks: 0,
   total,
   tileset,
+  darkMode,
   cards: [
     /*{value, revealed, finished, index}*/
   ]
@@ -158,6 +166,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case TOGGLE_DARKMODE:
+      return {
+        ...state,
+        darkMode: state.darkMode === false
+      }
+
     case CHANGE_TILESET:
       return {
         ...state,

@@ -2,6 +2,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 
+import '../less/colors'
 import Container from './components/Container'
 import configureStore from './store'
 import { initialize } from './redux'

@@ -1,12 +1,19 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { func, string } from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import cx from 'classnames'
 
-import { initialize, restart, changeTotal, changeTileset } from '../redux'
+import {
+  initialize,
+  restart,
+  changeTotal,
+  changeTileset,
+  toggleDarkMode
+} from '../redux'
 
 import { menu, open } from '../../less/menu'
-import { button, close } from '../../less/button'
+import { button } from '../../less/button'
+import { darkMode } from '../../less/colors'
 import * as tilesets from '../../../var'
 
 const Total = ({ total, onChange }) => (
@@ -35,14 +42,28 @@ const Tileset = ({ tileset, onChange }) => (
 )
 
 const Close = ({ onClick }) => (
-  <button
-    className={cx(button, close)}
-    onClick={onClick}
-    aria-label="Close Menu"
-  >
+  <button className={cx(button)} onClick={onClick} aria-label="Close Menu">
     {'❌︎'}
   </button>
 )
+
+const LightSwitch = () => {
+  const dispatch = useDispatch()
+  const darkModeOn = useSelector(state => state.darkMode)
+  const text = darkModeOn ? '🔆' : '🔅'
+  useEffect(() => {
+    document.body.classList.toggle(darkMode, darkModeOn)
+  }, [darkModeOn])
+  return (
+    <button
+      className={cx(button)}
+      onClick={() => dispatch(toggleDarkMode())}
+      aria-label="Toggle Dark Mode"
+    >
+      {text}
+    </button>
+  )
+}
 
 Close.propTypes = {
   onClick: func.isRequired
@@ -87,6 +108,7 @@ const Controls = () => {
           >
             {'❓︎'}
           </button>
+          <LightSwitch />
         </>
       )}
       {expanded === 'about' && (

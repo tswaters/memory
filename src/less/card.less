@@ -20,9 +20,8 @@
   height: 10vw;
   flex-basis: ~'calc((100% / 6) - 2px - 10px)';
 
-  border: 1px solid black;
+  border: 1px solid var(--global-color-primary);
   background-color: transparent;
-  border-radius: 6px;
   text-align: center;
 
   .front,
@@ -57,10 +56,10 @@
     transform: rotateY(0deg);
     background: repeating-linear-gradient(
       45deg,
-      #606dbc,
-      #606dbc 5%,
-      #465298 5%,
-      #465298 10%
+      var(--light-stripe),
+      var(--light-stripe) 5%,
+      var(--dark-stripe) 5%,
+      var(--dark-stripe) 10%
     );
   }
 
