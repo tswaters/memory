@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react'
-import { func, string } from 'prop-types'
+import { func, string, number } from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import cx from 'classnames'
 
@@ -24,7 +24,7 @@ const Total = ({ total, onChange }) => (
 )
 
 Total.propTypes = {
-  total: string.isRequired,
+  total: number.isRequired,
   onChange: func.isRequired
 }
 
