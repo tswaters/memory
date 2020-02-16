@@ -1,3 +1,9 @@
+1.2.1
+
+- update dependencies / dependency cleanup
+- fix bad prop-type
+- better dev tooling
+
 1.2.0
 
 - add support for dark mode
