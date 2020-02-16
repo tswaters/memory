@@ -164,91 +164,75 @@ const initialState = {
   ]
 }
 
+const reducers = {
+  [TOGGLE_DARKMODE]: state => ({
+    ...state,
+    darkMode: state.darkMode === false
+  }),
+
+  [CHANGE_TILESET]: (state, action) => ({ ...state, tileset: action.name }),
+
+  [CHANGE_TOTAL]: (state, action) => ({ ...state, total: action.total }),
+
+  [INITIALIZE]: (state, action) => ({
+    ...state,
+    clicks: 0,
+    state: 'started',
+    selected: null,
+    total: action.total,
+    cards: action.cards
+  }),
+
+  [RESTART]: state => ({
+    ...state,
+    selected: null,
+    cards: state.cards.map(card => ({ ...card, revealed: false }))
+  }),
+
+  [CHANGE_STATE]: (state, action) => ({
+    ...state,
+    state: action.state
+  }),
+
+  [CLICK_CARD]: state => ({
+    ...state,
+    clicks: state.clicks + 1
+  }),
+
+  [SUCCESS]: (state, action) => ({
+    ...state,
+    selected: null,
+    cards: state.cards.map((card, index) =>
+      action.index !== index
+        ? card
+        : { ...card, revealed: true, finished: true }
+    )
+  }),
+
+  [SELECT_CARD]: (state, action) => ({
+    ...state,
+    selected: action.index,
+    cards: state.cards.map((card, index) =>
+      action.index !== index ? card : { ...card, revealed: true }
+    )
+  }),
+
+  [DESELECT_CARD]: (state, action) => ({
+    ...state,
+    selected: null,
+    cards: state.cards.map((card, index) =>
+      action.index !== index ? card : { ...card, revealed: false }
+    )
+  }),
+
+  [LOCK]: (state, action) => ({
+    ...state,
+    clickable: action.clickable
+  })
+}
+
 export default (state = initialState, action) => {
-  switch (action.type) {
-    case TOGGLE_DARKMODE:
-      return {
-        ...state,
-        darkMode: state.darkMode === false
-      }
-
-    case CHANGE_TILESET:
-      return {
-        ...state,
-        tileset: action.name
-      }
-
-    case CHANGE_TOTAL:
-      return {
-        ...state,
-        total: action.total
-      }
-
-    case INITIALIZE:
-      return {
-        ...state,
-        clicks: 0,
-        state: 'started',
-        selected: null,
-        total: action.total,
-        cards: action.cards
-      }
-
-    case RESTART:
-      return {
-        ...state,
-        selected: null,
-        cards: state.cards.map(card => ({ ...card, revealed: false }))
-      }
-
-    case CHANGE_STATE:
-      return {
-        ...state,
-        state: action.state
-      }
-
-    case CLICK_CARD:
-      return {
-        ...state,
-        clicks: state.clicks + 1
-      }
-
-    case SUCCESS:
-      return {
-        ...state,
-        selected: null,
-        cards: state.cards.map((card, index) =>
-          action.index !== index
-            ? card
-            : { ...card, revealed: true, finished: true }
-        )
-      }
-
-    case SELECT_CARD:
-      return {
-        ...state,
-        selected: action.index,
-        cards: state.cards.map((card, index) =>
-          action.index !== index ? card : { ...card, revealed: true }
-        )
-      }
-
-    case DESELECT_CARD:
-      return {
-        ...state,
-        selected: null,
-        cards: state.cards.map((card, index) =>
-          action.index !== index ? card : { ...card, revealed: false }
-        )
-      }
-
-    case LOCK:
-      return {
-        ...state,
-        clickable: action.clickable
-      }
-
-    default:
-      return state
-  }
+  const reducer = reducers[action.type]
+  if (reducer) return reducer(state, action)
+  return state
 }
