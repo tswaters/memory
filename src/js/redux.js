@@ -16,15 +16,15 @@ const TOGGLE_DARKMODE = 'TOGGLE_DARKMODE'
 const FLIP_TIMEOUT = 500
 
 export const getHasWon = createSelector(
-  state => state.state,
-  state => state === 'won'
+  (state) => state.state,
+  (state) => state === 'won'
 )
 
 export const getStats = createSelector(
   [
-    state => state.cards.filter(card => card.finished),
-    state => state.total,
-    state => state.clicks
+    (state) => state.cards.filter((card) => card.finished),
+    (state) => state.total,
+    (state) => state.clicks,
   ],
   (finished, total, clicks) => ({
     left: total - finished.length,
@@ -32,7 +32,7 @@ export const getStats = createSelector(
     efficiency: parseInt(
       clicks === 0 ? 0 : (finished.length / clicks) * 100,
       10
-    )
+    ),
   })
 )
 
@@ -67,19 +67,19 @@ export const initialize = () => (dispatch, getState) => {
       value,
       index: cards.length,
       revealed: false,
-      finished: false
+      finished: false,
     })
   } while (cards.length < total)
 
   dispatch({
     type: INITIALIZE,
     total,
-    cards
+    cards,
   })
 }
 
 export const restart = () => ({
-  type: RESTART
+  type: RESTART,
 })
 
 export const toggleDarkMode = () => (dispatch, getState) => {
@@ -87,12 +87,12 @@ export const toggleDarkMode = () => (dispatch, getState) => {
   dispatch({ type: TOGGLE_DARKMODE })
 }
 
-export const changeTotal = total => dispatch => {
+export const changeTotal = (total) => (dispatch) => {
   localStorage.setItem('total', total)
   dispatch({ type: CHANGE_TOTAL, total })
 }
 
-export const changeTileset = name => dispatch => {
+export const changeTileset = (name) => (dispatch) => {
   localStorage.setItem('tileset', name)
   dispatch({ type: CHANGE_TILESET, name })
 }
@@ -101,7 +101,7 @@ export const lockCards = () => ({ type: LOCK, clickable: false })
 
 export const unlockCards = () => ({ type: LOCK, clickable: true })
 
-export const clickCard = index => (dispatch, getState) => {
+export const clickCard = (index) => (dispatch, getState) => {
   const { selected, cards } = getState()
 
   dispatch({ type: CLICK_CARD })
@@ -161,13 +161,13 @@ const initialState = {
   darkMode,
   cards: [
     /*{value, revealed, finished, index}*/
-  ]
+  ],
 }
 
 const reducers = {
-  [TOGGLE_DARKMODE]: state => ({
+  [TOGGLE_DARKMODE]: (state) => ({
     ...state,
-    darkMode: state.darkMode === false
+    darkMode: state.darkMode === false,
   }),
 
   [CHANGE_TILESET]: (state, action) => ({ ...state, tileset: action.name }),
@@ -180,23 +180,23 @@ const reducers = {
     state: 'started',
     selected: null,
     total: action.total,
-    cards: action.cards
+    cards: action.cards,
   }),
 
-  [RESTART]: state => ({
+  [RESTART]: (state) => ({
     ...state,
     selected: null,
-    cards: state.cards.map(card => ({ ...card, revealed: false }))
+    cards: state.cards.map((card) => ({ ...card, revealed: false })),
   }),
 
   [CHANGE_STATE]: (state, action) => ({
     ...state,
-    state: action.state
+    state: action.state,
   }),
 
-  [CLICK_CARD]: state => ({
+  [CLICK_CARD]: (state) => ({
     ...state,
-    clicks: state.clicks + 1
+    clicks: state.clicks + 1,
   }),
 
   [SUCCESS]: (state, action) => ({
@@ -206,7 +206,7 @@ const reducers = {
       action.index !== index
         ? card
         : { ...card, revealed: true, finished: true }
-    )
+    ),
   }),
 
   [SELECT_CARD]: (state, action) => ({
@@ -214,7 +214,7 @@ const reducers = {
     selected: action.index,
     cards: state.cards.map((card, index) =>
       action.index !== index ? card : { ...card, revealed: true }
-    )
+    ),
   }),
 
   [DESELECT_CARD]: (state, action) => ({
@@ -222,13 +222,13 @@ const reducers = {
     selected: null,
     cards: state.cards.map((card, index) =>
       action.index !== index ? card : { ...card, revealed: false }
-    )
+    ),
   }),
 
   [LOCK]: (state, action) => ({
     ...state,
-    clickable: action.clickable
-  })
+    clickable: action.clickable,
+  }),
 }
 
 export default (state = initialState, action) => {

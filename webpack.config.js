@@ -2,9 +2,8 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const TerserPlugin = require('terser-webpack-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const OfflinePlugin = require('offline-plugin')
+const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin')
+const OfflinePlugin = require('@lcdp/offline-plugin')
 const packageJson = require('./package.json')
 
 module.exports = (env, argv) => {
@@ -18,79 +17,76 @@ module.exports = (env, argv) => {
     name: 'memory',
     devtool,
     entry: {
-      memory: './src/js'
+      memory: './src/js',
     },
     target: 'web',
     output: {
       path: path.resolve('./dist'),
-      filename: `memory${chunkhash}.js`
+      filename: `memory${chunkhash}.js`,
     },
     optimization: {
-      splitChunks: {
-        chunks: 'all'
-      },
-      minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin({})]
+      minimizer: [new CssMinimizerWebpackPlugin({}), '...'],
     },
     resolve: {
-      extensions: ['.webpack.js', '.web.js', '.js', '.jsx', '.less', '.json']
+      extensions: ['.webpack.js', '.web.js', '.js', '.jsx', '.less', '.json'],
     },
     module: {
       rules: [
         {
           test: /\.jsx?$/,
           exclude: /node_modules/,
-          loader: 'babel-loader'
+          loader: 'babel-loader',
         },
         {
           test: /\.(css|less)$/,
           use: [
             {
-              loader: MiniCssExtractPlugin.loader
+              loader: MiniCssExtractPlugin.loader,
             },
             {
               loader: 'css-loader',
               options: {
                 sourceMap: true,
+                esModule: true,
                 modules: {
-                  localIdentName
+                  namedExport: true,
+                  localIdentName,
+                  exportLocalsConvention: 'camelCaseOnly',
                 },
-                localsConvention: 'camelCase',
-                importLoaders: 1
-              }
+                importLoaders: 1,
+              },
             },
             {
               loader: 'less-loader',
               options: {
                 sourceMap: true,
-                relativeUrls: true,
-                noIeCompat: true
-              }
-            }
-          ]
-        }
-      ]
+              },
+            },
+          ],
+        },
+      ],
     },
     plugins: [
       new webpack.DefinePlugin({
-        'process.env.version': JSON.stringify(packageJson.version)
+        'process.env.version': JSON.stringify(packageJson.version),
       }),
       new HtmlWebpackPlugin({
         template: './src/html/index.html',
         filename: './index.html',
         minify: {
-          collapseWhitespace: isProd
-        }
+          collapseWhitespace: isProd,
+        },
       }),
       new MiniCssExtractPlugin({
         filename: `[name]${chunkhash}.css`,
-        chunkFilename: `[id]${chunkhash}.css`
+        chunkFilename: `[id]${chunkhash}.css`,
       }),
       new OfflinePlugin({
         ServiceWorker: {
           minify: isProd,
-          events: true
-        }
-      })
-    ]
+          events: true,
+        },
+      }),
+    ],
   }
 }

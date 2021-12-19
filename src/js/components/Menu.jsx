@@ -8,7 +8,7 @@ import {
   restart,
   changeTotal,
   changeTileset,
-  toggleDarkMode
+  toggleDarkMode,
 } from '../redux'
 
 import { menu, open } from '../../less/menu'
@@ -25,14 +25,14 @@ const Total = ({ total, onChange }) => (
 
 Total.propTypes = {
   total: number.isRequired,
-  onChange: func.isRequired
+  onChange: func.isRequired,
 }
 
 const Tileset = ({ tileset, onChange }) => (
   <label>
     {'tileset'}
     <select value={tileset} onChange={onChange}>
-      {Object.keys(tilesets).map(key => (
+      {Object.keys(tilesets).map((key) => (
         <option value={key} key={key}>
           {key}
         </option>
@@ -49,7 +49,7 @@ const Close = ({ onClick }) => (
 
 const LightSwitch = () => {
   const dispatch = useDispatch()
-  const darkModeOn = useSelector(state => state.darkMode)
+  const darkModeOn = useSelector((state) => state.darkMode)
   const text = darkModeOn ? '🔆' : '🔅'
   useEffect(() => {
     document.body.classList.toggle(darkMode, darkModeOn)
@@ -66,19 +66,19 @@ const LightSwitch = () => {
 }
 
 Close.propTypes = {
-  onClick: func.isRequired
+  onClick: func.isRequired,
 }
 
 Tileset.propTypes = {
   tileset: string.isRequired,
-  onChange: func.isRequired
+  onChange: func.isRequired,
 }
 
 const Controls = () => {
   const dispatch = useDispatch()
   const [expanded, setExpanded] = useState(null)
-  const [total, setTotal] = useState(useSelector(state => state.total))
-  const [tileset, setTileset] = useState(useSelector(state => state.tileset))
+  const [total, setTotal] = useState(useSelector((state) => state.total))
+  const [tileset, setTileset] = useState(useSelector((state) => state.tileset))
 
   const handleRestart = useCallback(() => {
     dispatch(restart())
@@ -119,10 +119,10 @@ const Controls = () => {
       )}
       {expanded === 'menu' && (
         <>
-          <Total total={total} onChange={e => setTotal(e.target.value)} />
+          <Total total={total} onChange={(e) => setTotal(e.target.value)} />
           <Tileset
             tileset={tileset}
-            onChange={e => setTileset(e.target.value)}
+            onChange={(e) => setTileset(e.target.value)}
           />
           <button
             onClick={handleRestart}

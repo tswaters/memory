@@ -19,7 +19,7 @@ const Header = () => {
   const children = [
     hasWon ? 'You won!' : `Cards Left: ${left}`,
     `Clicks: ${clicks}`,
-    `Efficiency: ${efficiency}%`
+    `Efficiency: ${efficiency}%`,
   ]
 
   return (

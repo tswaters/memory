@@ -9,13 +9,13 @@ import { card, revealed, flipper, flip, front, back } from '../../less/card'
 const propTypes = {
   card: shape({
     value: string.isRequired,
-    revealed: bool.isRequired
-  }).isRequired
+    revealed: bool.isRequired,
+  }).isRequired,
 }
 
 const Card = ({ card: { index, value, revealed: isRevealed } }) => {
   const dispatch = useDispatch()
-  const clickable = useSelector(state => state.clickable)
+  const clickable = useSelector((state) => state.clickable)
   const handleClick = useCallback(
     () => !isRevealed && clickable && dispatch(clickCard(index)),
     [index, isRevealed, clickable, dispatch]
@@ -26,7 +26,7 @@ const Card = ({ card: { index, value, revealed: isRevealed } }) => {
       onClick={handleClick}
       className={cx(card, {
         [revealed]: isRevealed,
-        [flip]: isRevealed
+        [flip]: isRevealed,
       })}
     >
       <div className={cx(flipper)}>

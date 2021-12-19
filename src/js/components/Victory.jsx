@@ -16,7 +16,7 @@ const Victory = () => {
     const fireworks = new Fireworks(ref.current)
     fireworks.start()
 
-    const handler = e => e.keyCode === 27 && fireworks.stop()
+    const handler = (e) => e.keyCode === 27 && fireworks.stop()
     document.addEventListener('keydown', handler)
 
     return () => {

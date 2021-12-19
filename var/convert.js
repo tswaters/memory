@@ -3,17 +3,17 @@ const path = require('path')
 
 const things = fs
   .readdirSync(path.join(__dirname))
-  .filter(thing => thing.endsWith('.txt') && thing !== 'emoji-data.txt')
+  .filter((thing) => thing.endsWith('.txt') && thing !== 'emoji-data.txt')
 
-things.forEach(_thing => {
+things.forEach((_thing) => {
   const thing = path.basename(_thing, '.txt')
 
   const data = fs
     .readFileSync(path.join(__dirname, `${thing}.txt`))
     .toString()
     .split('\n')
-    .filter(x => x !== '')
-    .map(x => parseInt(`0x${x.split(';')[0].trim()}`, 16))
+    .filter((x) => x !== '')
+    .map((x) => parseInt(`0x${x.split(';')[0].trim()}`, 16))
     .map(toUTF16Pair)
 
   fs.writeFileSync(
@@ -26,7 +26,7 @@ fs.writeFileSync(
   path.join(__dirname, 'index.js'),
   things
     .map(
-      thing =>
+      (thing) =>
         `export {default as ${path.basename(
           thing,
           '.txt'

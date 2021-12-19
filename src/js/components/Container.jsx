@@ -15,18 +15,18 @@ import { getHasWon } from '../redux'
 
 const selector = createSelector(
   [
-    state => state.cards,
-    state => state.state === 'initializing',
+    (state) => state.cards,
+    (state) => state.state === 'initializing',
     getHasWon,
-    state => state.clickable,
-    state => state.darkMode === true
+    (state) => state.clickable,
+    (state) => state.darkMode === true,
   ],
   (cards, init, hasWon, isClickable, isDarkMode) => ({
     cards,
     init,
     hasWon,
     isClickable,
-    isDarkMode
+    isDarkMode,
   })
 )
 
@@ -39,7 +39,7 @@ const Container = () => {
         className={cx(container, {
           [darkMode]: isDarkMode,
           [lightMode]: !isDarkMode,
-          [initializing]: init
+          [initializing]: init,
         })}
       >
         <Victory />
@@ -48,10 +48,10 @@ const Container = () => {
         <div
           className={cx(cardContainer, {
             [won]: hasWon,
-            [clickable]: isClickable
+            [clickable]: isClickable,
           })}
         >
-          {!init && cards.map(card => <Card key={card.index} card={card} />)}
+          {!init && cards.map((card) => <Card key={card.index} card={card} />)}
         </div>
       </div>
     </>
