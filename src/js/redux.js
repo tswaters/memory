@@ -13,7 +13,7 @@ const SUCCESS = 'SUCCESS'
 const LOCK = 'LOCK'
 const TOGGLE_DARKMODE = 'TOGGLE_DARKMODE'
 
-const FLIP_TIMEOUT = 500
+const FLIP_TIMEOUT = 1500
 
 export const getHasWon = createSelector(
   (state) => state.state,
@@ -117,7 +117,7 @@ export const clickCard = (index) => (dispatch, getState) => {
   if (cards[index].emoji === cards[selected].emoji) {
     dispatch({ type: SUCCESS, index: selected })
     dispatch({ type: SUCCESS, index })
-    setTimeout(() => dispatch(unlockCards()), FLIP_TIMEOUT)
+    dispatch(unlockCards())
 
     const { left } = getStats(getState())
     if (left === 0) {
@@ -135,7 +135,7 @@ export const clickCard = (index) => (dispatch, getState) => {
     setTimeout(() => {
       dispatch({ type: DESELECT_CARD, index })
       dispatch({ type: DESELECT_CARD, index: selected })
-      setTimeout(() => dispatch(unlockCards()), FLIP_TIMEOUT)
+      dispatch(unlockCards())
     }, FLIP_TIMEOUT)
   }
 }
