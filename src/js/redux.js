@@ -64,7 +64,8 @@ export const initialize = () => (dispatch, getState) => {
     }
     seen.add(value)
     cards.push({
-      value,
+      label: value.label,
+      emoji: value.emoji,
       index: cards.length,
       revealed: false,
       finished: false,
@@ -113,7 +114,7 @@ export const clickCard = (index) => (dispatch, getState) => {
   }
 
   // match!
-  if (cards[index].value === cards[selected].value) {
+  if (cards[index].emoji === cards[selected].emoji) {
     dispatch({ type: SUCCESS, index: selected })
     dispatch({ type: SUCCESS, index })
     setTimeout(() => dispatch(unlockCards()), FLIP_TIMEOUT)
@@ -160,7 +161,7 @@ const initialState = {
   tileset,
   darkMode,
   cards: [
-    /*{value, revealed, finished, index}*/
+    /*{label, emoji, revealed, finished, index}*/
   ],
 }
 

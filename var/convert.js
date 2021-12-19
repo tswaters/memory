@@ -13,12 +13,15 @@ things.forEach((_thing) => {
     .toString()
     .split('\n')
     .filter((x) => x !== '')
-    .map((x) => parseInt(`0x${x.split(';')[0].trim()}`, 16))
-    .map(toUTF16Pair)
+    .map((x) => {
+      const [, emoji] = /\((.+?)\)/g.exec(x)
+      const [, label] = /\) (.*)$/g.exec(x)
+      return { emoji, label }
+    })
 
   fs.writeFileSync(
     path.join(__dirname, `./${thing}.json`),
-    `["${data.join('","')}"]`
+    JSON.stringify(data)
   )
 })
 
@@ -34,12 +37,3 @@ fs.writeFileSync(
     )
     .join('\n')
 )
-
-function toUTF16Pair(x) {
-  if (x < 0x10000) {
-    return `\\u${x.toString(16)}`
-  }
-  const first = Math.floor((x - 0x10000) / 0x400) + 0xd800
-  const second = ((x - 0x10000) % 0x400) + 0xdc00
-  return `\\u${first.toString(16)}\\u${second.toString(16)}`
-}
