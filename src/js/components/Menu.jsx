@@ -42,7 +42,12 @@ const Tileset = ({ tileset, onChange }) => (
 )
 
 const Close = ({ onClick }) => (
-  <button className={cx(button)} onClick={onClick} aria-label="Close Menu">
+  <button
+    className={cx(button)}
+    onClick={onClick}
+    title="Close Menu"
+    aria-label="Close Menu"
+  >
     {'❌︎'}
   </button>
 )
@@ -58,6 +63,7 @@ const LightSwitch = () => {
     <button
       className={cx(button)}
       onClick={() => dispatch(toggleDarkMode())}
+      title="Toggle Dark Mode"
       aria-label="Toggle Dark Mode"
     >
       {text}
@@ -97,6 +103,7 @@ const Controls = () => {
           <button
             className={cx(button)}
             onClick={() => setExpanded('menu')}
+            title="Open Menu"
             aria-label="Open Menu"
           >
             {'☰︎'}
@@ -104,6 +111,7 @@ const Controls = () => {
           <button
             className={cx(button)}
             onClick={() => setExpanded('about')}
+            title="About"
             aria-label="About"
           >
             {'❓︎'}
@@ -127,6 +135,7 @@ const Controls = () => {
           <button
             onClick={handleRestart}
             className={cx(button)}
+            title="Restart"
             arial-label="Restart"
           >
             {'🔄︎'}
