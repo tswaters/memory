@@ -6,16 +6,12 @@ import '../less/colors'
 import Container from './components/Container'
 import configureStore from './store'
 import { initialize } from './redux'
+
 import * as offline from '@lcdp/offline-plugin/runtime'
 
-offline.install({
-  onUpdateReady() {
-    offline.applyUpdate()
-  },
-  onUpdated() {
-    window.location.reload()
-  },
-})
+if (process.env.NODE_ENV === 'production') {
+  offline.install()
+}
 
 const store = configureStore()
 store.dispatch(initialize())
