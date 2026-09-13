@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { func, string, number } from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import cx from 'classnames'
@@ -121,7 +121,7 @@ const Controls = () => {
       )}
       {expanded === 'about' && (
         <>
-          {`Memory v${process.env.version}`}
+          {`Memory v${window.APP_VERSION}`}
           <Close onClick={() => setExpanded(null)} />
         </>
       )}

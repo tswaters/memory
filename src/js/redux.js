@@ -17,7 +17,7 @@ const FLIP_TIMEOUT = 1500
 
 export const getHasWon = createSelector(
   (state) => state.state,
-  (state) => state === 'won'
+  (state) => state === 'won',
 )
 
 export const getStats = createSelector(
@@ -31,9 +31,9 @@ export const getStats = createSelector(
     clicks,
     efficiency: parseInt(
       clicks === 0 ? 0 : (finished.length / clicks) * 100,
-      10
+      10,
     ),
-  })
+  }),
 )
 
 export const initialize = () => (dispatch, getState) => {
@@ -123,7 +123,7 @@ export const clickCard = (index) => (dispatch, getState) => {
     if (left === 0) {
       setTimeout(
         () => dispatch({ type: CHANGE_STATE, state: 'won' }),
-        FLIP_TIMEOUT
+        FLIP_TIMEOUT,
       )
     }
   } else {
@@ -160,9 +160,7 @@ const initialState = {
   total,
   tileset,
   darkMode,
-  cards: [
-    /*{label, emoji, revealed, finished, index}*/
-  ],
+  cards: [/*{label, emoji, revealed, finished, index}*/],
 }
 
 const reducers = {
@@ -206,7 +204,7 @@ const reducers = {
     cards: state.cards.map((card, index) =>
       action.index !== index
         ? card
-        : { ...card, revealed: true, finished: true }
+        : { ...card, revealed: true, finished: true },
     ),
   }),
 
@@ -214,7 +212,7 @@ const reducers = {
     ...state,
     selected: action.index,
     cards: state.cards.map((card, index) =>
-      action.index !== index ? card : { ...card, revealed: true }
+      action.index !== index ? card : { ...card, revealed: true },
     ),
   }),
 
@@ -222,7 +220,7 @@ const reducers = {
     ...state,
     selected: null,
     cards: state.cards.map((card, index) =>
-      action.index !== index ? card : { ...card, revealed: false }
+      action.index !== index ? card : { ...card, revealed: false },
     ),
   }),
 

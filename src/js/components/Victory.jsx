@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import cx from 'classnames'
 import Fireworks from 'fireworks-canvas'
@@ -21,7 +21,7 @@ const Victory = () => {
 
     return () => {
       fireworks.kill()
-      window.removeEventListener('keydown', handler)
+      document.removeEventListener('keydown', handler)
     }
   }, [hasWon])
 

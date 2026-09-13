@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { shape, string, bool } from 'prop-types'
 import cx from 'classnames'
@@ -19,7 +19,7 @@ const Card = ({ card: { index, label, emoji, revealed: isRevealed } }) => {
   const clickable = useSelector((state) => state.clickable)
   const handleClick = useCallback(
     () => !isRevealed && clickable && dispatch(clickCard(index)),
-    [index, isRevealed, clickable, dispatch]
+    [index, isRevealed, clickable, dispatch],
   )
 
   return (

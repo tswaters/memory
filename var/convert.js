@@ -21,7 +21,7 @@ things.forEach((_thing) => {
 
   fs.writeFileSync(
     path.join(__dirname, `./${thing}.json`),
-    JSON.stringify(data)
+    JSON.stringify(data),
   )
 })
 
@@ -32,8 +32,8 @@ fs.writeFileSync(
       (thing) =>
         `export {default as ${path.basename(
           thing,
-          '.txt'
-        )}} from './${path.basename(thing, '.txt')}'`
+          '.txt',
+        )}} from './${path.basename(thing, '.txt')}'`,
     )
-    .join('\n')
+    .join('\n'),
 )

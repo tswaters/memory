@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "jsxFactory": "React.createElement"
+  },
+  "include": ["**/*.js", "**/*.jsx"]
+}

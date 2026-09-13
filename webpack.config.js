@@ -3,7 +3,6 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin')
-const OfflinePlugin = require('@lcdp/offline-plugin')
 const packageJson = require('./package.json')
 
 module.exports = (env, argv) => {
@@ -68,7 +67,7 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        'process.env.version': JSON.stringify(packageJson.version),
+        'window.APP_VERSION': JSON.stringify(packageJson.version),
       }),
       new HtmlWebpackPlugin({
         template: './src/html/index.html',
@@ -80,12 +79,6 @@ module.exports = (env, argv) => {
       new MiniCssExtractPlugin({
         filename: `[name]${chunkhash}.css`,
         chunkFilename: `[id]${chunkhash}.css`,
-      }),
-      new OfflinePlugin({
-        ServiceWorker: {
-          minify: isProd,
-          events: true,
-        },
       }),
     ],
   }

@@ -1,4 +1,3 @@
-import React from 'react'
 import { useSelector } from 'react-redux'
 import { createSelector } from 'reselect'
 import cx from 'classnames'
@@ -27,7 +26,7 @@ const selector = createSelector(
     hasWon,
     isClickable,
     isDarkMode,
-  })
+  }),
 )
 
 const Container = () => {
