@@ -1,0 +1,62 @@
+
+
+# subgroup: person
+
+1F471                                                  ; fully-qualified     # 👱 E0.6 person: blond hair
+1F9D4                                                  ; fully-qualified     # 🧔 E5.0 person: beard
+
+# subgroup: person-role
+
+1F46E                                                  ; fully-qualified     # 👮 E0.6 police officer
+1F575                                                  ; unqualified         # 🕵 E0.7 detective
+1F482                                                  ; fully-qualified     # 💂 E0.6 guard
+1F977                                                  ; fully-qualified     # 🥷 E13.0 ninja
+1F477                                                  ; fully-qualified     # 👷 E0.6 construction worker
+1FAC5                                                  ; fully-qualified     # 🫅 E14.0 person with crown
+1F934                                                  ; fully-qualified     # 🤴 E3.0 prince
+1F478                                                  ; fully-qualified     # 👸 E0.6 princess
+1F473                                                  ; fully-qualified     # 👳 E0.6 person wearing turban
+1F472                                                  ; fully-qualified     # 👲 E0.6 person with skullcap
+1F9D5                                                  ; fully-qualified     # 🧕 E5.0 woman with headscarf
+1F935                                                  ; fully-qualified     # 🤵 E3.0 person in tuxedo
+1F470                                                  ; fully-qualified     # 👰 E0.6 person with veil
+1F9B8                                                  ; fully-qualified     # 🦸 E11.0 superhero
+1F9B9                                                  ; fully-qualified     # 🦹 E11.0 supervillain
+1F9D9                                                  ; fully-qualified     # 🧙 E5.0 mage
+1F9DA                                                  ; fully-qualified     # 🧚 E5.0 fairy
+1F9DB                                                  ; fully-qualified     # 🧛 E5.0 vampire
+1F9DC                                                  ; fully-qualified     # 🧜 E5.0 merperson
+1F9DD                                                  ; fully-qualified     # 🧝 E5.0 elf
+1F9DE                                                  ; fully-qualified     # 🧞 E5.0 genie
+1F9DF                                                  ; fully-qualified     # 🧟 E5.0 zombie
+
+# subgroup: person-activity
+
+1F3C3                                                  ; fully-qualified     # 🏃 E0.6 person running
+1F486                                                  ; fully-qualified     # 💆 E0.6 person getting massage
+1F487                                                  ; fully-qualified     # 💇 E0.6 person getting haircut
+1F6B6                                                  ; fully-qualified     # 🚶 E0.6 person walking
+1F9CD                                                  ; fully-qualified     # 🧍 E12.0 person standing
+1F9CE                                                  ; fully-qualified     # 🧎 E12.0 person kneeling
+1F483                                                  ; fully-qualified     # 💃 E0.6 woman dancing
+1F57A                                                  ; fully-qualified     # 🕺 E3.0 man dancing
+1F9D7                                                  ; fully-qualified     # 🧗 E5.0 person climbing
+
+# subgroup: person-sport
+
+1F3CC                                                  ; unqualified         # 🏌 E0.7 person golfing
+1F3C4                                                  ; fully-qualified     # 🏄 E0.6 person surfing
+1F6A3                                                  ; fully-qualified     # 🚣 E1.0 person rowing boat
+1F3CA                                                  ; fully-qualified     # 🏊 E0.6 person swimming
+26F9                                                   ; unqualified         # ⛹ E0.7 person bouncing ball
+1F3CB                                                  ; unqualified         # 🏋 E0.7 person lifting weights
+1F6B4                                                  ; fully-qualified     # 🚴 E1.0 person biking
+1F6B5                                                  ; fully-qualified     # 🚵 E1.0 person mountain biking
+1F938                                                  ; fully-qualified     # 🤸 E3.0 person cartwheeling
+1F93C                                                  ; fully-qualified     # 🤼 E3.0 people wrestling
+1F93D                                                  ; fully-qualified     # 🤽 E3.0 person playing water polo
+1F93E                                                  ; fully-qualified     # 🤾 E3.0 person playing handball
+1F939                                                  ; fully-qualified     # 🤹 E3.0 person juggling
+1F9D8                                                  ; fully-qualified     # 🧘 E5.0 person in lotus position
+1F6C0                                                  ; fully-qualified     # 🛀 E0.6 person taking bath
+1F6CC                                                  ; fully-qualified     # 🛌 E1.0 person in bed

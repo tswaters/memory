@@ -14,7 +14,7 @@ import {
 import { menu, open } from '../../less/menu'
 import { button } from '../../less/button'
 import { darkMode } from '../../less/colors'
-import * as tilesets from '../../../var'
+import * as tilesets from '../../data'
 
 const Total = ({ total, onChange }) => (
   <label>

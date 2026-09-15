@@ -1,0 +1,25 @@
+2695                                                   ; unqualified         # ⚕ E4.0 medical symbol
+1F393                                                  ; fully-qualified     # 🎓 E0.6 graduation cap
+1F3EB                                                  ; fully-qualified     # 🏫 E0.6 school
+2696                                                   ; unqualified         # ⚖ E1.0 balance scale
+1F33E                                                  ; fully-qualified     # 🌾 E0.6 sheaf of rice
+1F373                                                  ; fully-qualified     # 🍳 E0.6 cooking
+1F527                                                  ; fully-qualified     # 🔧 E0.6 wrench
+1F3ED                                                  ; fully-qualified     # 🏭 E0.6 factory
+1F4BC                                                  ; fully-qualified     # 💼 E0.6 briefcase
+1F52C                                                  ; fully-qualified     # 🔬 E1.0 microscope
+1F4BB                                                  ; fully-qualified     # 💻 E0.6 laptop
+1F3A4                                                  ; fully-qualified     # 🎤 E0.6 microphone
+1F3A8                                                  ; fully-qualified     # 🎨 E0.6 artist palette
+2708                                                   ; unqualified         # ✈ E0.6 airplane
+1F680                                                  ; fully-qualified     # 🚀 E0.6 rocket
+1F692                                                  ; fully-qualified     # 🚒 E0.6 fire engine
+1F37C                                                  ; fully-qualified     # 🍼 E1.0 baby bottle
+1F9AF                                                  ; fully-qualified     # 🦯 E12.0 white cane
+1F9BC                                                  ; fully-qualified     # 🦼 E12.0 motorized wheelchair
+1F9BD                                                  ; fully-qualified     # 🦽 E12.0 manual wheelchair
+
+1F9B0                                                  ; component           # 🦰 E11.0 red hair
+1F9B1                                                  ; component           # 🦱 E11.0 curly hair
+1F9B3                                                  ; component           # 🦳 E11.0 white hair
+1F9B2                                                  ; component           # 🦲 E11.0 bald

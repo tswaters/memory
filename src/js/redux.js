@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import * as tilesets from '../../var'
+import * as tilesets from '../data'
 
 const INITIALIZE = 'INITIALiZE'
 const RESTART = 'RESTART'

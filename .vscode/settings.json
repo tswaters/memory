@@ -7,7 +7,7 @@
     "**/.DS_Store": true,
     "node_modules": true,
     "dist": true,
-    "var/*.json": true
+    "src/data/*.json": true
   },
   "search.exclude": {
     "node_modules": true,

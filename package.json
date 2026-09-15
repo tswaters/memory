@@ -9,7 +9,7 @@
     "prepare": "rimraf dist var/*.json && npm run generate",
     "prestart": "npm run prepare",
     "build": "webpack --mode=production",
-    "generate": "node ./var/convert.js",
+    "generate": "node ./emoji_data/index.mjs",
     "lint": "eslint .",
     "start": "webpack-dev-server --mode=development"
   },

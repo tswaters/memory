@@ -1,0 +1,12 @@
+
+# subgroup: person
+
+1F476                                                  ; fully-qualified     # 👶 E0.6 baby
+1F9D2                                                  ; fully-qualified     # 🧒 E5.0 child
+1F468                                                  ; fully-qualified     # 👨 E0.6 man
+1F469                                                  ; fully-qualified     # 👩 E0.6 woman
+1F466                                                  ; fully-qualified     # 👦 E0.6 boy
+1F467                                                  ; fully-qualified     # 👧 E0.6 girl
+1F9D3                                                  ; fully-qualified     # 🧓 E5.0 older person
+1F474                                                  ; fully-qualified     # 👴 E0.6 old man
+1F475                                                  ; fully-qualified     # 👵 E0.6 old woman

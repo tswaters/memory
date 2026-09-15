@@ -1,0 +1,13 @@
+
+# subgroup: person-gesture
+
+1F64D                                                  ; fully-qualified     # 🙍 E0.6 person frowning
+1F64E                                                  ; fully-qualified     # 🙎 E0.6 person pouting
+1F645                                                  ; fully-qualified     # 🙅 E0.6 person gesturing NO
+1F646                                                  ; fully-qualified     # 🙆 E0.6 person gesturing OK
+1F481                                                  ; fully-qualified     # 💁 E0.6 person tipping hand
+1F64B                                                  ; fully-qualified     # 🙋 E0.6 person raising hand
+1F9CF                                                  ; fully-qualified     # 🧏 E12.0 deaf person
+1F647                                                  ; fully-qualified     # 🙇 E0.6 person bowing
+1F926                                                  ; fully-qualified     # 🤦 E3.0 person facepalming
+1F937                                                  ; fully-qualified     # 🤷 E3.0 person shrugging

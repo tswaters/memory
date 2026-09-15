@@ -1,0 +1,48 @@
+
+# subgroup: hand-fingers-open
+1F44B                                                  ; fully-qualified     # 👋 E0.6 waving hand
+1F91A                                                  ; fully-qualified     # 🤚 E3.0 raised back of hand
+1F590 FE0F                                             ; fully-qualified     # 🖐️ E0.7 hand with fingers splayed
+270B                                                   ; fully-qualified     # ✋ E0.6 raised hand
+1F596                                                  ; fully-qualified     # 🖖 E1.0 vulcan salute
+1FAF1                                                  ; fully-qualified     # 🫱 E14.0 rightwards hand
+1FAF2                                                  ; fully-qualified     # 🫲 E14.0 leftwards hand
+1FAF3                                                  ; fully-qualified     # 🫳 E14.0 palm down hand
+1FAF4                                                  ; fully-qualified     # 🫴 E14.0 palm up hand
+1FAF7                                                  ; fully-qualified     # 🫷 E15.0 leftwards pushing hand
+1FAF8                                                  ; fully-qualified     # 🫸 E15.0 rightwards pushing hand
+
+# subgroup: hand-fingers-partial
+1F44C                                                  ; fully-qualified     # 👌 E0.6 OK hand
+1F90C                                                  ; fully-qualified     # 🤌 E13.0 pinched fingers
+1F90F                                                  ; fully-qualified     # 🤏 E12.0 pinching hand
+270C FE0F                                              ; fully-qualified     # ✌️ E0.6 victory hand
+1F91E                                                  ; fully-qualified     # 🤞 E3.0 crossed fingers
+1FAF0                                                  ; fully-qualified     # 🫰 E14.0 hand with index finger and thumb crossed
+1F918                                                  ; fully-qualified     # 🤘 E1.0 sign of the horns
+1F919                                                  ; fully-qualified     # 🤙 E3.0 call me hand
+
+# subgroup: hand-single-finger
+1F448                                                  ; fully-qualified     # 👈 E0.6 backhand index pointing left
+1F449                                                  ; fully-qualified     # 👉 E0.6 backhand index pointing right
+1F446                                                  ; fully-qualified     # 👆 E0.6 backhand index pointing up
+1F595                                                  ; fully-qualified     # 🖕 E1.0 middle finger
+1F447                                                  ; fully-qualified     # 👇 E0.6 backhand index pointing down
+261D FE0F                                              ; fully-qualified     # ☝️ E0.6 index pointing up
+1FAF5                                                  ; fully-qualified     # 🫵 E14.0 index pointing at the viewer
+
+# subgroup: hand-fingers-closed
+1F44D                                                  ; fully-qualified     # 👍 E0.6 thumbs up
+1F44E                                                  ; fully-qualified     # 👎 E0.6 thumbs down
+270A                                                   ; fully-qualified     # ✊ E0.6 raised fist
+1F44A                                                  ; fully-qualified     # 👊 E0.6 oncoming fist
+1F91B                                                  ; fully-qualified     # 🤛 E3.0 left-facing fist
+1F91C                                                  ; fully-qualified     # 🤜 E3.0 right-facing fist
+
+# subgroup: hands
+1F44F                                                  ; fully-qualified     # 👏 E0.6 clapping hands
+1F64C                                                  ; fully-qualified     # 🙌 E0.6 raising hands
+1FAF6                                                  ; fully-qualified     # 🫶 E14.0 heart hands
+1F450                                                  ; fully-qualified     # 👐 E0.6 open hands
+1F932                                                  ; fully-qualified     # 🤲 E5.0 palms up together
+1F91D                                                  ; fully-qualified     # 🤝 E3.0 handshake

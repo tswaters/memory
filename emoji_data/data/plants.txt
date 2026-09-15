@@ -1,0 +1,32 @@
+
+# subgroup: plant-flower
+1F490                                                  ; fully-qualified     # 💐 E0.6 bouquet
+1F338                                                  ; fully-qualified     # 🌸 E0.6 cherry blossom
+1F4AE                                                  ; fully-qualified     # 💮 E0.6 white flower
+1FAB7                                                  ; fully-qualified     # 🪷 E14.0 lotus
+1F3F5 FE0F                                             ; fully-qualified     # 🏵️ E0.7 rosette
+1F339                                                  ; fully-qualified     # 🌹 E0.6 rose
+1F940                                                  ; fully-qualified     # 🥀 E3.0 wilted flower
+1F33A                                                  ; fully-qualified     # 🌺 E0.6 hibiscus
+1F33B                                                  ; fully-qualified     # 🌻 E0.6 sunflower
+1F33C                                                  ; fully-qualified     # 🌼 E0.6 blossom
+1F337                                                  ; fully-qualified     # 🌷 E0.6 tulip
+1FABB                                                  ; fully-qualified     # 🪻 E15.0 hyacinth
+
+# subgroup: plant-other
+1F331                                                  ; fully-qualified     # 🌱 E0.6 seedling
+1FAB4                                                  ; fully-qualified     # 🪴 E13.0 potted plant
+1F332                                                  ; fully-qualified     # 🌲 E1.0 evergreen tree
+1F333                                                  ; fully-qualified     # 🌳 E1.0 deciduous tree
+1F334                                                  ; fully-qualified     # 🌴 E0.6 palm tree
+1F335                                                  ; fully-qualified     # 🌵 E0.6 cactus
+1F33E                                                  ; fully-qualified     # 🌾 E0.6 sheaf of rice
+1F33F                                                  ; fully-qualified     # 🌿 E0.6 herb
+1F340                                                  ; fully-qualified     # 🍀 E0.6 four leaf clover
+1F341                                                  ; fully-qualified     # 🍁 E0.6 maple leaf
+1F342                                                  ; fully-qualified     # 🍂 E0.6 fallen leaf
+1F343                                                  ; fully-qualified     # 🍃 E0.6 leaf fluttering in wind
+1FAB9                                                  ; fully-qualified     # 🪹 E14.0 empty nest
+1FABA                                                  ; fully-qualified     # 🪺 E14.0 nest with eggs
+1F344                                                  ; fully-qualified     # 🍄 E0.6 mushroom
+1FABE                                                  ; fully-qualified     # 🪾 E16.0 leafless tree
