@@ -16,7 +16,7 @@ module.exports = (env, argv) => {
     name: 'memory',
     devtool,
     entry: {
-      memory: './src/js',
+      memory: './src/index.jsx',
     },
     target: 'web',
     output: {
@@ -55,12 +55,6 @@ module.exports = (env, argv) => {
                 importLoaders: 1,
               },
             },
-            {
-              loader: 'less-loader',
-              options: {
-                sourceMap: true,
-              },
-            },
           ],
         },
       ],
@@ -70,7 +64,7 @@ module.exports = (env, argv) => {
         'window.APP_VERSION': JSON.stringify(packageJson.version),
       }),
       new HtmlWebpackPlugin({
-        template: './src/html/index.html',
+        template: './src/App.html',
         filename: './index.html',
         minify: {
           collapseWhitespace: isProd,
