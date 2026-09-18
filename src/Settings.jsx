@@ -82,8 +82,8 @@ export function Settings({ onSettingChange }) {
         options={difficultyOptions}
         value={difficulty}
         onChange={(e) => {
-          handleDifficultyChange(e)
-          onSettingChange('difficulty', difficultyOptions[difficulty])
+          const newValue = handleDifficultyChange(e)
+          onSettingChange('difficulty', newValue)
         }}
       />
 

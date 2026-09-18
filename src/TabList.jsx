@@ -1,4 +1,4 @@
-import { memo, useRef, useCallback } from 'react'
+import { useRef } from 'react'
 
 import { tabList } from './TabList.css'
 
@@ -21,56 +21,41 @@ function Tabs({ entries }) {
   const tabsRef = useRef(new Map())
   const panelsRef = useRef(new Map())
 
-  const handleClick = useCallback((e) => {
-    const id = e.target.id
-    const panelId = e.target.getAttribute('aria-controls')
-
-    // mark all buttons as non-selected except the clicked one
-    tabsRef.current.values().forEach((tab) => {
-      tab.setAttribute('aria-selected', tab.id === id)
-      tab.tabIndex = tab.id === id ? 0 : -1
-    })
-
-    panelsRef.current.values().forEach((panel) => {
-      panel.hidden = panel.id !== panelId
-    })
-  }, [])
-
-  // this handles left-right arrow keyboard navigation
-  // focused tab will be e.target
-  const handleKeyDown = useCallback((e) => {
-    const id = e.target.id
-
-    // just make sure we're not dealing with shit, unmounting and the like
-    const tab = tabsRef.current.get(id)
-    if (tab == null) return
-
-    let newId
-    switch (e.key) {
-      case 'Home':
-        newId = tab.parentNode.firstChild.id
-        break
-      case 'End':
-        newId = tab.parentNode.lastChild.id
-        break
-      case 'ArrowLeft':
-        newId = tab.previousSibling?.id ?? tab.parentNode.lastChild.id
-        break
-      case 'ArrowRight':
-        newId = tab.nextSibling?.id ?? tab.parentNode.firstChild.id
-        break
-      default:
-        return
-    }
-
-    e.preventDefault()
-    e.stopPropagation()
-    tabsRef.current.get(newId).focus()
-  }, [])
-
   return (
     <div className={tabList}>
-      <div role="tablist" onKeyDown={handleKeyDown}>
+      <div
+        role="tablist"
+        onKeyDown={(e) => {
+          // focused tab will be e.target
+          const id = e.target.id
+
+          // just make sure we're not dealing with shit, unmounting and the like
+          const tab = tabsRef.current.get(id)
+          if (tab == null) return
+
+          let newId
+          switch (e.key) {
+            case 'Home':
+              newId = tab.parentNode.firstChild.id
+              break
+            case 'End':
+              newId = tab.parentNode.lastChild.id
+              break
+            case 'ArrowLeft':
+              newId = tab.previousSibling?.id ?? tab.parentNode.lastChild.id
+              break
+            case 'ArrowRight':
+              newId = tab.nextSibling?.id ?? tab.parentNode.firstChild.id
+              break
+            default:
+              return
+          }
+
+          e.preventDefault()
+          e.stopPropagation()
+          tabsRef.current.get(newId).focus()
+        }}
+      >
         {entries.map((entry, index) => (
           <button
             key={entry.id}
@@ -83,7 +68,21 @@ function Tabs({ entries }) {
             aria-controls={`panel-${entry.id}`}
             aria-selected={index === 0}
             tabIndex={index === 0 ? 0 : -1}
-            onClick={handleClick}
+            onClick={(e) => {
+              const id = e.target.id
+              const panelId = e.target.getAttribute('aria-controls')
+
+              // mark all buttons as non-selected except the clicked one
+              tabsRef.current.values().forEach((tab) => {
+                tab.setAttribute('aria-selected', tab.id === id)
+                tab.tabIndex = tab.id === id ? 0 : -1
+              })
+
+              // mark all panels as hidden except the clicked one
+              panelsRef.current.values().forEach((panel) => {
+                panel.hidden = panel.id !== panelId
+              })
+            }}
           >
             {entry.label}
           </button>
@@ -109,4 +108,4 @@ function Tabs({ entries }) {
   )
 }
 
-export default memo(Tabs)
+export default Tabs
