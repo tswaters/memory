@@ -8,11 +8,10 @@
   [role='tab'] {
     position: relative;
     z-index: 1;
-    background: white;
-    border-radius: 5px 5px 0 0;
-    border: 1px solid grey;
+    background: var(--global-color-background);
+    border: 1px solid var(--global-color-primary);
     border-bottom: 0;
-    padding: 0.2em;
+    padding: 1rem;
   }
 
   [role='tab'][aria-selected='true'] {
@@ -22,10 +21,9 @@
 
   [role='tabpanel'] {
     position: relative;
-    padding: 0 0.5em 0.5em 0.7em;
-    border: 1px solid grey;
-    border-radius: 0 0 5px 5px;
-    background: white;
+    padding: 1rem;
+    border: 1px solid var(--global-color-primary);
+    background: var(--global-color-background);
     z-index: 2;
   }
 

@@ -54,17 +54,17 @@ function Tabs({ entries }) {
         newId = tab.parentNode.lastChild.id
         break
       case 'ArrowLeft':
-        newId = tab.nextSibling.id ?? tab.parentNode.lastChild.id
+        newId = tab.previousSibling?.id ?? tab.parentNode.lastChild.id
         break
       case 'ArrowRight':
-        newId = tab.previousSibling.id ?? tab.parentNode.firstChild.id
+        newId = tab.nextSibling?.id ?? tab.parentNode.firstChild.id
         break
       default:
         return
     }
 
     e.preventDefault()
-    e.stopPropogation()
+    e.stopPropagation()
     tabsRef.current.get(newId).focus()
   }, [])
 
@@ -76,8 +76,8 @@ function Tabs({ entries }) {
             key={entry.id}
             id={`tab-${entry.id}`}
             ref={(node) => {
-              if (node) tabsRef.current.set(entry.id, node)
-              else tabsRef.current.delete(entry.id)
+              if (node) tabsRef.current.set(`tab-${entry.id}`, node)
+              else tabsRef.current.delete(`tab-${entry.id}`)
             }}
             role="tab"
             aria-controls={`panel-${entry.id}`}
@@ -94,8 +94,8 @@ function Tabs({ entries }) {
           key={entry.id}
           id={`panel-${entry.id}`}
           ref={(node) => {
-            if (node) panelsRef.current.set(entry.id, node)
-            else panelsRef.current.delete(entry.id)
+            if (node) panelsRef.current.set(`panel-${entry.id}`, node)
+            else panelsRef.current.delete(`panel-${entry.id}`)
           }}
           role="tabpanel"
           aria-labelledby={`tab-${entry.id}`}

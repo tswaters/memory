@@ -66,8 +66,6 @@ export function Settings({ onSettingChange }) {
 
   return (
     <>
-      <hr />
-
       <DebouncedRangeInput
         label="Seed"
         id="seed"
