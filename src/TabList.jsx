@@ -64,6 +64,7 @@ function Tabs({ entries }) {
               if (node) tabsRef.current.set(`tab-${entry.id}`, node)
               else tabsRef.current.delete(`tab-${entry.id}`)
             }}
+            type="button"
             role="tab"
             aria-controls={`panel-${entry.id}`}
             aria-selected={index === 0}
