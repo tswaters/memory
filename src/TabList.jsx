@@ -3,7 +3,8 @@ import { memo, useRef } from 'react'
 import { tabList } from './TabList.css'
 
 /*
-<Tabs entries={[
+
+const entries = useMemo(() => [
     {
         id: 'panel1',
         label: 'panel1',
@@ -14,7 +15,9 @@ import { tabList } from './TabList.css'
         label: 'panel2',
         panel: <Panel2 />,
     },
-]} />
+], [])
+
+<Tabs entries={entries} />
 */
 
 function Tabs({ entries }) {
