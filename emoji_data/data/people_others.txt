@@ -1,4 +1,4 @@
 1F9CC                                                  ; fully-qualified     # 🧌 E14.0 troll
 
 1F93A                                                  ; fully-qualified     # 🤺 E3.0 person fencing
-1F3C7                                                  ; fully-qualified     # 🏇 E1.0 horse racing
+26F7 FE0F                                              ; fully-qualified     # ⛷️ E0.7 skier

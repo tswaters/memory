@@ -88,6 +88,8 @@ const doesNotSupportsGender = [
   'woman with headscarf',
   'woman dancing',
   'man dancing',
+  'horse racing',
+  'snowboarder',
   'person taking bath',
   'person in bed',
 ]

@@ -44,6 +44,8 @@
 
 # subgroup: person-sport
 
+1F3C7                                                  ; fully-qualified     # 🏇 E1.0 horse racing
+1F3C2                                                  ; fully-qualified     # 🏂 E0.6 snowboarder
 1F3CC                                                  ; unqualified         # 🏌 E0.7 person golfing
 1F3C4                                                  ; fully-qualified     # 🏄 E0.6 person surfing
 1F6A3                                                  ; fully-qualified     # 🚣 E1.0 person rowing boat
