@@ -1,12 +1,15 @@
 import cx from 'classnames'
-import { forwardRef, useRef, useImperativeHandle, useCallback } from 'react'
+import {
+  memo,
+  forwardRef,
+  useRef,
+  useImperativeHandle,
+  useCallback,
+} from 'react'
 
 import { card, failure, success, offset } from './Card.css'
 
-export const Card = forwardRef(function Card(
-  { onReveal, ...props },
-  forwardRef,
-) {
+const _Card = forwardRef(function Card({ onReveal, ...props }, forwardRef) {
   const rotatedRef = useRef(false)
   const flippedRef = useRef(false)
 
@@ -120,3 +123,5 @@ export const Card = forwardRef(function Card(
     />
   )
 })
+
+export const Card = memo(_Card)

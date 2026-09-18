@@ -59,11 +59,18 @@ function App() {
 
     return Array.from(emojis.keys())
       .flatMap((emoji) => [emoji, emoji])
-      .map((emoji) => ({
-        emoji,
-        label: emojis.get(emoji),
-        id: random.id(),
-      }))
+      .map((emoji) => {
+        const id = random.id()
+        return {
+          emoji,
+          label: emojis.get(emoji),
+          id,
+          collate(node) {
+            if (node) tilesRef.current.set(id, node)
+            else tilesRef.current.delete(id)
+          },
+        }
+      })
       .sort((a, b) => a.id.localeCompare(b.id))
   }, [tileSet, difficulty, seed])
 
@@ -156,16 +163,13 @@ function App() {
           </dl>
         </legend>
 
-        {tiles.map(({ id, emoji, label }) => (
+        {tiles.map(({ id, emoji, label, collate }) => (
           <Card
             key={id}
             id={id}
             data-emoji={emoji}
             data-label={label}
-            ref={(node) => {
-              if (node) tilesRef.current.set(id, node)
-              else tilesRef.current.delete(id)
-            }}
+            ref={collate}
             onReveal={handleReveal}
           />
         ))}
