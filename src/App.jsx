@@ -85,8 +85,7 @@ function App() {
         tilesRef.current.get(selectionRef.current.id).success(),
       ]).then((failures) => {
         selectionRef.current = null
-        const scoreChange = failures.reduce((total, item) => total + item, 0)
-        setScore((prev) => prev + scoreChange)
+        setScore((prev) => failures.reduce((total, item) => total + item, prev))
       })
     } else {
       tilesRef.current.get(id).fail()
@@ -117,8 +116,8 @@ function App() {
         label: 'settings',
         panel: (
           <Settings
+            seed={seed}
             onSettingChange={(key, value) => {
-              if (key === 'difficulty') setDifficulty(value)
               if (key === 'theme') {
                 document.body.classList.remove(darkMode, lightMode)
                 if (value != null) {
@@ -126,9 +125,12 @@ function App() {
                     value === 'DARK' ? darkMode : lightMode,
                   )
                 }
+                return
               }
+              if (key === 'difficulty') setDifficulty(value)
               if (key === 'tileset') setTileSet(value)
               if (key === 'seed') setSeed(value)
+              setScore(0)
             }}
           />
         ),
@@ -139,7 +141,7 @@ function App() {
         panel: <Help />,
       },
     ],
-    [],
+    [seed],
   )
 
   return (

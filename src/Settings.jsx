@@ -55,7 +55,7 @@ export function useLocalStorage(key, options) {
   return [value, handleUpdateValue]
 }
 
-export function Settings({ onSettingChange }) {
+export function Settings({ onSettingChange, seed }) {
   const [difficulty, handleDifficultyChange] = useLocalStorage(
     'DIFFICULTY',
     difficultyOptions,
@@ -72,6 +72,7 @@ export function Settings({ onSettingChange }) {
         min={1}
         max={500}
         timeout={500}
+        value={seed}
         onChange={(e) => onSettingChange('seed', parseInt(e.target.value))}
       />
 
