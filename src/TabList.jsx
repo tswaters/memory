@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { memo, useRef } from 'react'
 
 import { tabList } from './TabList.css'
 
@@ -108,4 +108,4 @@ function Tabs({ entries }) {
   )
 }
 
-export default Tabs
+export default memo(Tabs)

@@ -103,6 +103,38 @@ function App() {
     }
   }, [])
 
+  const dialogEntries = useMemo(
+    () => [
+      {
+        id: 'settings',
+        label: 'settings',
+        panel: (
+          <Settings
+            onSettingChange={(key, value) => {
+              if (key === 'difficulty') setDifficulty(value)
+              if (key === 'theme') {
+                document.body.classList.remove(darkMode, lightMode)
+                if (value != null) {
+                  document.body.classList.add(
+                    value === 'DARK' ? darkMode : lightMode,
+                  )
+                }
+              }
+              if (key === 'tileset') setTileSet(value)
+              if (key === 'seed') setSeed(value)
+            }}
+          />
+        ),
+      },
+      {
+        id: 'help',
+        label: 'help',
+        panel: <Help />,
+      },
+    ],
+    [],
+  )
+
   return (
     <>
       <h1>Memory</h1>
@@ -146,37 +178,8 @@ function App() {
             aria-label="Close"
             onClick={() => dialogRef.current.close()}
           />
+          <TabList entries={dialogEntries} />
         </form>
-        <TabList
-          entries={[
-            {
-              id: 'settings',
-              label: 'settings',
-              panel: (
-                <Settings
-                  onSettingChange={(key, value) => {
-                    if (key === 'difficulty') setDifficulty(value)
-                    if (key === 'theme') {
-                      document.body.classList.remove(darkMode, lightMode)
-                      if (value !== 'null') {
-                        document.body.classList.add(
-                          value === 'DARK' ? darkMode : lightMode,
-                        )
-                      }
-                    }
-                    if (key === 'tileset') setTileSet(value)
-                    if (key === 'seed') setSeed(value)
-                  }}
-                />
-              ),
-            },
-            {
-              id: 'help',
-              label: 'help',
-              panel: <Help />,
-            },
-          ]}
-        />
       </dialog>
     </>
   )
