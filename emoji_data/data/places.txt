@@ -1,0 +1,155 @@
+
+
+# subgroup: place-map
+
+1F30D                                                  ; fully-qualified     # 🌍 E0.7 globe showing Europe-Africa
+1F30E                                                  ; fully-qualified     # 🌎 E0.7 globe showing Americas
+1F30F                                                  ; fully-qualified     # 🌏 E0.6 globe showing Asia-Australia
+1F9ED                                                  ; fully-qualified     # 🧭 E11.0 compass
+
+1F3D4                                                  ; unqualified         # 🏔 E0.7 snow-capped mountain
+1F30B                                                  ; fully-qualified     # 🌋 E0.6 volcano
+1F5FB                                                  ; fully-qualified     # 🗻 E0.6 mount fuji
+1F3D5                                                  ; unqualified         # 🏕 E0.7 camping
+1F3D6                                                  ; unqualified         # 🏖 E0.7 beach with umbrella
+1F3DC                                                  ; unqualified         # 🏜 E0.7 desert
+1F3DD                                                  ; unqualified         # 🏝 E0.7 desert island
+1F3DE                                                  ; unqualified         # 🏞 E0.7 national park
+
+# subgroup: place-building
+1F3DF                                                  ; unqualified         # 🏟 E0.7 stadium
+1F3DB                                                  ; unqualified         # 🏛 E0.7 classical building
+1F3D7                                                  ; unqualified         # 🏗 E0.7 building construction
+1F9F1                                                  ; fully-qualified     # 🧱 E11.0 brick
+1FAA8                                                  ; fully-qualified     # 🪨 E13.0 rock
+1FAB5                                                  ; fully-qualified     # 🪵 E13.0 wood
+1F6D6                                                  ; fully-qualified     # 🛖 E13.0 hut
+1F3D8                                                  ; unqualified         # 🏘 E0.7 houses
+1F3DA                                                  ; unqualified         # 🏚 E0.7 derelict house
+1F3E0                                                  ; fully-qualified     # 🏠 E0.6 house
+1F3E1                                                  ; fully-qualified     # 🏡 E0.6 house with garden
+1F3E2                                                  ; fully-qualified     # 🏢 E0.6 office building
+1F3E3                                                  ; fully-qualified     # 🏣 E0.6 Japanese post office
+1F3E4                                                  ; fully-qualified     # 🏤 E1.0 post office
+1F3E5                                                  ; fully-qualified     # 🏥 E0.6 hospital
+1F3E6                                                  ; fully-qualified     # 🏦 E0.6 bank
+1F3E8                                                  ; fully-qualified     # 🏨 E0.6 hotel
+1F3E9                                                  ; fully-qualified     # 🏩 E0.6 love hotel
+1F3EA                                                  ; fully-qualified     # 🏪 E0.6 convenience store
+1F3EB                                                  ; fully-qualified     # 🏫 E0.6 school
+1F3EC                                                  ; fully-qualified     # 🏬 E0.6 department store
+1F3ED                                                  ; fully-qualified     # 🏭 E0.6 factory
+1F3EF                                                  ; fully-qualified     # 🏯 E0.6 Japanese castle
+1F3F0                                                  ; fully-qualified     # 🏰 E0.6 castle
+1F492                                                  ; fully-qualified     # 💒 E0.6 wedding
+1F5FC                                                  ; fully-qualified     # 🗼 E0.6 Tokyo tower
+1F5FD                                                  ; fully-qualified     # 🗽 E0.6 Statue of Liberty
+
+# subgroup: place-religious
+26EA                                                   ; fully-qualified     # ⛪ E0.6 church
+1F54C                                                  ; fully-qualified     # 🕌 E1.0 mosque
+1F6D5                                                  ; fully-qualified     # 🛕 E12.0 hindu temple
+1F54D                                                  ; fully-qualified     # 🕍 E1.0 synagogue
+26E9                                                   ; unqualified         # ⛩ E0.7 shinto shrine
+1F54B                                                  ; fully-qualified     # 🕋 E1.0 kaaba
+
+# subgroup: place-other
+26F2                                                   ; fully-qualified     # ⛲ E0.6 fountain
+26FA                                                   ; fully-qualified     # ⛺ E0.6 tent
+1F301                                                  ; fully-qualified     # 🌁 E0.6 foggy
+1F303                                                  ; fully-qualified     # 🌃 E0.6 night with stars
+1F3D9                                                  ; unqualified         # 🏙 E0.7 cityscape
+1F304                                                  ; fully-qualified     # 🌄 E0.6 sunrise over mountains
+1F305                                                  ; fully-qualified     # 🌅 E0.6 sunrise
+1F306                                                  ; fully-qualified     # 🌆 E0.6 cityscape at dusk
+1F307                                                  ; fully-qualified     # 🌇 E0.6 sunset
+1F309                                                  ; fully-qualified     # 🌉 E0.6 bridge at night
+2668                                                   ; unqualified         # ♨ E0.6 hot springs
+1F3A0                                                  ; fully-qualified     # 🎠 E0.6 carousel horse
+1F6DD                                                  ; fully-qualified     # 🛝 E14.0 playground slide
+1F3A1                                                  ; fully-qualified     # 🎡 E0.6 ferris wheel
+1F3A2                                                  ; fully-qualified     # 🎢 E0.6 roller coaster
+1F488                                                  ; fully-qualified     # 💈 E0.6 barber pole
+1F3AA                                                  ; fully-qualified     # 🎪 E0.6 circus tent
+
+# subgroup: transport-ground
+1F682                                                  ; fully-qualified     # 🚂 E1.0 locomotive
+1F683                                                  ; fully-qualified     # 🚃 E0.6 railway car
+1F684                                                  ; fully-qualified     # 🚄 E0.6 high-speed train
+1F685                                                  ; fully-qualified     # 🚅 E0.6 bullet train
+1F686                                                  ; fully-qualified     # 🚆 E1.0 train
+1F687                                                  ; fully-qualified     # 🚇 E0.6 metro
+1F688                                                  ; fully-qualified     # 🚈 E1.0 light rail
+1F689                                                  ; fully-qualified     # 🚉 E0.6 station
+1F68A                                                  ; fully-qualified     # 🚊 E1.0 tram
+1F69D                                                  ; fully-qualified     # 🚝 E1.0 monorail
+1F69E                                                  ; fully-qualified     # 🚞 E1.0 mountain railway
+1F68B                                                  ; fully-qualified     # 🚋 E1.0 tram car
+1F68C                                                  ; fully-qualified     # 🚌 E0.6 bus
+1F68D                                                  ; fully-qualified     # 🚍 E0.7 oncoming bus
+1F68E                                                  ; fully-qualified     # 🚎 E1.0 trolleybus
+1F690                                                  ; fully-qualified     # 🚐 E1.0 minibus
+1F691                                                  ; fully-qualified     # 🚑 E0.6 ambulance
+1F692                                                  ; fully-qualified     # 🚒 E0.6 fire engine
+1F693                                                  ; fully-qualified     # 🚓 E0.6 police car
+1F694                                                  ; fully-qualified     # 🚔 E0.7 oncoming police car
+1F695                                                  ; fully-qualified     # 🚕 E0.6 taxi
+1F696                                                  ; fully-qualified     # 🚖 E1.0 oncoming taxi
+1F697                                                  ; fully-qualified     # 🚗 E0.6 automobile
+1F698                                                  ; fully-qualified     # 🚘 E0.7 oncoming automobile
+1F699                                                  ; fully-qualified     # 🚙 E0.6 sport utility vehicle
+1F6FB                                                  ; fully-qualified     # 🛻 E13.0 pickup truck
+1F69A                                                  ; fully-qualified     # 🚚 E0.6 delivery truck
+1F69B                                                  ; fully-qualified     # 🚛 E1.0 articulated lorry
+1F69C                                                  ; fully-qualified     # 🚜 E1.0 tractor
+1F3CE                                                  ; unqualified         # 🏎 E0.7 racing car
+1F3CD                                                  ; unqualified         # 🏍 E0.7 motorcycle
+1F6F5                                                  ; fully-qualified     # 🛵 E3.0 motor scooter
+1F9BD                                                  ; fully-qualified     # 🦽 E12.0 manual wheelchair
+1F9BC                                                  ; fully-qualified     # 🦼 E12.0 motorized wheelchair
+1F6FA                                                  ; fully-qualified     # 🛺 E12.0 auto rickshaw
+1F6B2                                                  ; fully-qualified     # 🚲 E0.6 bicycle
+1F6F4                                                  ; fully-qualified     # 🛴 E3.0 kick scooter
+1F6F9                                                  ; fully-qualified     # 🛹 E11.0 skateboard
+1F6FC                                                  ; fully-qualified     # 🛼 E13.0 roller skate
+1F68F                                                  ; fully-qualified     # 🚏 E0.6 bus stop
+1F6E3                                                  ; unqualified         # 🛣 E0.7 motorway
+1F6E4                                                  ; unqualified         # 🛤 E0.7 railway track
+1F6E2                                                  ; unqualified         # 🛢 E0.7 oil drum
+26FD                                                   ; fully-qualified     # ⛽ E0.6 fuel pump
+1F6DE                                                  ; fully-qualified     # 🛞 E14.0 wheel
+1F6A8                                                  ; fully-qualified     # 🚨 E0.6 police car light
+1F6A5                                                  ; fully-qualified     # 🚥 E0.6 horizontal traffic light
+1F6A6                                                  ; fully-qualified     # 🚦 E1.0 vertical traffic light
+1F6D1                                                  ; fully-qualified     # 🛑 E3.0 stop sign
+1F6A7                                                  ; fully-qualified     # 🚧 E0.6 construction
+
+# subgroup: transport-water
+2693                                                   ; fully-qualified     # ⚓ E0.6 anchor
+1F6DF                                                  ; fully-qualified     # 🛟 E14.0 ring buoy
+26F5                                                   ; fully-qualified     # ⛵ E0.6 sailboat
+1F6F6                                                  ; fully-qualified     # 🛶 E3.0 canoe
+1F6A4                                                  ; fully-qualified     # 🚤 E0.6 speedboat
+1F6F3                                                  ; unqualified         # 🛳 E0.7 passenger ship
+26F4                                                   ; unqualified         # ⛴ E0.7 ferry
+1F6E5                                                  ; unqualified         # 🛥 E0.7 motor boat
+1F6A2                                                  ; fully-qualified     # 🚢 E0.6 ship
+
+# subgroup: transport-air
+2708                                                   ; unqualified         # ✈ E0.6 airplane
+1F6E9                                                  ; unqualified         # 🛩 E0.7 small airplane
+1F6EB                                                  ; fully-qualified     # 🛫 E1.0 airplane departure
+1F6EC                                                  ; fully-qualified     # 🛬 E1.0 airplane arrival
+1FA82                                                  ; fully-qualified     # 🪂 E12.0 parachute
+1F4BA                                                  ; fully-qualified     # 💺 E0.6 seat
+1F681                                                  ; fully-qualified     # 🚁 E1.0 helicopter
+1F69F                                                  ; fully-qualified     # 🚟 E1.0 suspension railway
+1F6A0                                                  ; fully-qualified     # 🚠 E1.0 mountain cableway
+1F6A1                                                  ; fully-qualified     # 🚡 E1.0 aerial tramway
+1F6F0                                                  ; unqualified         # 🛰 E0.7 satellite
+1F680                                                  ; fully-qualified     # 🚀 E0.6 rocket
+1F6F8                                                  ; fully-qualified     # 🛸 E5.0 flying saucer
+
+# subgroup: hotel
+1F6CE                                                  ; unqualified         # 🛎 E0.7 bellhop bell
+1F9F3                                                  ; fully-qualified     # 🧳 E11.0 luggage

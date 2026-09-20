@@ -11,6 +11,11 @@ const things = (await fs.readdir(path.join(__dirname, 'data')))
 
 const outputPath = path.join(__dirname, '../src/data')
 
+//
+// if looking at add more data into this set, there's a lot between "transport" and "symbols" that haven't been used yet
+// most of them are non-complicated, don't use any zwj , it's more a question of classification and grouping than anything else.
+//
+
 const data = {} // raw emoji data, flat as needed (simple ones are easy)
 
 for (const _thing of things) {
@@ -31,9 +36,9 @@ for (const _thing of things) {
 
 const outputs = {}
 
-// some of thee are really simple
+// some of these are really simple
 
-;['faces', 'flags', 'food', 'plants', 'animals'].forEach((thing) => {
+;['faces', 'flags', 'food', 'plants', 'places', 'animals'].forEach((thing) => {
   outputs[thing] = data[thing]
 })
 
@@ -184,6 +189,7 @@ outputs.people.push(
           emoji: `${gendercode}${skincode}\u200D${entry.emoji}`,
           label: `${genderlabel} ${entry.label} (${skinlabel})`,
         })
+        // in practice there is only 1 direction supported for these joiners
         if (supportsDirection.includes(entry.label)) {
           memo.push({
             emoji: `${gendercode}${skincode}\u200D${entry.emoji}\u200D\u27A1`,
