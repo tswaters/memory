@@ -5,9 +5,8 @@ The classic game
 ## Development
 
 ```sh
-npm i
-npm run generate
-npm start
+npm ci
+npm start # localhost:8080
 ```
 
 ## Releases
