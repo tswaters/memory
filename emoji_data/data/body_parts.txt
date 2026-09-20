@@ -19,6 +19,7 @@
 270C FE0F                                              ; fully-qualified     # ✌️ E0.6 victory hand
 1F91E                                                  ; fully-qualified     # 🤞 E3.0 crossed fingers
 1FAF0                                                  ; fully-qualified     # 🫰 E14.0 hand with index finger and thumb crossed
+1F91F                                                  ; fully-qualified     # 🤟 E5.0 love-you gesture
 1F918                                                  ; fully-qualified     # 🤘 E1.0 sign of the horns
 1F919                                                  ; fully-qualified     # 🤙 E3.0 call me hand
 
@@ -46,3 +47,30 @@
 1F450                                                  ; fully-qualified     # 👐 E0.6 open hands
 1F932                                                  ; fully-qualified     # 🤲 E5.0 palms up together
 1F91D                                                  ; fully-qualified     # 🤝 E3.0 handshake
+1F64F                                                  ; fully-qualified     # 🙏 E0.6 folded hands
+
+# subgroup: hand-prop
+270D FE0F                                              ; fully-qualified     # ✍️ E0.7 writing hand
+1F485                                                  ; fully-qualified     # 💅 E0.6 nail polish
+1F933                                                  ; fully-qualified     # 🤳 E3.0 selfie
+
+# subgroup: body-parts
+1F4AA                                                  ; fully-qualified     # 💪 E0.6 flexed biceps
+1F9BE                                                  ; fully-qualified     # 🦾 E12.0 mechanical arm
+1F9BF                                                  ; fully-qualified     # 🦿 E12.0 mechanical leg
+1F9B5                                                  ; fully-qualified     # 🦵 E11.0 leg
+1F9B6                                                  ; fully-qualified     # 🦶 E11.0 foot
+1F442                                                  ; fully-qualified     # 👂 E0.6 ear
+1F9BB                                                  ; fully-qualified     # 🦻 E12.0 ear with hearing aid
+1F443                                                  ; fully-qualified     # 👃 E0.6 nose
+
+1F9E0                                                  ; fully-qualified     # 🧠 E5.0 brain
+1FAC0                                                  ; fully-qualified     # 🫀 E13.0 anatomical heart
+1FAC1                                                  ; fully-qualified     # 🫁 E13.0 lungs
+1F9B7                                                  ; fully-qualified     # 🦷 E11.0 tooth
+1F9B4                                                  ; fully-qualified     # 🦴 E11.0 bone
+1F440                                                  ; fully-qualified     # 👀 E0.6 eyes
+1F441                                                  ; unqualified         # 👁 E0.7 eye
+1F445                                                  ; fully-qualified     # 👅 E0.6 tongue
+1F444                                                  ; fully-qualified     # 👄 E0.6 mouth
+1FAE6                                                  ; fully-qualified     # 🫦 E14.0 biting lip

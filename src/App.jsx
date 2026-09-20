@@ -13,6 +13,7 @@ import { game as gameCard } from './Card.css'
 import { Help } from './Help'
 
 import TabList from './TabList'
+import { DebugTileDisplay } from './DebugTileDisplay'
 
 // minstd_rand
 // this is a pseudo-random number generator that needs an initial seed
@@ -139,6 +140,11 @@ function App() {
         id: 'help',
         label: 'help',
         panel: <Help />,
+      },
+      {
+        id: 'debug',
+        label: 'tile display',
+        panel: <DebugTileDisplay />,
       },
     ],
     [seed],

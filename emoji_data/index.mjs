@@ -53,6 +53,9 @@ const skintones = {
   '\u{1F3FF}': 'dark skin',
 }
 
+// left is the default i suppose. this only gets uesd in a few cases around sports
+// there might be more directionality available in other sets like arrows and the like
+
 const directions = {
   '\u{27A1}': 'right',
 }
@@ -67,7 +70,7 @@ const manWoman = {
   //'\u{1F9D1}': 'person',
 }
 
-// transgender is listed for competions sake, in practice it doesn't work anywhere
+// transgender is listed for completion's sake, in practice it doesn't work anywhere
 // cases where it *might* instead use un-qualified gender to mean "person"
 // it's actually only used with the trans flag (which is already encoded as part of flags)
 
@@ -77,7 +80,22 @@ const gendersSigns = {
   // '\u{26A7}': 'transgender',
 }
 
-const doesNotSupportSkintone = ['zombie', 'genie']
+const doesNotSupportSkintone = [
+  'zombie',
+  'genie',
+  'mechanical arm',
+  'mechanical leg',
+  'brain',
+  'anatomical heart',
+  'lungs',
+  'tooth',
+  'bone',
+  'eyes',
+  'eye',
+  'tongue',
+  'mouth',
+  'biting lip',
+]
 
 const doesNotSupportsGender = [
   'ninja',
@@ -104,15 +122,19 @@ const supportsDirection = [
   'person running',
 ]
 
-// the hand gestures can support multiple skin tones
+// most of the hand gestures can support multiple skin tones
 
-outputs.hands = data.hands.reduce((memo, entry) => {
-  Object.entries(skintones).forEach(([skincode, skinlabel]) => {
-    memo.push({
-      emoji: `${entry.emoji}\u200D${skincode}`,
-      label: `${entry.label} ${skinlabel}`,
+outputs.body_parts = data.body_parts.reduce((memo, entry) => {
+  if (doesNotSupportSkintone.includes(entry.label)) {
+    memo.push(entry)
+  } else {
+    Object.entries(skintones).forEach(([skincode, skinlabel]) => {
+      memo.push({
+        emoji: `${entry.emoji}\u200D${skincode}`,
+        label: `${entry.label} ${skinlabel}`,
+      })
     })
-  })
+  }
   return memo
 }, [])
 
@@ -126,7 +148,7 @@ outputs.people.push(
   ...data.people_base.reduce((memo, entry) => {
     Object.entries(skintones).forEach(([skincode, skinlabel]) => {
       memo.push({
-        emoji: `${entry.emoji}${skincode}`,
+        emoji: `${entry.emoji}\u200D${skincode}`,
         label: `${entry.label} (${skinlabel})`,
       })
     })
@@ -134,7 +156,9 @@ outputs.people.push(
   }, []),
 )
 
-// the gestures support {gesture}{zwj}{skin}{zwj}{gender}
+// gestures support up to {gender}{zwj}{thing}{zwj}{skin}{dircode}
+
+// some of them don't (no gender: ninja, etc.; no skintone: zombie)
 
 outputs.people.push(
   ...data.people_gesture.reduce((memo, entry) => {
@@ -150,8 +174,6 @@ outputs.people.push(
   }, []),
 )
 
-// the roles_1 support {gender}{zwj}{thing}{zwj}{skin}
-
 // 1F468 1F3FC 200D 1F9AF 200D 27A1                       ; minimally-qualified # 👨🏼‍🦯‍➡ E15.1 man with white cane facing right: medium-light skin tone
 
 outputs.people.push(
@@ -163,11 +185,9 @@ outputs.people.push(
           label: `${genderlabel} ${entry.label} (${skinlabel})`,
         })
         if (supportsDirection.includes(entry.label)) {
-          Object.entries(directions).forEach(([dircode, dirlabel]) => {
-            memo.push({
-              emoji: `${gendercode}${skincode}\u200D${entry.emoji}\u200D${dircode}`,
-              label: `${genderlabel} ${entry.label} facing ${dirlabel} (${skinlabel})`,
-            })
+          memo.push({
+            emoji: `${gendercode}${skincode}\u200D${entry.emoji}\u200D\u27A1`,
+            label: `${genderlabel} ${entry.label} facing right (${skinlabel})`,
           })
         }
       })
@@ -176,13 +196,13 @@ outputs.people.push(
   }, []),
 )
 
-// the roles_2 support {thing}{skin}{zwj}{gender_code}
+// people roles can support {thing}{skin}{zwj}{gender_code}{zwj}{direction}
+
+// 1F9DF 200D 2640 FE0F                                   ; fully-qualified     # 🧟‍♀️ E5.0 woman zombie
 
 outputs.people.push(
   ...data.people_roles
-    .filter((x) => {
-      return doesNotSupportSkintone.includes(x.label)
-    })
+    .filter((x) => doesNotSupportSkintone.includes(x.label))
     .reduce((memo, entry) => {
       Object.entries(gendersSigns).forEach(([gendercode, genderlabel]) => {
         memo.push({
@@ -194,13 +214,17 @@ outputs.people.push(
     }, []),
 )
 
+// people roles support {thing}{skin}{zwj}{gender_code}
+
+// 1F977 1F3FD                                            ; fully-qualified     # 🥷🏽 E13.0 ninja: medium skin tone
+
 outputs.people.push(
   ...data.people_roles
     .filter((x) => doesNotSupportsGender.includes(x.label))
     .reduce((memo, entry) => {
       Object.entries(skintones).forEach(([skincode, skinlabel]) => {
         memo.push({
-          emoji: `${entry.emoji}${skincode}\u200D`,
+          emoji: `${entry.emoji}\u200D${skincode}`,
           label: `${entry.label} (${skinlabel})`,
         })
       })
@@ -212,35 +236,12 @@ outputs.people.push(
 
 outputs.people.push(
   ...data.people_roles
-    .filter((x) => supportsDirection.includes(x.label))
-    .reduce((memo, entry) => {
-      Object.entries(skintones).forEach(([skincode, skinlabel]) => {
-        Object.entries(gendersSigns).forEach(([gendercode, genderlabel]) => {
-          Object.entries(directions).forEach(([dircode, dirlabel]) => {
-            memo.push(
-              {
-                emoji: `${entry.emoji}${skincode}\u200D${gendercode}`,
-                label: `${entry.label} ${genderlabel} (${skinlabel})`,
-              },
-              {
-                emoji: `${entry.emoji}${skincode}\u200D${gendercode}\u200D${dircode}`,
-                label: `${entry.label} ${genderlabel} ${dirlabel} (${skinlabel})`,
-              },
-            )
-          })
-        })
-      })
-      return memo
-    }, []),
-)
-
-outputs.people.push(
-  ...data.people_roles
     .filter(
       (x) =>
-        !doesNotSupportsGender.includes(x.label) &&
-        !doesNotSupportSkintone.includes(x.label) &&
-        !supportsDirection.includes(x.label),
+        !(
+          doesNotSupportsGender.includes(x.label) ||
+          doesNotSupportSkintone.includes(x.label)
+        ),
     )
     .reduce((memo, entry) => {
       Object.entries(skintones).forEach(([skincode, skinlabel]) => {
@@ -249,13 +250,19 @@ outputs.people.push(
             emoji: `${entry.emoji}${skincode}\u200D${gendercode}`,
             label: `${entry.label} ${genderlabel} (${skinlabel})`,
           })
+          if (supportsDirection.includes(entry.label)) {
+            memo.push({
+              emoji: `${entry.emoji}${skincode}\u200D${gendercode}\u200D\u27A1`,
+              label: `${entry.label} ${genderlabel} facing right (${skinlabel})`,
+            })
+          }
         })
       })
       return memo
     }, []),
 )
 
-// no modifiers for some of these (it's just zombie)
+// no modifiers for some of these (it's just troll, skier, fencer)
 
 outputs.people.push(...data.people_others)
 
