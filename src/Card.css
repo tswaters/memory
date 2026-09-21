@@ -7,11 +7,19 @@ rows = sqrt( $total / $ratio ), and  cols = $rows * $ratio ;  2px is the gutter.
 the three in use work out to:  total=r/c ; 6=3x2 ; 24=6x4 ; 60=10x6
 these are also possible - 40=8x5; (prohibitively difficult) 104=13x8; 160=16x10
 i thoght 24 -> 40 was too small a gap, so went with 60 instead.
+
+baed on a given orientation, flip the h/w properties
 */
 
 .game .card {
-  width: calc(100% / round(sqrt(sibling-count() / 1.618) * 1.618) - 2px);
-  height: calc(100% / round(sqrt(sibling-count() / 1.618)) - 2px);
+  @media (orientation: portrait) {
+    width: calc(100% / round(sqrt(sibling-count() / 1.618)) - 2px);
+    height: calc(100% / round(sqrt(sibling-count() / 1.618) * 1.618) - 2px);
+  }
+  @media (orientation: landscape) {
+    width: calc(100% / round(sqrt(sibling-count() / 1.618) * 1.618) - 2px);
+    height: calc(100% / round(sqrt(sibling-count() / 1.618)) - 2px);
+  }
 }
 
 .card {
