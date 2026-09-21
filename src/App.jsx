@@ -2,18 +2,16 @@ import { useCallback, useState, useRef, useMemo, useEffect } from 'react'
 import cx from 'classnames'
 
 import { gameState, menu, darkMode, lightMode, game } from './App.css'
+import { game as gameCard } from './Card.css'
 
 import * as tilesets from './data'
 
 import { Settings, difficultyOptions, getFallback } from './Settings'
 
-import { Card } from './Card'
-import { game as gameCard } from './Card.css'
-
-import { Help } from './Help'
-
+import Card from './Card'
+import Help from './Help'
 import TabList from './TabList'
-import { DebugTileDisplay } from './DebugTileDisplay'
+import DebugTileDisplay from './DebugTileDisplay'
 
 // minstd_rand
 // this is a pseudo-random number generator that needs an initial seed

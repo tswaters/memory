@@ -124,4 +124,4 @@ const _Card = forwardRef(function Card({ onReveal, ...props }, forwardRef) {
   )
 })
 
-export const Card = memo(_Card)
+export default memo(_Card)

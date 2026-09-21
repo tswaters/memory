@@ -1,8 +1,8 @@
-import { useRef, useState, useCallback } from 'react'
-import { Card } from './Card'
+import { memo, useRef, useState, useCallback } from 'react'
+import Card from './Card'
 import { offset } from './Card.css'
 
-export function Help() {
+export default memo(function Help() {
   const card1Ref = useRef(null)
   const card2Ref = useRef(null)
   const card3Ref = useRef(null)
@@ -96,4 +96,4 @@ export function Help() {
       )}
     </>
   )
-}
+})

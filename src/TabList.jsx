@@ -20,7 +20,7 @@ const entries = useMemo(() => [
 <Tabs entries={entries} />
 */
 
-function Tabs({ entries }) {
+export default memo(function Tabs({ entries }) {
   const tabsRef = useRef(new Map())
   const panelsRef = useRef(new Map())
 
@@ -110,6 +110,4 @@ function Tabs({ entries }) {
       ))}
     </div>
   )
-}
-
-export default memo(Tabs)
+})

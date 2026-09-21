@@ -2,7 +2,7 @@ import { memo, Fragment } from 'react'
 
 import * as tilesets from './data/index'
 
-function DebugTileDisply() {
+export default memo(function DebugTileDisplay() {
   return (
     <dl>
       {Object.entries(tilesets).map(([label, data]) => (
@@ -19,6 +19,4 @@ function DebugTileDisply() {
       ))}
     </dl>
   )
-}
-
-export const DebugTileDisplay = memo(DebugTileDisply)
+})

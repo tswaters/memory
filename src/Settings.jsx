@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { memo, useState, useCallback } from 'react'
 
 import * as tilesets from './data/index'
 
@@ -55,7 +55,7 @@ export function useLocalStorage(key, options) {
   return [value, handleUpdateValue]
 }
 
-export function Settings({ onSettingChange, seed }) {
+export const Settings = memo(function Settings({ onSettingChange, seed }) {
   const [difficulty, handleDifficultyChange] = useLocalStorage(
     'DIFFICULTY',
     difficultyOptions,
@@ -114,4 +114,4 @@ export function Settings({ onSettingChange, seed }) {
       />
     </>
   )
-}
+})
