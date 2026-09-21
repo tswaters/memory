@@ -1,7 +1,8 @@
 import { useCallback, useState, useRef, useMemo, useEffect } from 'react'
 import cx from 'classnames'
 
-import { gameState, menu, darkMode, lightMode, game } from './App.css'
+import { darkMode, lightMode } from './index.css'
+import { gameState, game } from './App.css'
 import { game as gameCard } from './Card.css'
 
 import * as tilesets from './data'
@@ -181,7 +182,7 @@ function App() {
         ))}
       </fieldset>
 
-      <dialog ref={dialogRef} className={menu}>
+      <dialog ref={dialogRef}>
         Memory {window.APP_VERSION}
         <form method="dialog">
           <button

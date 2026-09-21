@@ -1,0 +1,104 @@
+:where(html) {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+  text-size-adjust: none;
+}
+
+:where(input, button, textarea, select) {
+  color: inherit;
+  background-color: inherit;
+  font: inherit;
+  line-height: inherit;
+  touch-action: manipulation;
+}
+
+:where(html, body, menu, fieldset, button, dl, dt, dd) {
+  padding: 0;
+  margin: 0;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(html) {
+    scroll-behavior: auto;
+  }
+}
+
+:root {
+  --border-width: 4px;
+
+  @media (prefers-color-scheme: dark) {
+    --global-color-primary: black;
+    --global-color-background: white;
+    --light-stripe: #606dbc;
+    --dark-stripe: #465298;
+  }
+
+  @media (prefers-color-scheme: light) {
+    --global-color-primary: black;
+    --global-color-background: white;
+    --light-stripe: #606dbc;
+    --dark-stripe: #465298;
+  }
+}
+
+.dark-mode {
+  --global-color-primary: white;
+  --global-color-background: black;
+  --light-stripe: #404dac;
+  --dark-stripe: #263278;
+}
+
+.light-mode {
+  --global-color-primary: black;
+  --global-color-background: white;
+  --light-stripe: #606dbc;
+  --dark-stripe: #465298;
+}
+
+body,
+dialog {
+  background-color: var(--global-color-background);
+  color: var(--global-color-primary);
+}
+
+body {
+  font-size: clamp(1rem, 2.5vw + 1rem, 2.5rem);
+  line-height: 1.618;
+}
+
+dialog button[aria-label='Close'] {
+  position: absolute;
+  align-content: center;
+  text-align: center;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  &::after {
+    color: red;
+    content: '🗙';
+    position: inline-block;
+  }
+}
+
+::backdrop {
+  background-image: linear-gradient(
+    45deg,
+    magenta,
+    rebeccapurple,
+    dodgerblue,
+    green
+  );
+  opacity: 0.75;
+}
+
+dialog:open {
+  width: 90vw;
+  height: 90vh;
+}
