@@ -61,9 +61,9 @@ const skintones = {
 // left is the default i suppose. this only gets uesd in a few cases around sports
 // there might be more directionality available in other sets like arrows and the like
 
-const directions = {
-  '\u{27A1}': 'right',
-}
+// const directions = {
+//   '\u{27A1}': 'right',
+// }
 
 // this manWoman map can/should also include "person", \u{1F467}
 // but listing all three usually has a slight hair difference between man/person
