@@ -4,9 +4,12 @@ import { Settings } from './Settings'
 import Help from './Help'
 import DebugTileDisplay from './DebugTileDisplay'
 import TabList from './TabList'
+import { HighScoresView } from './HighScores'
 
 export default memo(function MainMenuDialog({
   seed,
+  difficulty,
+  tileset,
   onSettingChange,
   finished,
 }) {
@@ -46,8 +49,13 @@ export default memo(function MainMenuDialog({
         label: 'tile display',
         panel: <DebugTileDisplay />,
       },
+      {
+        id: 'high-scores',
+        label: 'high scores',
+        panel: <HighScoresView difficulty={difficulty} tileset={tileset} />,
+      },
     ],
-    [seed, onSettingChange],
+    [seed, onSettingChange, tileset, difficulty],
   )
 
   return (

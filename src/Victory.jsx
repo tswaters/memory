@@ -1,7 +1,10 @@
 import { memo, useEffect, useRef } from 'react'
 
+import { HighScoresForm, HighScoresView } from './HighScores'
+
 export default memo(function Victory({
   onClose,
+  tileset,
   seed,
   score,
   difficulty,
@@ -34,9 +37,20 @@ export default memo(function Victory({
     <dialog ref={dialogRef}>
       <button aria-label="Close" onClick={() => dialogRef.current.close()} />
       <h2>You win!</h2>
+      <hr />
+
+      <HighScoresForm
+        seed={seed}
+        tileset={tileset}
+        difficulty={difficulty}
+        score={score}
+      />
+
       <p>
         You scored {score} on seed #{seed} and difficulty {difficulty}
       </p>
+      <h3>High Scores</h3>
+      <HighScoresView tileset={tileset} difficulty={difficulty} />
     </dialog>
   )
 })

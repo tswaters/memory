@@ -133,6 +133,8 @@ function App() {
           <MainMenuDialog
             onSettingChange={onSettingChange}
             seed={seed}
+            difficulty={difficulty}
+            tileset={tileSet}
             finished={finished}
           />
           <dl className={gameState}>
@@ -155,7 +157,14 @@ function App() {
         ))}
       </fieldset>
 
-      <Victory onClose={reset} seed={seed} score={score} finished={finished} />
+      <Victory
+        onClose={reset}
+        tileset={tileSet}
+        difficulty={difficulty}
+        seed={seed}
+        score={score}
+        finished={finished}
+      />
     </>
   )
 }
