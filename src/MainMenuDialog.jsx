@@ -5,7 +5,11 @@ import Help from './Help'
 import DebugTileDisplay from './DebugTileDisplay'
 import TabList from './TabList'
 
-export default memo(function MainMenuDialog({ seed, onSettingChange }) {
+export default memo(function MainMenuDialog({
+  seed,
+  onSettingChange,
+  finished,
+}) {
   const dialogRef = useRef(null)
 
   useEffect(() => {
@@ -16,12 +20,14 @@ export default memo(function MainMenuDialog({ seed, onSettingChange }) {
       }
     }
 
+    if (finished) return // don't do this if the other dialog is open
+
     document.addEventListener('keydown', handleKeyDown)
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [])
+  }, [finished])
 
   const dialogEntries = useMemo(
     () => [

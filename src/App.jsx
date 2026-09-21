@@ -11,6 +11,7 @@ import { difficultyOptions, getFallback } from './Settings'
 
 import Card from './Card'
 import MainMenuDialog from './MainMenuDialog'
+import Victory from './Victory'
 
 // minstd_rand
 // this is a pseudo-random number generator that needs an initial seed
@@ -34,6 +35,8 @@ const rnd = (s) => {
 function App() {
   const [seed, setSeed] = useState(() => Math.floor(Math.random() * 500))
   const [score, setScore] = useState(0)
+  const [finished, setFinished] = useState(false)
+  const flippedCountRef = useRef(0)
 
   const tilesRef = useRef(new Map())
   const selectionRef = useRef(null)
@@ -42,6 +45,13 @@ function App() {
     getFallback('DIFFICULTY', difficultyOptions),
   )
   const [tileSet, setTileSet] = useState(() => getFallback('TILESET', tilesets))
+
+  const reset = useCallback((reseed = false) => {
+    flippedCountRef.current = 0
+    if (reseed) setSeed(Math.floor(Math.random() * 500))
+    setFinished(false)
+    setScore(0)
+  }, [])
 
   const tiles = useMemo(() => {
     const random = rnd(seed)
@@ -71,39 +81,48 @@ function App() {
       .sort((a, b) => a.id.localeCompare(b.id))
   }, [tileSet, difficulty, seed])
 
-  const handleReveal = useCallback((e) => {
-    const id = e.target.id
-    const value = e.target.dataset.emoji
-    if (selectionRef.current == null) {
-      selectionRef.current = { id, value }
-    } else if (selectionRef.current.value === value) {
-      return Promise.all([
-        tilesRef.current.get(id).success(),
-        tilesRef.current.get(selectionRef.current.id).success(),
-      ]).then((failures) => {
+  const handleReveal = useCallback(
+    (e) => {
+      const id = e.target.id
+      const value = e.target.dataset.emoji
+      if (selectionRef.current == null) {
+        selectionRef.current = { id, value }
+      } else if (selectionRef.current.value === value) {
+        return Promise.all([
+          tilesRef.current.get(id).success(),
+          tilesRef.current.get(selectionRef.current.id).success(),
+        ]).then((failures) => {
+          selectionRef.current = null
+          setScore((prev) =>
+            failures.reduce((total, item) => total + item, prev),
+          )
+          setFinished(() => tiles.length / 2 === ++flippedCountRef.current)
+        })
+      } else {
+        tilesRef.current.get(id).fail()
+        tilesRef.current.get(selectionRef.current.id).fail()
         selectionRef.current = null
-        setScore((prev) => failures.reduce((total, item) => total + item, prev))
-      })
-    } else {
-      tilesRef.current.get(id).fail()
-      tilesRef.current.get(selectionRef.current.id).fail()
-      selectionRef.current = null
-    }
-  }, [])
-
-  const onSettingChange = useCallback((key, value) => {
-    if (key === 'theme') {
-      document.body.classList.remove(darkMode, lightMode)
-      if (value != null) {
-        document.body.classList.add(value === 'DARK' ? darkMode : lightMode)
       }
-      return
-    }
-    if (key === 'difficulty') setDifficulty(value)
-    if (key === 'tileset') setTileSet(value)
-    if (key === 'seed') setSeed(value)
-    setScore(0)
-  }, [])
+    },
+    [tiles.length],
+  )
+
+  const onSettingChange = useCallback(
+    (key, value) => {
+      if (key === 'theme') {
+        document.body.classList.remove(darkMode, lightMode)
+        if (value != null) {
+          document.body.classList.add(value === 'DARK' ? darkMode : lightMode)
+        }
+        return
+      }
+      if (key === 'difficulty') setDifficulty(value)
+      if (key === 'tileset') setTileSet(value)
+      if (key === 'seed') setSeed(value)
+      reset(false)
+    },
+    [reset],
+  )
 
   return (
     <>
@@ -111,7 +130,11 @@ function App() {
 
       <fieldset className={cx(game, gameCard)}>
         <legend>
-          <MainMenuDialog onSettingChange={onSettingChange} seed={seed} />
+          <MainMenuDialog
+            onSettingChange={onSettingChange}
+            seed={seed}
+            finished={finished}
+          />
           <dl className={gameState}>
             <dt>game id</dt>
             <dd>{seed}</dd>
@@ -131,6 +154,8 @@ function App() {
           />
         ))}
       </fieldset>
+
+      <Victory onClose={reset} seed={seed} score={score} finished={finished} />
     </>
   )
 }
