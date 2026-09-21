@@ -1,17 +1,17 @@
-import { memo, useState, useCallback } from 'react'
+import { memo, useState } from 'react'
 
 import * as tilesets from './data/index'
 
 import { DebouncedRangeInput, MultiSelectOption } from './Forms'
 
-export const difficultyOptions = {
-  null: '3',
+export const difficulties = {
+  easy: '3',
   medium: '12',
   hard: '30',
 }
 
 export const themeOptions = {
-  null: 'OS Default',
+  unset: 'OS Default',
   LIGHT: 'Light',
   DARK: 'Dark',
 }
@@ -25,93 +25,92 @@ export const themeOptions = {
 
 export const getFallback = (key, options) => {
   const fallback = Object.keys(options)[0]
-  const storageValue = window.localStorage.getItem(key) ?? fallback
-  if (options[storageValue] == null) {
-    window.localStorage.removeItem(key)
-    return fallback
+  const settings = JSON.parse(window.localStorage.getItem('settings') ?? '{}')
+  return settings[key] ?? fallback
+}
+
+export default memo(function Settings({ onSettingChange, seed }) {
+  const [settings, setSettings] = useState(() => {
+    let storageValue
+    try {
+      storageValue = JSON.parse(window.localStorage.getItem('settings') ?? '{}')
+    } catch (err) {
+      console.error({ err }, 'Failed to parse JSON')
+      storageValue = {}
+    }
+
+    if (storageValue.difficulty == null) {
+      storageValue.difficulty = 'easy'
+    }
+
+    if (storageValue.theme == null) {
+      storageValue.theme = 'unset'
+    }
+
+    if (storageValue.tileset == null) {
+      storageValue.tileset = 'animals'
+    }
+
+    return storageValue
+  })
+
+  const handleValueUpdate = (e) => {
+    let name = e.target.name
+    let newValue = e.target.value
+
+    setSettings((prev) => {
+      const newSettings = { ...prev, [name]: newValue }
+      window.localStorage.setItem('settings', JSON.stringify(newSettings))
+      return newSettings
+    })
+    onSettingChange(name, newValue)
+    e.target.form.submit()
   }
-  return storageValue
-}
 
-export function useLocalStorage(key, options) {
-  const [value, setValue] = useState(() => getFallback(key, options))
-
-  const handleUpdateValue = useCallback(
-    (e) => {
-      let newValue = e.target.value
-      if (newValue === 'null') newValue = null
-      if (newValue == null) {
-        window.localStorage.removeItem(key)
-      } else {
-        window.localStorage.setItem(key, newValue)
-      }
-      setValue(newValue)
-      e.target.form.submit()
-      return newValue
-    },
-    [key],
-  )
-
-  return [value, handleUpdateValue]
-}
-
-export const Settings = memo(function Settings({ onSettingChange, seed }) {
-  const [difficulty, handleDifficultyChange] = useLocalStorage(
-    'DIFFICULTY',
-    difficultyOptions,
-  )
-
-  const [tileSet, handleTilesetUpdate] = useLocalStorage('TILESET', tilesets)
-  const [theme, handleThemeChange] = useLocalStorage('THEME', themeOptions)
+  const { difficulty, tileset, theme } = settings
 
   return (
-    <>
+    <form method="dialog">
       <DebouncedRangeInput
         label="Seed"
         id="seed"
+        name="seed"
         min={1}
         max={500}
         timeout={500}
         value={seed}
-        onChange={(e) => onSettingChange('seed', parseInt(e.target.value))}
+        onChange={handleValueUpdate}
       />
 
       <hr />
 
       <MultiSelectOption
         label="Number of Matches"
-        options={difficultyOptions}
+        name="difficulty"
+        options={difficulties}
         value={difficulty}
-        onChange={(e) => {
-          const newValue = handleDifficultyChange(e)
-          onSettingChange('difficulty', newValue)
-        }}
+        onChange={handleValueUpdate}
       />
 
       <hr />
 
       <MultiSelectOption
         label="Theme"
+        name="theme"
         options={themeOptions}
         value={theme}
-        onChange={(e) => {
-          const newValue = handleThemeChange(e)
-          onSettingChange('theme', newValue)
-        }}
+        onChange={handleValueUpdate}
       />
 
       <hr />
 
       <MultiSelectOption
-        storageKey="TILESET"
         label="Tileset"
+        name="tileset"
         options={tilesets}
-        value={tileSet}
-        onChange={(e) => {
-          const newValue = handleTilesetUpdate(e)
-          onSettingChange('tileset', newValue)
-        }}
+        value={tileset}
+        onChange={handleValueUpdate}
       />
-    </>
+    </form>
   )
 })

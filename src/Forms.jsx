@@ -4,6 +4,7 @@ import { radio, vertical, formGroup } from './Forms.css'
 import cx from 'classnames'
 
 export function MultiSelectOption({
+  name,
   label,
   options,
   value,
@@ -17,6 +18,7 @@ export function MultiSelectOption({
         <label key={optionKey}>
           <input
             type="radio"
+            name={name}
             value={optionKey}
             checked={optionKey === value}
             onChange={onChange}

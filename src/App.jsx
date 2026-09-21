@@ -7,7 +7,12 @@ import { game as gameCard } from './Card.css'
 
 import * as tilesets from './data'
 
-import { difficultyOptions, getFallback } from './Settings'
+import { default as Settings, difficulties, getFallback } from './Settings'
+
+import Help from './Help'
+import DebugTileDisplay from './DebugTileDisplay'
+import TabList from './TabList'
+import { HighScoresForm, HighScoresView } from './HighScores'
 
 import Card from './Card'
 import MainMenuDialog from './MainMenuDialog'
@@ -34,7 +39,7 @@ const rnd = (s) => {
 
 function App() {
   const [seed, setSeed] = useState(() => Math.floor(Math.random() * 500))
-  const [score, setScore] = useState(0)
+  const [score, setScore] = useState('')
   const [finished, setFinished] = useState(false)
   const flippedCountRef = useRef(0)
 
@@ -42,25 +47,25 @@ function App() {
   const selectionRef = useRef(null)
 
   const [difficulty, setDifficulty] = useState(() =>
-    getFallback('DIFFICULTY', difficultyOptions),
+    getFallback('difficulty', difficulties),
   )
-  const [tileSet, setTileSet] = useState(() => getFallback('TILESET', tilesets))
+  const [tileset, setTileset] = useState(() => getFallback('tileset', tilesets))
 
   const reset = useCallback((reseed = false) => {
     flippedCountRef.current = 0
     if (reseed) setSeed(Math.floor(Math.random() * 500))
     setFinished(false)
-    setScore(0)
+    setScore('')
   }, [])
 
   const tiles = useMemo(() => {
     const random = rnd(seed)
-    const TOTAL_TILES = parseInt(difficultyOptions[difficulty])
+    const TOTAL_TILES = parseInt(difficulties[difficulty])
     const emojis = new Map()
 
     while (emojis.size < TOTAL_TILES) {
-      const index = random.range(0, tilesets[tileSet].length - 1)
-      const entry = tilesets[tileSet][index]
+      const index = random.range(0, tilesets[tileset].length - 1)
+      const entry = tilesets[tileset][index]
       emojis.set(entry.emoji, entry.label)
     }
 
@@ -79,7 +84,7 @@ function App() {
         }
       })
       .sort((a, b) => a.id.localeCompare(b.id))
-  }, [tileSet, difficulty, seed])
+  }, [tileset, difficulty, seed])
 
   const handleReveal = useCallback(
     (e) => {
@@ -94,7 +99,10 @@ function App() {
         ]).then((failures) => {
           selectionRef.current = null
           setScore((prev) =>
-            failures.reduce((total, item) => total + item, prev),
+            failures.reduce(
+              (total, item) => total + item,
+              prev === '' ? 0 : prev,
+            ),
           )
           setFinished(() => tiles.length / 2 === ++flippedCountRef.current)
         })
@@ -117,11 +125,37 @@ function App() {
         return
       }
       if (key === 'difficulty') setDifficulty(value)
-      if (key === 'tileset') setTileSet(value)
+      if (key === 'tileset') setTileset(value)
       if (key === 'seed') setSeed(value)
       reset(false)
     },
     [reset],
+  )
+
+  const dialogEntries = useMemo(
+    () => [
+      {
+        id: 'settings',
+        label: 'settings',
+        panel: <Settings seed={seed} onSettingChange={onSettingChange} />,
+      },
+      {
+        id: 'help',
+        label: 'help',
+        panel: <Help />,
+      },
+      {
+        id: 'debug',
+        label: 'tile display',
+        panel: <DebugTileDisplay />,
+      },
+      {
+        id: 'high-scores',
+        label: 'high scores',
+        panel: <HighScoresView difficulty={difficulty} tileset={tileset} />,
+      },
+    ],
+    [seed, onSettingChange, tileset, difficulty],
   )
 
   return (
@@ -130,18 +164,18 @@ function App() {
 
       <fieldset className={cx(game, gameCard)}>
         <legend>
-          <MainMenuDialog
-            onSettingChange={onSettingChange}
-            seed={seed}
-            difficulty={difficulty}
-            tileset={tileSet}
-            finished={finished}
-          />
+          <MainMenuDialog finished={finished}>
+            <TabList entries={dialogEntries} />
+          </MainMenuDialog>
           <dl className={gameState}>
             <dt>game id</dt>
             <dd>{seed}</dd>
-            <dt>score</dt>
-            <dd>{score}</dd>
+            {score !== '' && (
+              <>
+                <dt>score</dt>
+                <dd>{score}</dd>
+              </>
+            )}
           </dl>
         </legend>
 
@@ -157,14 +191,17 @@ function App() {
         ))}
       </fieldset>
 
-      <Victory
-        onClose={reset}
-        tileset={tileSet}
-        difficulty={difficulty}
-        seed={seed}
-        score={score}
-        finished={finished}
-      />
+      <Victory onClose={reset} finished={finished}>
+        <HighScoresForm
+          seed={seed}
+          tileset={tileset}
+          difficulty={difficulty}
+          score={score}
+          onSubmitNewScore={() => setScore('')}
+        />
+        <h3>High Scores</h3>
+        <HighScoresView tileset={tileset} difficulty={difficulty} />
+      </Victory>
     </>
   )
 }

@@ -11,7 +11,7 @@
 // might get there eventually for now this will be isolated , exposed via specific api for high scores
 
 import * as tilesets from './data/index'
-import { difficultyOptions } from './Settings'
+import { difficulties } from './Settings'
 
 import {
   memo,
@@ -106,7 +106,7 @@ export const HighScoresProvider = ({ children }) => {
     for (const [key, entry] of Object.entries(storageValue)) {
       const deserialized = deserializeKey(key)
       if (
-        !difficultyOptions[deserialized.difficulty] ||
+        !difficulties[deserialized.difficulty] ||
         !tilesets[deserialized.tileset]
       ) {
         continue
@@ -141,7 +141,7 @@ export const HighScoresProvider = ({ children }) => {
 
   const qualifiesForNewHighScore = useCallback(
     ({ tileset, difficulty, score }) => {
-      highScoreState
+      if (score === '') return false
       const data = highScoreDataRef.current
       const key = serializeKey({ tileset, difficulty })
       if (!data.get(key)) return true
@@ -155,6 +155,7 @@ export const HighScoresProvider = ({ children }) => {
       if (i < HIGH_SCORES_TO_KEEP) return true
       return false
     },
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
     [highScoreState],
   )
 
@@ -185,11 +186,13 @@ export const HighScoresForm = memo(function HighScoresForm({
   score,
   seed,
   tileset,
+  onSubmitNewScore,
 }) {
   const ctx = useContext(HighScoresContext)
   const [name, setName] = useState('')
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
     ctx.addNewHighScore({
       difficulty,
       score,
@@ -197,15 +200,22 @@ export const HighScoresForm = memo(function HighScoresForm({
       tileset,
       name,
     })
+    onSubmitNewScore?.(e)
   }
 
   if (!ctx.qualifiesForNewHighScore({ tileset, difficulty, score })) {
-    return null
+    return (
+      <form method="dialog">
+        <button>New Game</button>
+      </form>
+    )
   }
 
   return (
     <>
-      <p>You qualify for a new high score</p>
+      <p>
+        You scored {score} on seed #{seed} and difficulty {difficulty}
+      </p>
       <form method="dialog" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name" />

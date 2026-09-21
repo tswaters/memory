@@ -1,18 +1,6 @@
-import { memo, useMemo, useEffect, useRef } from 'react'
+import { memo, useEffect, useRef } from 'react'
 
-import { Settings } from './Settings'
-import Help from './Help'
-import DebugTileDisplay from './DebugTileDisplay'
-import TabList from './TabList'
-import { HighScoresView } from './HighScores'
-
-export default memo(function MainMenuDialog({
-  seed,
-  difficulty,
-  tileset,
-  onSettingChange,
-  finished,
-}) {
+export default memo(function MainMenuDialog({ children, finished }) {
   const dialogRef = useRef(null)
 
   useEffect(() => {
@@ -32,32 +20,6 @@ export default memo(function MainMenuDialog({
     }
   }, [finished])
 
-  const dialogEntries = useMemo(
-    () => [
-      {
-        id: 'settings',
-        label: 'settings',
-        panel: <Settings seed={seed} onSettingChange={onSettingChange} />,
-      },
-      {
-        id: 'help',
-        label: 'help',
-        panel: <Help />,
-      },
-      {
-        id: 'debug',
-        label: 'tile display',
-        panel: <DebugTileDisplay />,
-      },
-      {
-        id: 'high-scores',
-        label: 'high scores',
-        panel: <HighScoresView difficulty={difficulty} tileset={tileset} />,
-      },
-    ],
-    [seed, onSettingChange, tileset, difficulty],
-  )
-
   return (
     <>
       <button
@@ -74,8 +36,8 @@ export default memo(function MainMenuDialog({
             aria-label="Close"
             onClick={() => dialogRef.current.close()}
           />
-          <TabList entries={dialogEntries} />
         </form>
+        {children}
       </dialog>
     </>
   )
