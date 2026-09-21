@@ -1,6 +1,6 @@
 import { memo, useRef, useState, useCallback } from 'react'
 import Card from './Card'
-import { offset } from './Card.css'
+import { offset, help } from './Card.css'
 
 export default memo(function Help() {
   const card1Ref = useRef(null)
@@ -44,7 +44,7 @@ export default memo(function Help() {
   }, [])
 
   return (
-    <>
+    <div className={help}>
       {[0, 1].includes(stage) && (
         <>
           <p>Click a card to flip it over</p>
@@ -94,6 +94,6 @@ export default memo(function Help() {
           </p>
         </>
       )}
-    </>
+    </div>
   )
 })

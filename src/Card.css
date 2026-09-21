@@ -22,12 +22,15 @@ baed on a given orientation, flip the h/w properties
   }
 }
 
+.help .card {
+  width: 200px;
+  height: 20vh;
+}
+
 .card {
   position: relative;
   user-select: none;
   border: var(--border-width) solid var(--global-color-primary);
-  width: 200px;
-  height: 20vh;
   cursor: pointer;
   font-size: 5vw;
   transform-style: preserve-3d;

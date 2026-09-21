@@ -1,4 +1,4 @@
-import { useCallback, useState, useRef, useMemo, useEffect } from 'react'
+import { useCallback, useState, useRef, useMemo } from 'react'
 import cx from 'classnames'
 
 import { darkMode, lightMode } from './index.css'
@@ -7,12 +7,10 @@ import { game as gameCard } from './Card.css'
 
 import * as tilesets from './data'
 
-import { Settings, difficultyOptions, getFallback } from './Settings'
+import { difficultyOptions, getFallback } from './Settings'
 
 import Card from './Card'
-import Help from './Help'
-import TabList from './TabList'
-import DebugTileDisplay from './DebugTileDisplay'
+import MainMenuDialog from './MainMenuDialog'
 
 // minstd_rand
 // this is a pseudo-random number generator that needs an initial seed
@@ -34,7 +32,6 @@ const rnd = (s) => {
 }
 
 function App() {
-  const dialogRef = useRef(null)
   const [seed, setSeed] = useState(() => Math.floor(Math.random() * 500))
   const [score, setScore] = useState(0)
 
@@ -94,60 +91,19 @@ function App() {
     }
   }, [])
 
-  useEffect(() => {
-    function handleKeyDown(e) {
-      if (e.key === 'Escape' && !dialogRef.current.open) {
-        dialogRef.current.showModal()
-        e.preventDefault()
+  const onSettingChange = useCallback((key, value) => {
+    if (key === 'theme') {
+      document.body.classList.remove(darkMode, lightMode)
+      if (value != null) {
+        document.body.classList.add(value === 'DARK' ? darkMode : lightMode)
       }
+      return
     }
-
-    document.addEventListener('keydown', handleKeyDown)
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-    }
+    if (key === 'difficulty') setDifficulty(value)
+    if (key === 'tileset') setTileSet(value)
+    if (key === 'seed') setSeed(value)
+    setScore(0)
   }, [])
-
-  const dialogEntries = useMemo(
-    () => [
-      {
-        id: 'settings',
-        label: 'settings',
-        panel: (
-          <Settings
-            seed={seed}
-            onSettingChange={(key, value) => {
-              if (key === 'theme') {
-                document.body.classList.remove(darkMode, lightMode)
-                if (value != null) {
-                  document.body.classList.add(
-                    value === 'DARK' ? darkMode : lightMode,
-                  )
-                }
-                return
-              }
-              if (key === 'difficulty') setDifficulty(value)
-              if (key === 'tileset') setTileSet(value)
-              if (key === 'seed') setSeed(value)
-              setScore(0)
-            }}
-          />
-        ),
-      },
-      {
-        id: 'help',
-        label: 'help',
-        panel: <Help />,
-      },
-      {
-        id: 'debug',
-        label: 'tile display',
-        panel: <DebugTileDisplay />,
-      },
-    ],
-    [seed],
-  )
 
   return (
     <>
@@ -155,13 +111,7 @@ function App() {
 
       <fieldset className={cx(game, gameCard)}>
         <legend>
-          <button
-            onClick={() => dialogRef.current.showModal()}
-            aria-label="Settings Menu / New Game / Etc"
-            style={{ float: 'right' }}
-          >
-            ⋮
-          </button>
+          <MainMenuDialog onSettingChange={onSettingChange} seed={seed} />
           <dl className={gameState}>
             <dt>game id</dt>
             <dd>{seed}</dd>
@@ -181,17 +131,6 @@ function App() {
           />
         ))}
       </fieldset>
-
-      <dialog ref={dialogRef}>
-        Memory {window.APP_VERSION}
-        <form method="dialog">
-          <button
-            aria-label="Close"
-            onClick={() => dialogRef.current.close()}
-          />
-          <TabList entries={dialogEntries} />
-        </form>
-      </dialog>
     </>
   )
 }
