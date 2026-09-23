@@ -18,12 +18,20 @@ baed on a given orientation, flip the h/w properties
   @media (orientation: portrait) {
     width: calc(100% / round(sqrt(sibling-count() / 1.618)) - 2px);
     height: calc(100% / round(sqrt(sibling-count() / 1.618) * 1.618) - 2px);
-    font-size: calc(50vh / round(sqrt(sibling-count() / 1.618) * 1.618) - 10vh);
+    font-size: clamp(
+      72pt,
+      calc(50vh / round(sqrt(sibling-count() / 1.618) * 1.618) - 10vh),
+      40vh
+    );
   }
   @media (orientation: landscape) {
     width: calc(100% / round(sqrt(sibling-count() / 1.618) * 1.618) - 2px);
     height: calc(100% / round(sqrt(sibling-count() / 1.618)) - 2px);
-    font-size: calc(50vh / round(sqrt(sibling-count() / 1.618)) - 10vh);
+    font-size: clamp(
+      72pt,
+      calc(50vh / round(sqrt(sibling-count() / 1.618)) - 10vh),
+      40vh
+    );
   }
 }
 
