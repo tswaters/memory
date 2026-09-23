@@ -9,6 +9,15 @@ import {
 
 import { card, failure, success, offset } from './Card.css'
 
+// this component is almost the antithesis of good react component. it doesn't use state at all
+// if it ever re-renders, there's probably a bug somewhere with one of the props
+// we keep the dom updated via refs in various web animation api handlers, and use data-* for state (failure count)
+// the aria-expanded & aria-labels are technically dynamic here and could benefit from doing react things
+// problem with that is one of trust - what can and will react do with this element while my transform should be playing
+// I've decided in this case to not trust react with non-static data, in theory it should do nothing (and has proven to)
+// this is a strange section of react lore where mutations are OK, don't need to worry about props, state or events. (it's rather nice)
+// just make sure to keep track of things properly and the snakes won't jump out of pandora's box
+
 const _Card = forwardRef(function Card({ onReveal, ...props }, forwardRef) {
   const rotatedRef = useRef(false)
   const flippedRef = useRef(false)

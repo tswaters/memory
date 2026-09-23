@@ -200,7 +200,7 @@ function App() {
           onSubmitNewScore={() => setScore('')}
         />
         <h3>High Scores</h3>
-        <HighScoresView tileset={tileset} difficulty={difficulty} />
+        <HighScoresView tileset={tileset} difficulty={difficulty} seed={seed} />
       </Victory>
     </>
   )

@@ -8,6 +8,9 @@ the three in use work out to:  total=r/c ; 6=3x2 ; 24=6x4 ; 60=10x6
 these are also possible - 40=8x5; (prohibitively difficult) 104=13x8; 160=16x10
 i thoght 24 -> 40 was too small a gap, so went with 60 instead.
 
+in practice these values work out to 100% / 6  or 100% / 4  (for 6x4)
+the font-sizes will take around half the height's value (works out pretty close)
+
 baed on a given orientation, flip the h/w properties
 */
 
@@ -15,16 +18,19 @@ baed on a given orientation, flip the h/w properties
   @media (orientation: portrait) {
     width: calc(100% / round(sqrt(sibling-count() / 1.618)) - 2px);
     height: calc(100% / round(sqrt(sibling-count() / 1.618) * 1.618) - 2px);
+    font-size: calc(50vh / round(sqrt(sibling-count() / 1.618) * 1.618) - 10vh);
   }
   @media (orientation: landscape) {
     width: calc(100% / round(sqrt(sibling-count() / 1.618) * 1.618) - 2px);
     height: calc(100% / round(sqrt(sibling-count() / 1.618)) - 2px);
+    font-size: calc(50vh / round(sqrt(sibling-count() / 1.618)) - 10vh);
   }
 }
 
 .help .card {
-  width: 200px;
-  height: 20vh;
+  width: 175px;
+  height: 175px;
+  font-size: 125px;
 }
 
 .card {
@@ -32,7 +38,7 @@ baed on a given orientation, flip the h/w properties
   user-select: none;
   border: var(--border-width) solid var(--global-color-primary);
   cursor: pointer;
-  font-size: 5vw;
+  line-height: 100%;
   transform-style: preserve-3d;
   backface-visibility: hidden;
   background: repeating-linear-gradient(
