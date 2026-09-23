@@ -60,7 +60,7 @@ function App() {
 
   const tiles = useMemo(() => {
     const random = rnd(seed)
-    const TOTAL_TILES = parseInt(difficulties[difficulty])
+    const TOTAL_TILES = parseInt(difficulties[difficulty], 10)
     const emojis = new Map()
 
     while (emojis.size < TOTAL_TILES) {

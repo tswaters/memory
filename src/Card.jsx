@@ -36,8 +36,8 @@ const _Card = forwardRef(function Card({ onReveal, ...props }, forwardRef) {
             return flipAnimation(false).finished
           })
           .then(() => {
-            const fails = parseInt(btnRef.current.dataset.failures ?? '0')
-            btnRef.current.dataset.failures = fails + 1
+            btnRef.current.dataset.failures =
+              parseInt(btnRef.current.dataset.failures ?? '0', 10) + 1
           })
       },
       success(_disable = true) {
@@ -46,7 +46,7 @@ const _Card = forwardRef(function Card({ onReveal, ...props }, forwardRef) {
         return pulseAnimation().finished.then(() => {
           btnRef.current.classList.remove(success)
           btnRef.current.disabled = _disable
-          return parseInt(btnRef.current.dataset.failures ?? '0')
+          return parseInt(btnRef.current.dataset.failures ?? '0', 10)
         })
       },
     }

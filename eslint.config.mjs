@@ -10,6 +10,7 @@ export default defineConfig([
     extends: [eslintJs.configs.recommended],
     rules: {
       'no-unused-vars': 'warn',
+      radix: 'warn',
     },
   },
   {
