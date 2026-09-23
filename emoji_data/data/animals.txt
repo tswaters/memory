@@ -107,6 +107,7 @@
 1F433                                                  ; fully-qualified     # 🐳 E0.6 spouting whale
 1F40B                                                  ; fully-qualified     # 🐋 E1.0 whale
 1F42C                                                  ; fully-qualified     # 🐬 E0.6 dolphin
+1FACD                                                  ; fully-qualified     # 🫍 E17.0 orca
 1F9AD                                                  ; fully-qualified     # 🦭 E13.0 seal
 1F41F                                                  ; fully-qualified     # 🐟 E0.6 fish
 1F420                                                  ; fully-qualified     # 🐠 E0.6 tropical fish

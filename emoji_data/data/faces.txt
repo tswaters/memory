@@ -96,6 +96,7 @@
 1F62F                                                  ; fully-qualified     # 😯 E1.0 hushed face
 1F632                                                  ; fully-qualified     # 😲 E0.6 astonished face
 1F633                                                  ; fully-qualified     # 😳 E0.6 flushed face
+1FAEA                                                  ; fully-qualified     # 🫪 E17.0 distorted face
 1F97A                                                  ; fully-qualified     # 🥺 E11.0 pleading face
 1F979                                                  ; fully-qualified     # 🥹 E14.0 face holding back tears
 1F626                                                  ; fully-qualified     # 😦 E1.0 frowning face with open mouth
