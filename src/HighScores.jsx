@@ -126,37 +126,42 @@ export const HighScoresProvider = ({ children }) => {
         let newVal = data.get(key)
         if (newVal == null) data.set(key, (newVal = []))
 
-        newVal.push({
-          seed,
-          score,
-          name,
-          id: Math.random().toString().substr(3),
+        const newId = Math.random().toString().substr(3)
+
+        newVal.push({ seed, score, name, id: newId })
+
+        newVal.sort((a, b) => {
+          if (a.score < b.score) return -1
+          if (a.score > b.score) return 1
+          if (a.id === newId) return -1
+          if (b.id === newId) return 1
+          return 0
         })
-        newVal.sort((a, b) => a.score > b.score)
+
+        if (newVal.length > HIGH_SCORES_TO_KEEP) {
+          newVal.splice(
+            HIGH_SCORES_TO_KEEP,
+            newVal.length - HIGH_SCORES_TO_KEEP,
+          )
+        }
 
         const serialized = serializeMap(data)
-        const newHash = deriveHash(serialized)
 
         localStorage.setItem('high-scores', serialized)
-        setHighScoreState(newHash)
+        setHighScoreState(deriveHash(serialized))
       },
 
       qualifiesForNewHighScore({ tileset, difficulty, score }) {
         if (score === '') return false
 
         const key = serializeKey({ tileset, difficulty })
-        const data = highScoreDataRef.current
+        const data = highScoreDataRef.current?.get?.(key) ?? null
 
-        if (!data.get(key)) return true
-
-        let i = 0
-        for (const entry of data.get(key)) {
-          if (score < entry.score) return true
-          if (++i > HIGH_SCORES_TO_KEEP) break
-        }
-
-        if (i < HIGH_SCORES_TO_KEEP) return true
-        return false
+        return (
+          data == null ||
+          data.length < HIGH_SCORES_TO_KEEP ||
+          data.some((entry) => score <= entry.score)
+        )
       },
     }),
     [highScoreState],
@@ -221,7 +226,11 @@ export const HighScoresForm = memo(function HighScoresForm({
   )
 })
 
-export const HighScoresView = memo(({ seed, tileset, difficulty }) => {
+export const HighScoresView = memo(function HighScoresView({
+  seed,
+  tileset,
+  difficulty,
+}) {
   const ctx = useContext(HighScoresContext)
   return (
     <table key={ctx.highScoreState} width="100%" border={1}>

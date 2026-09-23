@@ -27,8 +27,6 @@ export default memo(function Victory({ onClose, children, finished }) {
   return (
     <dialog ref={dialogRef}>
       <button aria-label="Close" onClick={() => dialogRef.current.close()} />
-      <h2>You win!</h2>
-      <hr />
       {children}
     </dialog>
   )

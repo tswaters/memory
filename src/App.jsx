@@ -192,6 +192,8 @@ function App() {
       </fieldset>
 
       <Victory onClose={reset} finished={finished}>
+        <h2>You win!</h2>
+        <hr />
         <HighScoresForm
           seed={seed}
           tileset={tileset}
@@ -199,7 +201,6 @@ function App() {
           score={score}
           onSubmitNewScore={() => setScore('')}
         />
-        <h3>High Scores</h3>
         <HighScoresView tileset={tileset} difficulty={difficulty} seed={seed} />
       </Victory>
     </>
