@@ -1,37 +1,45 @@
 /*
 the w/h calculations here work out to lay things out based on # of tiles (sibling count)
+there's a <legend /> in the fieldset with buttons, subtract 1 from sibling count
+
+rows = sqrt( $total / $ratio )
+cols = $rows * $ratio
+
+based on a given orientation, flip the h/w properties
 this was calculated manually, it's a static list, other values don't fit.
 
-rows = sqrt( $total / $ratio ), and  cols = $rows * $ratio ;  2px is the gutter.
+total    portrait    landscape     in use
+6        2 x 3       3 x 2            yes
+24       4 x 6       6 x 4            yes
+40       5 x 8       8 x 5             no
+60       6 x 10      10 x 6           yes
+104      8 x 13      13 x 8            no
+160      10 x 16     16 x 10           no
 
-the three in use work out to:  total=r/c ; 6=3x2 ; 24=6x4 ; 60=10x6
-these are also possible - 40=8x5; (prohibitively difficult) 104=13x8; 160=16x10
-i thoght 24 -> 40 was too small a gap, so went with 60 instead.
+probably not enough room for the prohibitively difficult total values anyway!
 
-in practice these values work out to 100% / 6  or 100% / 4  (for 6x4)
-the font-sizes will take around half the height's value (works out pretty close)
-
-baed on a given orientation, flip the h/w properties
+100% has different meaning for font size, so use vh's instead, it's around half available height's value
+(100% for others already accounts for labels & borders and padding, etc. `v` will not, eyeball it!)
+this is also "font height", setting it to *exactly* the height of the button results in width overflows
+too small and it doesn't work. "about half" works out, because we need 2-3 glyphs potentially (failure counts)
+i think 10+ failures might overflow the button.
+also it's *font-sizing* it's going to be different based on so many different variables: os + browser + fonts, etc.
+even using "view heights" is weird, "there's no rule in the book here that says the viewport can't define font size!"
 */
 
 .game .card {
+  --sm-total: round(sqrt((sibling-count() - 1) / 1.618));
+  --lg-total: round(sqrt((sibling-count() - 1) / 1.618) * 1.618);
+
   @media (orientation: portrait) {
-    width: calc(100% / round(sqrt(sibling-count() / 1.618)) - 2px);
-    height: calc(100% / round(sqrt(sibling-count() / 1.618) * 1.618) - 2px);
-    font-size: clamp(
-      72pt,
-      calc(50vh / round(sqrt(sibling-count() / 1.618) * 1.618) - 10vh),
-      40vh
-    );
+    width: calc(100% / var(--sm-total) - 2px);
+    height: calc(100% / var(--lg-total) - 2px);
+    font-size: clamp(72pt, calc(50vh / var(--lg-total) - 10vh), 40vh);
   }
   @media (orientation: landscape) {
-    width: calc(100% / round(sqrt(sibling-count() / 1.618) * 1.618) - 2px);
-    height: calc(100% / round(sqrt(sibling-count() / 1.618)) - 2px);
-    font-size: clamp(
-      72pt,
-      calc(50vh / round(sqrt(sibling-count() / 1.618)) - 10vh),
-      40vh
-    );
+    width: calc(100% / var(--lg-total) - 2px);
+    height: calc(100% / var(--sm-total) - 2px);
+    font-size: clamp(72pt, calc(50vh / var(--sm-total) - 10vh), 40vh);
   }
 }
 
@@ -77,15 +85,16 @@ baed on a given orientation, flip the h/w properties
   transform: rotateY(180deg);
 
   /*
-    this is a little hacky ; there's two elements here, the button & it's after pseudo element
-    they should both be the same size exactly, and only 1 is visible at the same time, swap one in for the other using transforms
-    problem is , ::after is the child of the button, and absolute positioning is based on the padding-box (doesn't include border)
-    so, if both are showing a border, when it swaps out, the :after appears -Npx off, based on size of the parent's border
-    to fix that, apply negative positioning to the element, same size as the border. this has the side effect of pulling borders too
-    it winds up slightly "off" , less than it should be.  reset the box-sizing of the pseudo element back to content-box so it doesn't do that
-    setting border-box is part of reset stylesheet... this may be the first case I've seen where content-box actually makes sense.
-    anyway, this makes the two of the line up exactly, height/width & borders.
+  this is a little hacky ; there's two elements here, the button & it's after pseudo element
+  they should both be the same size exactly, and only 1 is visible at the same time, swap one in for the other using transforms
+  problem is , ::after is the child of the button, and absolute positioning is based on the padding-box (doesn't include border)
+  so, if both are showing a border, when it swaps out, the :after appears -Npx off, based on size of the parent's border
+  to fix that, apply negative positioning to the element, same size as the border. this has the side effect of pulling borders too
+  it winds up slightly "off" , less than it should be.  reset the box-sizing of the pseudo element back to content-box so it doesn't do that
+  setting border-box is part of reset stylesheet... this may be the first case I've seen where content-box actually makes sense.
+  anyway, this makes the two of the line up exactly, height/width & borders.
   */
+
   position: absolute;
   box-sizing: content-box;
   width: 100%;
