@@ -100,7 +100,7 @@ const _Card = forwardRef(function Card({ onReveal, ...props }, forwardRef) {
       animation.commitStyles()
       btnRef.current.ariaExpanded = flippedRef.current
       btnRef.current.ariaLabel = flippedRef.current
-        ? btnRef.current.dataset.label
+        ? `${btnRef.current.dataset.label} ${btnRef.current.dataset.failures ?? ''}`
         : 'Card'
       btnRef.current.disabled = prevDisabled
     })
