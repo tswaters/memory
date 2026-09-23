@@ -225,7 +225,7 @@ export const HighScoresView = memo(({ seed, tileset, difficulty }) => {
   const ctx = useContext(HighScoresContext)
   return (
     <table key={ctx.highScoreState} width="100%" border={1}>
-      <caption>
+      <caption style={{ captionSide: 'bottom' }}>
         <p>
           high scores for {tileset} and {difficulty}
         </p>
