@@ -122,6 +122,17 @@
 1F608                                                  ; fully-qualified     # 😈 E1.0 smiling face with horns
 1F47F                                                  ; fully-qualified     # 👿 E0.6 angry face with horns
 1F480                                                  ; fully-qualified     # 💀 E0.6 skull
+2620                                                   ; unqualified         # ☠ E1.0 skull and crossbones
+
+# subgroup: face-costume
+1F4A9                                                  ; fully-qualified     # 💩 E0.6 pile of poo
+1F921                                                  ; fully-qualified     # 🤡 E3.0 clown face
+1F479                                                  ; fully-qualified     # 👹 E0.6 ogre
+1F47A                                                  ; fully-qualified     # 👺 E0.6 goblin
+1F47B                                                  ; fully-qualified     # 👻 E0.6 ghost
+1F47D                                                  ; fully-qualified     # 👽 E0.6 alien
+1F47E                                                  ; fully-qualified     # 👾 E0.6 alien monster
+1F916                                                  ; fully-qualified     # 🤖 E1.0 robot
 
 # subgroup: cat-face
 1F63A                                                  ; fully-qualified     # 😺 E0.6 grinning cat
@@ -138,3 +149,29 @@
 1F648                                                  ; fully-qualified     # 🙈 E0.6 see-no-evil monkey
 1F649                                                  ; fully-qualified     # 🙉 E0.6 hear-no-evil monkey
 1F64A                                                  ; fully-qualified     # 🙊 E0.6 speak-no-evil monkey
+
+# group: Animals & Nature
+
+1F435                                                  ; fully-qualified     # 🐵 E0.6 monkey face
+1F436                                                  ; fully-qualified     # 🐶 E0.6 dog face
+1F431                                                  ; fully-qualified     # 🐱 E0.6 cat face
+1F42F                                                  ; fully-qualified     # 🐯 E0.6 tiger face
+1F434                                                  ; fully-qualified     # 🐴 E0.6 horse face
+1F42E                                                  ; fully-qualified     # 🐮 E0.6 cow face
+1F437                                                  ; fully-qualified     # 🐷 E0.6 pig face
+1F42D                                                  ; fully-qualified     # 🐭 E0.6 mouse face
+1F430                                                  ; fully-qualified     # 🐰 E0.6 rabbit face
+1F432                                                  ; fully-qualified     # 🐲 E0.6 dragon face
+
+# group: Travel & Places
+
+# subgroup: sky & weather
+
+1F31A                                                  ; fully-qualified     # 🌚 E1.0 new moon face
+1F31B                                                  ; fully-qualified     # 🌛 E0.6 first quarter moon face
+1F31C                                                  ; fully-qualified     # 🌜 E0.7 last quarter moon face
+1F31D                                                  ; fully-qualified     # 🌝 E1.0 full moon face
+1F31E                                                  ; fully-qualified     # 🌞 E1.0 sun with face
+1F32C                                                  ; unqualified         # 🌬 E0.7 wind face
+2603                                                   ; unqualified         # ☃ E0.7 snowman
+1F383                                                  ; fully-qualified     # 🎃 E0.6 jack-o-lantern
