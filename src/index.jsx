@@ -1,4 +1,5 @@
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
+
 import App from './App.jsx'
 import { HighScoresProvider } from './HighScores.jsx'
 import { darkMode, lightMode } from './index.css'
@@ -31,9 +32,9 @@ if (removed.length > 0) {
   console.log(`Removed {${removed.map((r) => r.label)}}`)
 }
 
-render(
+const root = createRoot(document.getElementById('root'))
+root.render(
   <HighScoresProvider>
     <App />
   </HighScoresProvider>,
-  document.getElementById('root'),
 )
