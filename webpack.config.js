@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin')
+const OfflinePlugin = require('@lcdp/offline-plugin')
 const packageJson = require('./package.json')
 
 module.exports = (env, argv) => {
@@ -84,6 +85,7 @@ module.exports = (env, argv) => {
         filename: `[name]${chunkhash}.css`,
         chunkFilename: `[id]${chunkhash}.css`,
       }),
+      new OfflinePlugin(),
     ],
   }
 }

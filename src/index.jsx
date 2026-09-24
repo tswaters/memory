@@ -4,6 +4,9 @@ import App from './App.jsx'
 import { HighScoresProvider } from './HighScores.jsx'
 import { darkMode, lightMode } from './index.css'
 import * as tilesets from './data/index.js'
+import * as OfflinePluginRuntime from '@lcdp/offline-plugin/runtime'
+
+OfflinePluginRuntime.install()
 
 const theme = window.localStorage.getItem('THEME')
 if (theme) document.body.classList.add(theme === 'DARK' ? darkMode : lightMode)
