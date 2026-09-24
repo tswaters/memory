@@ -23,6 +23,10 @@ module.exports = (env, argv) => {
       path: path.resolve('./dist'),
       filename: `memory${chunkhash}.js`,
     },
+    externals: {
+      react: 'React',
+      'react-dom': 'ReactDOM',
+    },
     optimization: {
       minimizer: [new CssMinimizerWebpackPlugin({}), '...'],
     },
@@ -35,6 +39,12 @@ module.exports = (env, argv) => {
           test: /\.jsx?$/,
           exclude: /node_modules/,
           loader: 'babel-loader',
+          options: {
+            sourceMaps: true,
+            retainLines: true,
+            plugins: ['@babel/plugin-transform-runtime'],
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
         },
         {
           test: /\.(css|less)$/,

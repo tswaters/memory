@@ -48,17 +48,6 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
-  "babel": {
-    "plugins": [
-      "@babel/plugin-transform-runtime"
-    ],
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react"
-    ],
-    "sourceMaps": true,
-    "retainLines": true
-  },
   "prettier": {
     "semi": false,
     "singleQuote": true
