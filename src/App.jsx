@@ -1,4 +1,4 @@
-import { useCallback, useState, useRef, useMemo } from 'react'
+import { useCallback, useState, useEffect, useRef, useMemo } from 'react'
 import cx from 'classnames'
 
 import { darkMode, lightMode } from './index.css'
@@ -15,8 +15,7 @@ import TabList from './TabList'
 import { HighScoresForm, HighScoresView } from './HighScores'
 
 import Card from './Card'
-import MainMenuDialog from './MainMenuDialog'
-import Victory from './Victory'
+import Dialog from './Dialog'
 
 // minstd_rand
 // this is a pseudo-random number generator that needs an initial seed
@@ -40,8 +39,10 @@ const rnd = (s) => {
 function App() {
   const [seed, setSeed] = useState(() => Math.floor(Math.random() * 500))
   const [score, setScore] = useState('')
-  const [finished, setFinished] = useState(false)
+
   const flippedCountRef = useRef(0)
+  const mainMenuDialogRef = useRef(null)
+  const victoryDialogRef = useRef(null)
 
   const tilesRef = useRef(new Map())
   const selectionRef = useRef(null)
@@ -51,10 +52,22 @@ function App() {
   )
   const [tileset, setTileset] = useState(() => getFallback('tileset', tilesets))
 
+  useEffect(() => {
+    function handleKeyDown(e) {
+      if (victoryDialogRef.current.open) return // don't do this if the other dialog is open
+      if (e.key === 'Escape' && !mainMenuDialogRef.current.open) {
+        mainMenuDialogRef.current.showModal()
+        e.preventDefault()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
   const reset = useCallback((reseed = false) => {
     flippedCountRef.current = 0
     if (reseed) setSeed(Math.floor(Math.random() * 500))
-    setFinished(false)
     setScore('')
   }, [])
 
@@ -104,7 +117,9 @@ function App() {
               prev === '' ? 0 : prev,
             ),
           )
-          setFinished(() => tiles.length / 2 === ++flippedCountRef.current)
+          if (tiles.length / 2 === ++flippedCountRef.current) {
+            victoryDialogRef.current.showModal()
+          }
         })
       } else {
         tilesRef.current.get(id).fail()
@@ -164,9 +179,26 @@ function App() {
 
       <fieldset className={cx(game, gameCard)}>
         <legend>
-          <MainMenuDialog finished={finished}>
+          <button
+            onClick={() => mainMenuDialogRef.current.showModal()}
+            aria-label="Settings Menu / New Game / Etc"
+            style={{ float: 'right' }}
+          >
+            ⋮
+          </button>
+          <Dialog ref={mainMenuDialogRef}>
+            <p>Memory {window.APP_VERSION}</p>
             <TabList entries={dialogEntries} />
-          </MainMenuDialog>
+            <p>
+              <a
+                rel="noreferrer noopener"
+                target="_blank"
+                href="https://github.com/tswaters/memory"
+              >
+                Fork me on GitHub!
+              </a>
+            </p>
+          </Dialog>
           <dl className={gameState}>
             <dt>game id</dt>
             <dd>{seed}</dd>
@@ -191,7 +223,7 @@ function App() {
         ))}
       </fieldset>
 
-      <Victory onClose={reset} finished={finished}>
+      <Dialog ref={victoryDialogRef} onClose={reset}>
         <h2>You win!</h2>
         <hr />
         <HighScoresForm
@@ -202,7 +234,7 @@ function App() {
           onSubmitNewScore={() => setScore('')}
         />
         <HighScoresView tileset={tileset} difficulty={difficulty} seed={seed} />
-      </Victory>
+      </Dialog>
     </>
   )
 }
