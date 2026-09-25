@@ -44,7 +44,10 @@ module.exports = (env, argv) => {
             sourceMaps: true,
             retainLines: true,
             plugins: ['@babel/plugin-transform-runtime'],
-            presets: ['@babel/preset-env', '@babel/preset-react'],
+            presets: [
+              '@babel/preset-env',
+              ['@babel/preset-react', { development: !isProd }],
+            ],
           },
         },
         {
