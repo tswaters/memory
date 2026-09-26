@@ -21,17 +21,24 @@ const data = {} // raw emoji data, flat as needed (simple ones are easy)
 for (const _thing of things) {
   const thing = path.basename(_thing, '.txt')
 
-  const lines = await fs.readFile(_thing, 'utf-8')
+  const allLines = await fs.readFile(_thing, 'utf-8')
+
+  const lines = allLines
+    .split('\n')
+    .filter((x) => !(x === '' || x.startsWith('#')))
 
   const matches = lines
-    .split('\n')
-    .filter((x) => x !== '')
-    .map((x) => /# (.+?) E[0-9.]+ (.+?)$/g.exec(x))
+    .map((x) => /^(.+?);.*# (.+?) E[0-9.]+ (.+?)$/g.exec(x))
     .filter(Boolean)
+    .map(([, arraystr, emoji, label]) => {
+      return {
+        // codepoints: arraystr.trim().split(' '), // for later
+        emoji,
+        label: label.replace('flag: ', ''),
+      }
+    })
 
-  data[thing] = matches.map(([, emoji, label]) => {
-    return { emoji, label: label.replace('flag: ', '') }
-  })
+  data[thing] = matches
 }
 
 const outputs = {}
@@ -65,14 +72,10 @@ const skintones = {
 //   '\u{27A1}': 'right',
 // }
 
-// this manWoman map can/should also include "person", \u{1F467}
-// but listing all three usually has a slight hair difference between man/person
-// not enough difference for memory
-
 const manWoman = {
   '\u{1F468}': 'man',
   '\u{1F469}': 'woman',
-  //'\u{1F9D1}': 'person',
+  '\u{1F9D1}': 'person',
 }
 
 // transgender is listed for completion's sake, in practice it doesn't work anywhere
@@ -80,14 +83,12 @@ const manWoman = {
 // it's actually only used with the trans flag (which is already encoded as part of flags)
 
 const gendersSigns = {
-  '\u{2640}': 'female',
-  '\u{2642}': 'male',
+  '\u{2640}': 'woman',
+  '\u{2642}': 'man',
   // '\u{26A7}': 'transgender',
 }
 
 const doesNotSupportSkintone = [
-  'zombie',
-  'genie',
   'mechanical arm',
   'mechanical leg',
   'brain',
@@ -100,21 +101,6 @@ const doesNotSupportSkintone = [
   'tongue',
   'mouth',
   'biting lip',
-]
-
-const doesNotSupportsGender = [
-  'ninja',
-  'person with crown',
-  'prince',
-  'princess',
-  'person with skullcap',
-  'woman with headscarf',
-  'woman dancing',
-  'man dancing',
-  'horse racing',
-  'snowboarder',
-  'person taking bath',
-  'person in bed',
 ]
 
 // these all support skin tone & gender in practice
@@ -145,55 +131,33 @@ outputs.body_parts = data.body_parts.reduce((memo, entry) => {
 
 outputs.people = []
 
-// the base support {thing}{skintone}{zwj}{modifier}
-//
-// 1F9D1 1F3FC 200D 1F9B1                                 ; fully-qualified     # 🧑🏼‍🦱 E12.1 person: medium-light skin tone, curly hair
+outputs.people.push(
+  ...data.people_skintone.flatMap((entry) =>
+    Object.entries(skintones).map(([skincode, skinlabel]) => ({
+      emoji: `${entry.emoji}\u200D${skincode}`,
+      label: `${entry.label} (${skinlabel})`,
+    })),
+  ),
+)
 
 outputs.people.push(
-  ...data.people_base.reduce((memo, entry) => {
+  ...data.people_skintone_gender.reduce((memo, entry) => {
     Object.entries(skintones).forEach(([skincode, skinlabel]) => {
       memo.push({
-        emoji: `${entry.emoji}\u200D${skincode}`,
-        label: `${entry.label} (${skinlabel})`,
+        emoji: `${entry.emoji}${skincode}`,
+        label: `${entry.label} ${skinlabel})`,
       })
-    })
-    return memo
-  }, []),
-)
-
-// gestures support up to {gender}{zwj}{thing}{zwj}{skin}{dircode}
-
-// some of them don't (no gender: ninja, etc.; no skintone: zombie)
-
-outputs.people.push(
-  ...data.people_gesture.reduce((memo, entry) => {
-    Object.entries(skintones).forEach(([skincode, skinlabel]) => {
       Object.entries(gendersSigns).forEach(([gendercode, genderlabel]) => {
         memo.push({
-          emoji: `${entry.emoji}\u200D${skincode}\u200D${gendercode}`,
-          label: `${genderlabel} ${entry.label} (${skinlabel})`,
+          emoji: `${entry.emoji}${skincode}\u200D${gendercode}`,
+          label: `${entry.label} ${genderlabel} (${skinlabel})`,
         })
-      })
-    })
-    return memo
-  }, []),
-)
 
-// 1F468 1F3FC 200D 1F9AF 200D 27A1                       ; minimally-qualified # 👨🏼‍🦯‍➡ E15.1 man with white cane facing right: medium-light skin tone
-
-outputs.people.push(
-  ...data.people_modifiers.reduce((memo, entry) => {
-    Object.entries(skintones).forEach(([skincode, skinlabel]) => {
-      Object.entries(manWoman).forEach(([gendercode, genderlabel]) => {
-        memo.push({
-          emoji: `${gendercode}${skincode}\u200D${entry.emoji}`,
-          label: `${genderlabel} ${entry.label} (${skinlabel})`,
-        })
         // in practice there is only 1 direction supported for these joiners
         if (supportsDirection.includes(entry.label)) {
           memo.push({
-            emoji: `${gendercode}${skincode}\u200D${entry.emoji}\u200D\u27A1`,
-            label: `${genderlabel} ${entry.label} facing right (${skinlabel})`,
+            emoji: `${entry.emoji}${skincode}\u200D${gendercode}\u200D\u27A1`,
+            label: `${entry.label} ${genderlabel} facing right (${skinlabel})`,
           })
         }
       })
@@ -202,73 +166,28 @@ outputs.people.push(
   }, []),
 )
 
-// people roles can support {thing}{skin}{zwj}{gender_code}{zwj}{direction}
-
-// 1F9DF 200D 2640 FE0F                                   ; fully-qualified     # 🧟‍♀️ E5.0 woman zombie
-
 outputs.people.push(
-  ...data.people_roles
-    .filter((x) => doesNotSupportSkintone.includes(x.label))
-    .reduce((memo, entry) => {
-      Object.entries(gendersSigns).forEach(([gendercode, genderlabel]) => {
+  ...data.people_modifiers.reduce((memo, entry) => {
+    Object.entries(skintones).forEach(([skincode, skinlabel]) => {
+      Object.entries(manWoman).forEach(([gendercode, genderlabel]) => {
         memo.push({
-          emoji: `${entry.emoji}\u200D${gendercode}`,
-          label: `${genderlabel} ${entry.label}`,
+          emoji: `${gendercode}\u200D${skincode}\u200D${entry.emoji}`,
+          label: `${genderlabel} ${skinlabel} (${entry.label})`,
         })
       })
-      return memo
-    }, []),
+    })
+    return memo
+  }, []),
 )
-
-// people roles support {thing}{skin}{zwj}{gender_code}
-
-// 1F977 1F3FD                                            ; fully-qualified     # 🥷🏽 E13.0 ninja: medium skin tone
 
 outputs.people.push(
-  ...data.people_roles
-    .filter((x) => doesNotSupportsGender.includes(x.label))
-    .reduce((memo, entry) => {
-      Object.entries(skintones).forEach(([skincode, skinlabel]) => {
-        memo.push({
-          emoji: `${entry.emoji}\u200D${skincode}`,
-          label: `${entry.label} (${skinlabel})`,
-        })
-      })
-      return memo
-    }, []),
+  ...data.people_gender.flatMap((entry) =>
+    Object.entries(gendersSigns).map(([gendercode, genderlabel]) => ({
+      emoji: `${entry.emoji}\u200D${gendercode}`,
+      label: `${entry.label} (${genderlabel})`,
+    })),
+  ),
 )
-
-// 1F6B6 1F3FE 200D 2640 FE0F 200D 27A1                   ; minimally-qualified # 🚶🏾‍♀️‍➡ E15.1 woman walking facing right: medium-dark skin tone
-
-outputs.people.push(
-  ...data.people_roles
-    .filter(
-      (x) =>
-        !(
-          doesNotSupportsGender.includes(x.label) ||
-          doesNotSupportSkintone.includes(x.label)
-        ),
-    )
-    .reduce((memo, entry) => {
-      Object.entries(skintones).forEach(([skincode, skinlabel]) => {
-        Object.entries(gendersSigns).forEach(([gendercode, genderlabel]) => {
-          memo.push({
-            emoji: `${entry.emoji}${skincode}\u200D${gendercode}`,
-            label: `${entry.label} ${genderlabel} (${skinlabel})`,
-          })
-          if (supportsDirection.includes(entry.label)) {
-            memo.push({
-              emoji: `${entry.emoji}${skincode}\u200D${gendercode}\u200D\u27A1`,
-              label: `${entry.label} ${genderlabel} facing right (${skinlabel})`,
-            })
-          }
-        })
-      })
-      return memo
-    }, []),
-)
-
-// no modifiers for some of these (it's just troll, skier, fencer)
 
 outputs.people.push(...data.people_others)
 

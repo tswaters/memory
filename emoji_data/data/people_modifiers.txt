@@ -1,3 +1,5 @@
+# these get applied to {manWoman}{skintone} combinations
+
 2695                                                   ; unqualified         # ⚕ E4.0 medical symbol
 1F393                                                  ; fully-qualified     # 🎓 E0.6 graduation cap
 1F3EB                                                  ; fully-qualified     # 🏫 E0.6 school
@@ -18,7 +20,6 @@
 1F9AF                                                  ; fully-qualified     # 🦯 E12.0 white cane
 1F9BC                                                  ; fully-qualified     # 🦼 E12.0 motorized wheelchair
 1F9BD                                                  ; fully-qualified     # 🦽 E12.0 manual wheelchair
-
 1F9B0                                                  ; component           # 🦰 E11.0 red hair
 1F9B1                                                  ; component           # 🦱 E11.0 curly hair
 1F9B3                                                  ; component           # 🦳 E11.0 white hair

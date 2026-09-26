@@ -1,0 +1,28 @@
+
+# these all support different skin tones, but not gender
+
+1F476                                                  ; fully-qualified     # 👶 E0.6 baby
+1F9D2                                                  ; fully-qualified     # 🧒 E5.0 child
+1F468                                                  ; fully-qualified     # 👨 E0.6 man
+1F469                                                  ; fully-qualified     # 👩 E0.6 woman
+1F466                                                  ; fully-qualified     # 👦 E0.6 boy
+1F467                                                  ; fully-qualified     # 👧 E0.6 girl
+1F9D3                                                  ; fully-qualified     # 🧓 E5.0 older person
+1F474                                                  ; fully-qualified     # 👴 E0.6 old man
+1F475                                                  ; fully-qualified     # 👵 E0.6 old woman
+1F977                                                  ; fully-qualified     # 🥷 E13.0 ninja
+1FAC5                                                  ; fully-qualified     # 🫅 E14.0 person with crown
+1F934                                                  ; fully-qualified     # 🤴 E3.0 prince
+1F478                                                  ; fully-qualified     # 👸 E0.6 princess
+1F472                                                  ; fully-qualified     # 👲 E0.6 person with skullcap
+1F9D5                                                  ; fully-qualified     # 🧕 E5.0 woman with headscarf
+1F483                                                  ; fully-qualified     # 💃 E0.6 woman dancing
+1F57A                                                  ; fully-qualified     # 🕺 E3.0 man dancing
+1F6C0                                                  ; fully-qualified     # 🛀 E0.6 person taking bath
+1F6CC                                                  ; fully-qualified     # 🛌 E1.0 person in bed
+1F3C7                                                  ; fully-qualified     # 🏇 E1.0 horse racing
+1F3C2                                                  ; fully-qualified     # 🏂 E0.6 snowboarder
+1F930                                                  ; fully-qualified     # 🤰 E3.0 pregnant woman
+1FAC3                                                  ; fully-qualified     # 🫃 E14.0 pregnant man
+1FAC4                                                  ; fully-qualified     # 🫄 E14.0 pregnant person
+1F931                                                  ; fully-qualified     # 🤱 E5.0 breast-feeding

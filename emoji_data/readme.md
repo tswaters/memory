@@ -15,12 +15,6 @@ This runs as a pre-start script, all the JSON files are ignored by default in th
 
 Some of the sets support zero-width joiners to provide for more combinations, these are built-out programatically
 
-Some fun oddities:
+Based on the name of the file, each of the types of joiners will be enumerated (manwoman/skintone)
 
-- roles have two types, "gender that is skin tone and thing" (people_roles.txt); or "thing that is skin tone and gender" (people_roles2.txt)
-
-- a few of the "thing that is skin tone and gender" doesn't support gender actually, ninja and a few others.
-
-- a few don't support skintone (genie, zombies)
-
-- a few don't support gender OR skintone (troll, hairy monster) (monster is new, doesn't render)
+There's also "modifiers" which gets added to the end of manwoman/skintone combos to get different characters (e.g., 🌾 = farmer)

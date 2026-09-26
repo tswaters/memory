@@ -1,0 +1,5 @@
+
+# these will get split out by the gender modifiers (neither supports skintone)
+
+1F9DE                                                  ; fully-qualified     # 🧞 E5.0 genie
+1F9DF                                                  ; fully-qualified     # 🧟 E5.0 zombie
