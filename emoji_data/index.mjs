@@ -116,37 +116,53 @@ const supportsDirection = [
 // most of the hand gestures can support multiple skin tones
 
 outputs.body_parts = data.body_parts.reduce((memo, entry) => {
+  memo.push({ emoji: entry.emoji, label: entry.label })
+
   if (doesNotSupportSkintone.includes(entry.label)) {
-    memo.push(entry)
-  } else {
-    Object.entries(skintones).forEach(([skincode, skinlabel]) => {
-      memo.push({
-        emoji: `${entry.emoji}\u200D${skincode}`,
-        label: `${entry.label} ${skinlabel}`,
-      })
-    })
+    return memo
   }
+
+  memo.push(
+    ...Object.entries(skintones).map(([skincode, skinlabel]) => ({
+      emoji: `${entry.emoji}\u200D${skincode}`,
+      label: `${entry.label} (${skinlabel})`,
+    })),
+  )
+
   return memo
 }, [])
 
 outputs.people = []
 
 outputs.people.push(
-  ...data.people_skintone.flatMap((entry) =>
-    Object.entries(skintones).map(([skincode, skinlabel]) => ({
-      emoji: `${entry.emoji}\u200D${skincode}`,
-      label: `${entry.label} (${skinlabel})`,
-    })),
-  ),
+  ...data.people_skintone.reduce((memo, entry) => {
+    memo.push({ emoji: entry.emoji, label: entry.label })
+
+    if (doesNotSupportSkintone.includes(entry.label)) {
+      return memo
+    }
+
+    memo.push(
+      ...Object.entries(skintones).map(([skincode, skinlabel]) => ({
+        emoji: `${entry.emoji}\u200D${skincode}`,
+        label: `${entry.label} (${skinlabel})`,
+      })),
+    )
+
+    return memo
+  }, []),
 )
 
 outputs.people.push(
   ...data.people_skintone_gender.reduce((memo, entry) => {
+    memo.push({ emoji: entry.emoji, label: entry.label })
+
     Object.entries(skintones).forEach(([skincode, skinlabel]) => {
       memo.push({
         emoji: `${entry.emoji}${skincode}`,
-        label: `${entry.label} ${skinlabel})`,
+        label: `${entry.label} (${skinlabel})`,
       })
+
       Object.entries(gendersSigns).forEach(([gendercode, genderlabel]) => {
         memo.push({
           emoji: `${entry.emoji}${skincode}\u200D${gendercode}`,
@@ -168,12 +184,22 @@ outputs.people.push(
 
 outputs.people.push(
   ...data.people_modifiers.reduce((memo, entry) => {
-    Object.entries(skintones).forEach(([skincode, skinlabel]) => {
-      Object.entries(manWoman).forEach(([gendercode, genderlabel]) => {
+    Object.entries(manWoman).forEach(([gendercode, genderlabel]) => {
+      memo.push({
+        emoji: `${gendercode}\u200D${entry.emoji}`,
+        label: `${genderlabel} (${entry.label})`,
+      })
+      Object.entries(skintones).forEach(([skincode, skinlabel]) => {
         memo.push({
           emoji: `${gendercode}\u200D${skincode}\u200D${entry.emoji}`,
           label: `${genderlabel} ${skinlabel} (${entry.label})`,
         })
+        if (supportsDirection.includes(entry.label)) {
+          memo.push({
+            emoji: `${gendercode}\u200D${skincode}\u200D${entry.emoji}\u200D\u27A1`,
+            label: `${genderlabel} ${skinlabel} facing right (${entry.label})`,
+          })
+        }
       })
     })
     return memo
