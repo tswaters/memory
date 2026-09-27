@@ -54,7 +54,7 @@
 1F439                                                  ; fully-qualified     # 🐹 E0.6 hamster
 1F430                                                  ; fully-qualified     # 🐰 E0.6 rabbit face
 1F407                                                  ; fully-qualified     # 🐇 E1.0 rabbit
-1F43F                                                  ; unqualified         # 🐿 E0.7 chipmunk
+1F43F FE0F                                             ; fully-qualified     # 🐿️ E0.7 chipmunk
 1F9AB                                                  ; fully-qualified     # 🦫 E13.0 beaver
 1F994                                                  ; fully-qualified     # 🦔 E5.0 hedgehog
 1F987                                                  ; fully-qualified     # 🦇 E3.0 bat

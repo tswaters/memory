@@ -70,7 +70,7 @@
 1F9B7                                                  ; fully-qualified     # 🦷 E11.0 tooth
 1F9B4                                                  ; fully-qualified     # 🦴 E11.0 bone
 1F440                                                  ; fully-qualified     # 👀 E0.6 eyes
-1F441                                                  ; unqualified         # 👁 E0.7 eye
+1F441 FE0F                                             ; fully-qualified     # 👁️ E0.7 eye
 1F445                                                  ; fully-qualified     # 👅 E0.6 tongue
 1F444                                                  ; fully-qualified     # 👄 E0.6 mouth
 1FAE6                                                  ; fully-qualified     # 🫦 E14.0 biting lip

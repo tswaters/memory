@@ -17,36 +17,42 @@ const outputPath = path.join(__dirname, '../src/data')
 //
 
 const data = {} // raw emoji data, flat as needed (simple ones are easy)
+const knownLabels = new Map()
+
+const addEntry = (codepoints, label) => {
+  const emoji = String.fromCodePoint(...codepoints)
+  if (!knownLabels.has(emoji)) knownLabels.set(emoji, label)
+  return codepoints
+}
 
 for (const _thing of things) {
   const thing = path.basename(_thing, '.txt')
 
-  const allLines = await fs.readFile(_thing, 'utf-8')
+  const lines = await fs.readFile(_thing, 'utf-8')
 
-  const lines = allLines
-    .split('\n')
-    .filter((x) => !(x === '' || x.startsWith('#')))
-
-  const matches = lines
-    .map((x) => /^(.+?);.*# (.+?) E[0-9.]+ (.+?)$/g.exec(x))
-    .filter(Boolean)
-    .map(([, arraystr, emoji, label]) => {
-      return {
-        // codepoints: arraystr.trim().split(' '), // for later
-        emoji,
-        label: label.replace('flag: ', ''),
-      }
-    })
-
-  data[thing] = matches
+  data[thing] = Object.fromEntries(
+    lines
+      .split('\n')
+      .filter((x) => !(x === '' || x.startsWith('#')))
+      .map((x) => /^(.+?);.*E[0-9.]+ (.+?)$/g.exec(x))
+      .filter(Boolean)
+      .map(([, str, label]) => [
+        str
+          .trim()
+          .split(' ')
+          .map((p) => parseInt(p, 16)),
+        label.replace('flag: ', ''),
+      ])
+      .map(([codepoints, label]) => [label, addEntry(codepoints, label)]),
+  )
 }
 
-const outputs = {}
+const products = {}
 
 // some of these are really simple
 
 ;['faces', 'flags', 'food', 'plants', 'places', 'animals'].forEach((thing) => {
-  outputs[thing] = data[thing]
+  products[thing] = Object.values(data[thing])
 })
 
 // others will require more processing with ZWJ combinations
@@ -58,11 +64,11 @@ const outputs = {}
 // but vscode shows a blank square (weird), so specifying keys in \u{} format
 
 const skintones = {
-  '\u{1F3FB}': 'light skin',
-  '\u{1F3FC}': 'medium light skin',
-  '\u{1F3FD}': 'medium skin',
-  '\u{1F3FE}': 'medium dark skin',
-  '\u{1F3FF}': 'dark skin',
+  0x1f3fb: 'light skin',
+  0x1f3fc: 'medium light skin',
+  0x1f3fd: 'medium skin',
+  0x1f3fe: 'medium dark skin',
+  0x1f3ff: 'dark skin',
 }
 
 // left is the default i suppose. this only gets uesd in a few cases around sports
@@ -73,9 +79,9 @@ const skintones = {
 // }
 
 const manWoman = {
-  '\u{1F468}': 'man',
-  '\u{1F469}': 'woman',
-  '\u{1F9D1}': 'person',
+  0x1f468: 'man',
+  0x1f469: 'woman',
+  0x1f9d1: 'person',
 }
 
 // transgender is listed for completion's sake, in practice it doesn't work anywhere
@@ -83,8 +89,8 @@ const manWoman = {
 // it's actually only used with the trans flag (which is already encoded as part of flags)
 
 const gendersSigns = {
-  '\u{2640}': 'woman',
-  '\u{2642}': 'man',
+  0x2640: 'woman',
+  0x2642: 'man',
   // '\u{26A7}': 'transgender',
 }
 
@@ -115,107 +121,124 @@ const supportsDirection = [
 
 // most of the hand gestures can support multiple skin tones
 
-outputs.body_parts = data.body_parts.reduce((memo, entry) => {
-  memo.push({ emoji: entry.emoji, label: entry.label })
+products.body_parts = Object.entries(data.body_parts).reduce(
+  (memo, [label, codes]) => {
+    memo.push(codes)
 
-  if (doesNotSupportSkintone.includes(entry.label)) {
-    return memo
-  }
-
-  memo.push(
-    ...Object.entries(skintones).map(([skincode, skinlabel]) => ({
-      emoji: `${entry.emoji}\u200D${skincode}`,
-      label: `${entry.label} (${skinlabel})`,
-    })),
-  )
-
-  return memo
-}, [])
-
-outputs.people = []
-
-outputs.people.push(
-  ...data.people_skintone.reduce((memo, entry) => {
-    memo.push({ emoji: entry.emoji, label: entry.label })
-
-    if (doesNotSupportSkintone.includes(entry.label)) {
+    if (doesNotSupportSkintone.includes(label)) {
       return memo
     }
 
-    memo.push(
-      ...Object.entries(skintones).map(([skincode, skinlabel]) => ({
-        emoji: `${entry.emoji}\u200D${skincode}`,
-        label: `${entry.label} (${skinlabel})`,
-      })),
+    Object.entries(skintones).forEach(([skincode, skinlabel]) => {
+      memo.push(
+        addEntry(codes.concat(0x200d, skincode), `${label} (${skinlabel})`),
+      )
+    })
+
+    return memo
+  },
+  [],
+)
+
+products.people = []
+
+Object.entries(data.people_skintone).forEach(([label, codes]) => {
+  products.people.push(codes)
+
+  if (doesNotSupportSkintone.includes(label)) {
+    return
+  }
+
+  Object.entries(skintones).forEach(([skincode, skinlabel]) => {
+    products.people.push(
+      addEntry(codes.concat(0x200d, skincode), `${label} (${skinlabel})`),
+    )
+  })
+})
+
+Object.entries(data.people_skintone_gender).forEach(([label, codes]) => {
+  products.people.push(codes)
+
+  Object.entries(skintones).forEach(([skincode, skinlabel]) => {
+    products.people.push(
+      addEntry(codes.concat(skincode), `${label} (${skinlabel})`),
     )
 
-    return memo
-  }, []),
-)
+    Object.entries(gendersSigns).forEach(([gendercode, genderlabel]) => {
+      const newCode = codes.concat(skincode, 0x200d, gendercode, 0xfe0f)
 
-outputs.people.push(
-  ...data.people_skintone_gender.reduce((memo, entry) => {
-    memo.push({ emoji: entry.emoji, label: entry.label })
+      products.people.push(
+        addEntry(newCode, `${label} ${genderlabel} (${skinlabel})`),
+      )
+
+      // in practice there is only 1 direction supported for these joiners
+      if (supportsDirection.includes(label)) {
+        products.people.push(
+          addEntry(
+            newCode.concat(0x200d, 0x27a1, 0xfe0f),
+            `${label} ${genderlabel} facing right (${skinlabel})`,
+          ),
+        )
+      }
+    })
+  })
+})
+
+Object.entries(data.people_modifiers).forEach(([label, codes]) => {
+  Object.entries(manWoman).forEach(([gendercode, genderlabel]) => {
+    products.people.push(
+      addEntry([gendercode, 0x200d, ...codes], `${genderlabel} (${label})`),
+    )
 
     Object.entries(skintones).forEach(([skincode, skinlabel]) => {
-      memo.push({
-        emoji: `${entry.emoji}${skincode}`,
-        label: `${entry.label} (${skinlabel})`,
-      })
+      const newCode = [gendercode, skincode, 0x200d, ...codes]
+      products.people.push(
+        addEntry(newCode, `${genderlabel} ${skinlabel} (${label})`),
+      )
 
-      Object.entries(gendersSigns).forEach(([gendercode, genderlabel]) => {
-        memo.push({
-          emoji: `${entry.emoji}${skincode}\u200D${gendercode}`,
-          label: `${entry.label} ${genderlabel} (${skinlabel})`,
-        })
-
-        // in practice there is only 1 direction supported for these joiners
-        if (supportsDirection.includes(entry.label)) {
-          memo.push({
-            emoji: `${entry.emoji}${skincode}\u200D${gendercode}\u200D\u27A1`,
-            label: `${entry.label} ${genderlabel} facing right (${skinlabel})`,
-          })
-        }
-      })
+      if (supportsDirection.includes(label)) {
+        products.people.push(
+          addEntry(
+            newCode.concat(0x200d, 0x27a1, 0xfe0f),
+            `${genderlabel} ${skinlabel} facing right (${label})`,
+          ),
+        )
+      }
     })
-    return memo
-  }, []),
-)
+  })
+})
 
-outputs.people.push(
-  ...data.people_modifiers.reduce((memo, entry) => {
-    Object.entries(manWoman).forEach(([gendercode, genderlabel]) => {
-      memo.push({
-        emoji: `${gendercode}\u200D${entry.emoji}`,
-        label: `${genderlabel} (${entry.label})`,
-      })
-      Object.entries(skintones).forEach(([skincode, skinlabel]) => {
-        memo.push({
-          emoji: `${gendercode}\u200D${skincode}\u200D${entry.emoji}`,
-          label: `${genderlabel} ${skinlabel} (${entry.label})`,
-        })
-        if (supportsDirection.includes(entry.label)) {
-          memo.push({
-            emoji: `${gendercode}\u200D${skincode}\u200D${entry.emoji}\u200D\u27A1`,
-            label: `${genderlabel} ${skinlabel} facing right (${entry.label})`,
-          })
-        }
-      })
-    })
-    return memo
-  }, []),
-)
+Object.entries(data.people_gender).forEach(([label, codes]) => {
+  products.people.push(codes)
+  Object.entries(gendersSigns).forEach(([gendercode, genderlabel]) => {
+    products.people.push(
+      addEntry(
+        codes.concat(0x200d, gendercode, 0xfe0f),
+        `${label} (${genderlabel})`,
+      ),
+    )
+  })
+})
 
-outputs.people.push(
-  ...data.people_gender.flatMap((entry) =>
-    Object.entries(gendersSigns).map(([gendercode, genderlabel]) => ({
-      emoji: `${entry.emoji}\u200D${gendercode}`,
-      label: `${entry.label} (${genderlabel})`,
-    })),
-  ),
-)
+Object.values(data.people_others).forEach((codes) => {
+  products.people.push(codes)
+})
 
-outputs.people.push(...data.people_others)
+const outputs = {}
+
+Object.entries(products).forEach(([label, arrayOfCodes]) => {
+  outputs[label] = arrayOfCodes.map((codepoints) => {
+    const emoji = String.fromCodePoint(...codepoints)
+    return {
+      emoji,
+      label: knownLabels.get(emoji),
+      codepoints: codepoints
+        .map((x) => x.toString(16))
+        .join(',')
+        .toUpperCase(),
+    }
+  })
+})
 
 // with all the outputs defined, spit out json files & an index file
 
@@ -225,9 +248,6 @@ for (const [thing, newData] of Object.entries(outputs)) {
   exports.push(
     `export {default as ${thing}} from './${path.basename(thing, '.txt')}'`,
   )
-
-  // ones last sweep, apply fe0f to everything
-  newData.forEach((x) => (x.emoji = `${x.emoji}\u{fe0f}`))
 
   await fs.writeFile(
     path.join(outputPath, `${thing}.json`),

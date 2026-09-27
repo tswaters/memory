@@ -123,7 +123,7 @@
 1F608                                                  ; fully-qualified     # 😈 E1.0 smiling face with horns
 1F47F                                                  ; fully-qualified     # 👿 E0.6 angry face with horns
 1F480                                                  ; fully-qualified     # 💀 E0.6 skull
-2620                                                   ; unqualified         # ☠ E1.0 skull and crossbones
+2620 FE0F                                              ; fully-qualified     # ☠️ E1.0 skull and crossbones
 
 # subgroup: face-costume
 1F4A9                                                  ; fully-qualified     # 💩 E0.6 pile of poo
@@ -173,6 +173,6 @@
 1F31C                                                  ; fully-qualified     # 🌜 E0.7 last quarter moon face
 1F31D                                                  ; fully-qualified     # 🌝 E1.0 full moon face
 1F31E                                                  ; fully-qualified     # 🌞 E1.0 sun with face
-1F32C                                                  ; unqualified         # 🌬 E0.7 wind face
-2603                                                   ; unqualified         # ☃ E0.7 snowman
+1F32C FE0F                                             ; fully-qualified     # 🌬️ E0.7 wind face
+2603 FE0F                                              ; fully-qualified     # ☃️ E0.7 snowman
 1F383                                                  ; fully-qualified     # 🎃 E0.6 jack-o-lantern

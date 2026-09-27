@@ -24,16 +24,22 @@ ctx.font = `${testHeight}px system`
 const removed = []
 const idealWidth = ctx.measureText('🇨🇦').width
 
-for (const value of Object.values(tilesets)) {
+for (const [key, value] of Object.entries(tilesets)) {
   for (let i = value.length - 1; i >= 0; i--) {
     const thisvalue = value[i]
     const actualWidth = ctx.measureText(thisvalue.emoji).width
-    if (actualWidth !== idealWidth) removed.push(...value.splice(i, 1))
+    if (actualWidth !== idealWidth) {
+      const [entry] = value.splice(i, 1)
+      removed.push(entry)
+      console.log('Removed', entry)
+    }
   }
+
+  console.log(`${key}: ${value.length} tiles`)
 }
 
 if (removed.length > 0) {
-  console.log(`Removed {${removed.map((r) => r.label)}}`)
+  console.log(`Removed ${removed.length}`)
 }
 
 const root = createRoot(document.getElementById('root'))

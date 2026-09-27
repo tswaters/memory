@@ -15,7 +15,7 @@
 1F471                                                  ; fully-qualified     # 👱 E0.6 person: blond hair
 1F9D4                                                  ; fully-qualified     # 🧔 E5.0 person: beard
 1F46E                                                  ; fully-qualified     # 👮 E0.6 police officer
-1F575                                                  ; unqualified         # 🕵 E0.7 detective
+1F575 FE0F                                             ; fully-qualified     # 🕵️ E0.7 detective
 1F482                                                  ; fully-qualified     # 💂 E0.6 guard
 1F477                                                  ; fully-qualified     # 👷 E0.6 construction worker
 1F473                                                  ; fully-qualified     # 👳 E0.6 person wearing turban
@@ -35,12 +35,12 @@
 1F9CD                                                  ; fully-qualified     # 🧍 E12.0 person standing
 1F9CE                                                  ; fully-qualified     # 🧎 E12.0 person kneeling
 1F9D7                                                  ; fully-qualified     # 🧗 E5.0 person climbing
-1F3CC                                                  ; unqualified         # 🏌 E0.7 person golfing
+1F3CC FE0F                                             ; fully-qualified     # 🏌️ E0.7 person golfing
 1F3C4                                                  ; fully-qualified     # 🏄 E0.6 person surfing
 1F6A3                                                  ; fully-qualified     # 🚣 E1.0 person rowing boat
 1F3CA                                                  ; fully-qualified     # 🏊 E0.6 person swimming
-26F9                                                   ; unqualified         # ⛹ E0.7 person bouncing ball
-1F3CB                                                  ; unqualified         # 🏋 E0.7 person lifting weights
+26F9 FE0F                                              ; fully-qualified     # ⛹️ E0.7 person bouncing ball
+1F3CB FE0F                                             ; fully-qualified     # 🏋️ E0.7 person lifting weights
 1F6B4                                                  ; fully-qualified     # 🚴 E1.0 person biking
 1F6B5                                                  ; fully-qualified     # 🚵 E1.0 person mountain biking
 1F938                                                  ; fully-qualified     # 🤸 E3.0 person cartwheeling
