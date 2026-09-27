@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint .",
     "format": "prettier --write .",
-    "pregenerate": "rimraf dist src/data/*.*",
+    "pregenerate": "rimraf dist/*.* src/data/*.*",
     "generate": "node ./emoji_data/index.mjs",
     "prebuild": "npm run generate",
     "build": "webpack --mode=production",
