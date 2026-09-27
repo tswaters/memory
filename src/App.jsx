@@ -187,8 +187,8 @@ function App() {
             ⋮
           </button>
           <Dialog ref={mainMenuDialogRef}>
-            <p>Memory {window.APP_VERSION}</p>
             <TabList entries={dialogEntries} />
+            <p>Memory {window.APP_VERSION}</p>
             <p>
               <a
                 rel="noreferrer noopener"

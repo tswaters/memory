@@ -12,7 +12,7 @@
   touch-action: manipulation;
 }
 
-:where(html, body, menu, fieldset, button, dl, dt, dd) {
+:where(html, body, menu, fieldset, button, dl, dt, dd, dialog) {
   padding: 0;
   margin: 0;
 }
@@ -74,14 +74,21 @@ body {
   line-height: 1.618;
 }
 
+button {
+  min-width: 80px;
+  min-height: 80px;
+}
+
+dialog {
+  margin: auto;
+}
+
 dialog button[aria-label='Close'] {
   position: absolute;
   align-content: center;
   text-align: center;
-  top: 0;
-  right: 0;
-  width: 100px;
-  height: 100px;
+  top: 1rem;
+  right: 1rem;
   &::after {
     color: red;
     content: '🗙';
