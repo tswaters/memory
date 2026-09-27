@@ -232,10 +232,11 @@ Object.entries(products).forEach(([label, arrayOfCodes]) => {
     return {
       emoji,
       label: knownLabels.get(emoji),
-      codepoints: codepoints
-        .map((x) => x.toString(16))
-        .join(',')
-        .toUpperCase(),
+      // later!
+      // codepoints: codepoints
+      //   .map((x) => x.toString(16))
+      //   .join(',')
+      //   .toUpperCase(),
     }
   })
 })
