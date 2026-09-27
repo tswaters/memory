@@ -24,6 +24,9 @@ ctx.font = `${testHeight}px system`
 const removed = []
 const idealWidth = ctx.measureText('🇨🇦').width
 
+let total = 0
+const logTable = {}
+
 for (const [key, value] of Object.entries(tilesets)) {
   for (let i = value.length - 1; i >= 0; i--) {
     const thisvalue = value[i]
@@ -32,15 +35,21 @@ for (const [key, value] of Object.entries(tilesets)) {
       const [entry] = value.splice(i, 1)
       removed.push(entry)
       console.log('Removed', entry)
+    } else {
+      total++
     }
   }
 
-  console.log(`${key}: ${value.length} tiles`)
+  logTable[key] = value.length
 }
 
 if (removed.length > 0) {
   console.log(`Removed ${removed.length}`)
 }
+
+logTable.total = total
+
+console.table(logTable)
 
 const root = createRoot(document.getElementById('root'))
 root.render(
