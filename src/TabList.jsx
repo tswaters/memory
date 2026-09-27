@@ -14,6 +14,7 @@ const entries = useMemo(() => [
         id: 'panel2',
         label: 'panel2',
         panel: <Panel2 />,
+        selected: true,
     },
 ], [])
 
@@ -23,6 +24,9 @@ const entries = useMemo(() => [
 export default memo(function Tabs({ entries }) {
   const tabsRef = useRef(new Map())
   const panelsRef = useRef(new Map())
+
+  let selectedIndex = entries.findIndex((x) => x.selected)
+  if (selectedIndex === -1) selectedIndex = 0
 
   return (
     <div className={tabList}>
@@ -70,8 +74,8 @@ export default memo(function Tabs({ entries }) {
             type="button"
             role="tab"
             aria-controls={`panel-${entry.id}`}
-            aria-selected={index === 0}
-            tabIndex={index === 0 ? 0 : -1}
+            aria-selected={index === selectedIndex}
+            tabIndex={index === selectedIndex ? 0 : -1}
             onClick={(e) => {
               const id = e.target.id
               const panelId = e.target.getAttribute('aria-controls')
@@ -103,7 +107,7 @@ export default memo(function Tabs({ entries }) {
           role="tabpanel"
           aria-labelledby={`tab-${entry.id}`}
           tabIndex={0}
-          hidden={index !== 0}
+          hidden={index !== selectedIndex}
         >
           {entry.panel}
         </div>
