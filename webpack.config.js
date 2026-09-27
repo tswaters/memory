@@ -8,6 +8,7 @@ const packageJson = require('./package.json')
 
 module.exports = (env, argv) => {
   const isProd = argv.mode === 'production'
+  const OFFLINE_PLUGIN_ENABLED = isProd
   const chunkhash = isProd ? '.[chunkhash]' : ''
   const devtool = isProd ? 'hidden-source-map' : 'eval-source-map'
   const localIdentName = isProd
@@ -76,6 +77,7 @@ module.exports = (env, argv) => {
     plugins: [
       new webpack.DefinePlugin({
         'window.APP_VERSION': JSON.stringify(packageJson.version),
+        'window.OFFLINE_PLUGIN_ENABLED': JSON.stringify(OFFLINE_PLUGIN_ENABLED),
       }),
       new HtmlWebpackPlugin({
         template: './src/App.html',
@@ -88,11 +90,12 @@ module.exports = (env, argv) => {
         filename: `[name]${chunkhash}.css`,
         chunkFilename: `[id]${chunkhash}.css`,
       }),
-      new WorkboxPlugin.GenerateSW({
-        clientsClaim: true,
-        skipWaiting: true,
-        swDest: 'sw.js',
-      }),
-    ],
+      OFFLINE_PLUGIN_ENABLED &&
+        new WorkboxPlugin.GenerateSW({
+          clientsClaim: true,
+          skipWaiting: true,
+          swDest: 'sw.js',
+        }),
+    ].filter(Boolean),
   }
 }

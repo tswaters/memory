@@ -5,7 +5,9 @@ import { HighScoresProvider } from './HighScores.jsx'
 import { darkMode, lightMode } from './index.css'
 import * as tilesets from './data/index.js'
 
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js', {})
+if (window.OFFLINE_PLUGIN_ENABLED) {
+  navigator.serviceWorker?.register?.('sw.js', {})
+}
 
 const theme = window.localStorage.getItem('THEME')
 if (theme) document.body.classList.add(theme === 'DARK' ? darkMode : lightMode)
