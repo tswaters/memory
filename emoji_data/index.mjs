@@ -145,10 +145,6 @@ products.people = []
 Object.entries(data.people_skintone).forEach(([label, codes]) => {
   products.people.push(codes)
 
-  if (doesNotSupportSkintone.includes(label)) {
-    return
-  }
-
   Object.entries(skintones).forEach(([skincode, skinlabel]) => {
     products.people.push(
       addEntry(codes.concat(0x200d, skincode), `${label} (${skinlabel})`),
@@ -158,6 +154,15 @@ Object.entries(data.people_skintone).forEach(([label, codes]) => {
 
 Object.entries(data.people_skintone_gender).forEach(([label, codes]) => {
   products.people.push(codes)
+
+  Object.entries(gendersSigns).forEach(([gendercode, genderlabel]) => {
+    products.people.push(
+      addEntry(
+        codes.concat(0x200d, gendercode, 0xfe0f),
+        `${label} ${genderlabel}`,
+      ),
+    )
+  })
 
   Object.entries(skintones).forEach(([skincode, skinlabel]) => {
     products.people.push(
