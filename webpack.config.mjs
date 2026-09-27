@@ -1,12 +1,12 @@
-const path = require('path')
-const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin')
-const WorkboxPlugin = require('workbox-webpack-plugin')
-const packageJson = require('./package.json')
+import path from 'node:path'
+import webpack from 'webpack'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import CssMinimizerWebpackPlugin from 'css-minimizer-webpack-plugin'
+import WorkboxPlugin from 'workbox-webpack-plugin'
+import packageJson from './package.json' with { type: 'json' }
 
-module.exports = (env, argv) => {
+export default (env, argv) => {
   const isProd = argv.mode === 'production'
   const OFFLINE_PLUGIN_ENABLED = isProd
   const chunkhash = isProd ? '.[chunkhash]' : ''
