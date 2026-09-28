@@ -10,7 +10,7 @@ import * as tilesets from './data'
 import { default as Settings, difficulties, getFallback } from './Settings'
 
 import Help from './Help'
-import DebugTileDisplay from './DebugTileDisplay'
+import Debug from './Debug'
 import TabList from './TabList'
 import { HighScoresForm, HighScoresView } from './HighScores'
 
@@ -39,6 +39,7 @@ const rnd = (s) => {
 function App() {
   const [seed, setSeed] = useState(() => Math.floor(Math.random() * 500))
   const [score, setScore] = useState('')
+  const [debugMode, setDebugMode] = useState(false)
 
   const flippedCountRef = useRef(0)
   const mainMenuDialogRef = useRef(null)
@@ -148,29 +149,30 @@ function App() {
   )
 
   const dialogEntries = useMemo(
-    () => [
-      {
-        id: 'settings',
-        label: 'settings',
-        panel: <Settings seed={seed} onSettingChange={onSettingChange} />,
-      },
-      {
-        id: 'help',
-        label: 'help',
-        panel: <Help />,
-      },
-      {
-        id: 'debug',
-        label: 'tile display',
-        panel: <DebugTileDisplay />,
-      },
-      {
-        id: 'high-scores',
-        label: 'high scores',
-        panel: <HighScoresView difficulty={difficulty} tileset={tileset} />,
-      },
-    ],
-    [seed, onSettingChange, tileset, difficulty],
+    () =>
+      [
+        {
+          id: 'settings',
+          label: 'settings',
+          panel: <Settings seed={seed} onSettingChange={onSettingChange} />,
+        },
+        {
+          id: 'help',
+          label: 'help',
+          panel: <Help />,
+        },
+        {
+          id: 'high-scores',
+          label: 'high scores',
+          panel: <HighScoresView difficulty={difficulty} tileset={tileset} />,
+        },
+        debugMode && {
+          id: 'debug',
+          label: 'debug',
+          panel: <Debug />,
+        },
+      ].filter(Boolean),
+    [seed, onSettingChange, tileset, difficulty, debugMode],
   )
 
   return (
@@ -198,6 +200,19 @@ function App() {
                 Fork me on GitHub!
               </a>
             </p>
+            <button
+              style={{
+                position: 'fixed',
+                right: '5px',
+                bottom: '5px',
+                border: 0,
+                backgroundColor: 'transparent',
+                textShadow: '1px 1px 2px var(--global-color-background)',
+              }}
+              onClick={() => setDebugMode(true)}
+            >
+              π
+            </button>
           </Dialog>
           <dl className={gameState}>
             <dt>game id</dt>

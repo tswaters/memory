@@ -21,35 +21,16 @@ const ctx = canvas.getContext('2d')
 ctx.fillStyle = '#000'
 ctx.font = `${testHeight}px system`
 
-const removed = []
+const removed = (window.REMOVED_TILES = [])
 const idealWidth = ctx.measureText('🇨🇦').width
 
-let total = 0
-const logTable = {}
-
-for (const [key, value] of Object.entries(tilesets)) {
+for (const value of Object.values(tilesets)) {
   for (let i = value.length - 1; i >= 0; i--) {
     const thisvalue = value[i]
     const actualWidth = ctx.measureText(thisvalue.emoji).width
-    if (actualWidth !== idealWidth) {
-      const [entry] = value.splice(i, 1)
-      removed.push(entry)
-      console.log('Removed', entry)
-    } else {
-      total++
-    }
+    if (actualWidth !== idealWidth) removed.push(...value.splice(i, 1))
   }
-
-  logTable[key] = value.length
 }
-
-if (removed.length > 0) {
-  console.log(`Removed ${removed.length}`)
-}
-
-logTable.total = total
-
-console.table(logTable)
 
 const root = createRoot(document.getElementById('root'))
 root.render(
