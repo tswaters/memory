@@ -30,6 +30,7 @@
 1F336 FE0F                                             ; fully-qualified     # 🌶️ E0.7 hot pepper
 1FAD1                                                  ; fully-qualified     # 🫑 E13.0 bell pepper
 1F952                                                  ; fully-qualified     # 🥒 E3.0 cucumber
+1FADD                                                  ; fully-qualified     # 🫝 E18.0 pickle
 1F96C                                                  ; fully-qualified     # 🥬 E11.0 leafy green
 1F966                                                  ; fully-qualified     # 🥦 E5.0 broccoli
 1F9C4                                                  ; fully-qualified     # 🧄 E12.0 garlic

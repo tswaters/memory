@@ -125,6 +125,7 @@
 # subgroup: animal-bug
 1F40C                                                  ; fully-qualified     # 🐌 E0.6 snail
 1F98B                                                  ; fully-qualified     # 🦋 E3.0 butterfly
+1FACC                                                  ; fully-qualified     # 🫌 E18.0 monarch butterfly
 1F41B                                                  ; fully-qualified     # 🐛 E0.6 bug
 1F41C                                                  ; fully-qualified     # 🐜 E0.6 ant
 1F41D                                                  ; fully-qualified     # 🐝 E0.6 honeybee

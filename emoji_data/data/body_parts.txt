@@ -35,6 +35,8 @@
 # subgroup: hand-fingers-closed
 1F44D                                                  ; fully-qualified     # 👍 E0.6 thumbs up
 1F44E                                                  ; fully-qualified     # 👎 E0.6 thumbs down
+1FAF9                                                  ; fully-qualified     # 🫹 E18.0 leftwards thumb sign
+1FAFA                                                  ; fully-qualified     # 🫺 E18.0 rightwards thumb sign
 270A                                                   ; fully-qualified     # ✊ E0.6 raised fist
 1F44A                                                  ; fully-qualified     # 👊 E0.6 oncoming fist
 1F91B                                                  ; fully-qualified     # 🤛 E3.0 left-facing fist

@@ -11,6 +11,7 @@
 1F642                                                  ; fully-qualified     # 🙂 E1.0 slightly smiling face
 1F643                                                  ; fully-qualified     # 🙃 E1.0 upside-down face
 1FAE0                                                  ; fully-qualified     # 🫠 E14.0 melting face
+1FAEB                                                  ; fully-qualified     # 🫫 E18.0 cracking face
 1F609                                                  ; fully-qualified     # 😉 E0.6 winking face
 1F60A                                                  ; fully-qualified     # 😊 E0.6 smiling face with smiling eyes
 1F607                                                  ; fully-qualified     # 😇 E1.0 smiling face with halo

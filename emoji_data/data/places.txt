@@ -125,6 +125,7 @@
 1F6A7                                                  ; fully-qualified     # 🚧 E0.6 construction
 
 # subgroup: transport-water
+1F6D9                                                  ; fully-qualified     # 🛙 E18.0 lighthouse
 2693                                                   ; fully-qualified     # ⚓ E0.6 anchor
 1F6DF                                                  ; fully-qualified     # 🛟 E14.0 ring buoy
 26F5                                                   ; fully-qualified     # ⛵ E0.6 sailboat

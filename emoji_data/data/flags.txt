@@ -110,7 +110,7 @@
 1F1EC 1F1FC                                            ; fully-qualified     # 🇬🇼 E2.0 flag: Guinea-Bissau
 1F1EC 1F1FE                                            ; fully-qualified     # 🇬🇾 E2.0 flag: Guyana
 1F1ED 1F1F0                                            ; fully-qualified     # 🇭🇰 E2.0 flag: Hong Kong SAR China
-1F1ED 1F1F2                                            ; fully-qualified     # 🇭🇲 E2.0 flag: Heard & McDonald Islands
+1F1ED 1F1F2                                            ; fully-qualified     # 🇭🇲 E2.0 flag: Heard Island & McDonald Islands
 1F1ED 1F1F3                                            ; fully-qualified     # 🇭🇳 E2.0 flag: Honduras
 1F1ED 1F1F7                                            ; fully-qualified     # 🇭🇷 E2.0 flag: Croatia
 1F1ED 1F1F9                                            ; fully-qualified     # 🇭🇹 E2.0 flag: Haiti
@@ -214,7 +214,7 @@
 1F1F8 1F1E9                                            ; fully-qualified     # 🇸🇩 E2.0 flag: Sudan
 1F1F8 1F1EA                                            ; fully-qualified     # 🇸🇪 E2.0 flag: Sweden
 1F1F8 1F1EC                                            ; fully-qualified     # 🇸🇬 E2.0 flag: Singapore
-1F1F8 1F1ED                                            ; fully-qualified     # 🇸🇭 E2.0 flag: St. Helena
+1F1F8 1F1ED                                            ; fully-qualified     # 🇸🇭 E2.0 flag: St. Helena, Ascension & Tristan da Cunha
 1F1F8 1F1EE                                            ; fully-qualified     # 🇸🇮 E2.0 flag: Slovenia
 1F1F8 1F1EF                                            ; fully-qualified     # 🇸🇯 E2.0 flag: Svalbard & Jan Mayen
 1F1F8 1F1F0                                            ; fully-qualified     # 🇸🇰 E2.0 flag: Slovakia
@@ -232,7 +232,7 @@
 1F1F9 1F1E6                                            ; fully-qualified     # 🇹🇦 E2.0 flag: Tristan da Cunha
 1F1F9 1F1E8                                            ; fully-qualified     # 🇹🇨 E2.0 flag: Turks & Caicos Islands
 1F1F9 1F1E9                                            ; fully-qualified     # 🇹🇩 E2.0 flag: Chad
-1F1F9 1F1EB                                            ; fully-qualified     # 🇹🇫 E2.0 flag: French Southern Territories
+1F1F9 1F1EB                                            ; fully-qualified     # 🇹🇫 E2.0 flag: French Southern and Antarctic Lands
 1F1F9 1F1EC                                            ; fully-qualified     # 🇹🇬 E2.0 flag: Togo
 1F1F9 1F1ED                                            ; fully-qualified     # 🇹🇭 E2.0 flag: Thailand
 1F1F9 1F1EF                                            ; fully-qualified     # 🇹🇯 E2.0 flag: Tajikistan
