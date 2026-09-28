@@ -49,3 +49,4 @@
 1F93E                                                  ; fully-qualified     # 🤾 E3.0 person playing handball
 1F939                                                  ; fully-qualified     # 🤹 E3.0 person juggling
 1F9D8                                                  ; fully-qualified     # 🧘 E5.0 person in lotus position
+1F46F                                                  ; fully-qualified     # 👯 E0.6 people with bunny ears
