@@ -79,9 +79,9 @@ const skintones = {
 // }
 
 const manWoman = {
+  0x1f9d1: '',
   0x1f468: 'man',
   0x1f469: 'woman',
-  0x1f9d1: 'person',
 }
 
 // transgender is listed for completion's sake, in practice it doesn't work anywhere
@@ -119,6 +119,27 @@ const supportsDirection = [
   'person running',
 ]
 
+// some labels don't make sense when combined, this maps them
+const modifierMap = {
+  'medical symbol': 'medical worker',
+  'graduation cap': 'student',
+  school: 'teacher',
+  'balance scale': 'judge',
+  'sheaf of rice': 'farmer',
+  cooking: 'cook',
+  wrench: 'mechanic',
+  factory: 'factory worker',
+  briefcase: 'office worker',
+  microscope: 'scientist',
+  laptop: 'technologist',
+  microphone: 'singer',
+  'artist palette': 'artist',
+  airplane: 'pilot',
+  'ballet shoes': 'ballet dancer',
+  rocket: 'astraunaut',
+  'fire engine': 'fire fighter',
+}
+
 // most of the hand gestures can support multiple skin tones
 
 products.body_parts = Object.entries(data.body_parts).reduce(
@@ -145,43 +166,66 @@ products.people = []
 Object.entries(data.people_skintone).forEach(([label, codes]) => {
   products.people.push(codes)
 
-  Object.entries(skintones).forEach(([skincode, skinlabel]) => {
+  Object.entries(skintones).forEach(([code2, label2]) => {
     products.people.push(
-      addEntry(codes.concat(0x200d, skincode), `${label} (${skinlabel})`),
+      addEntry(codes.concat(0x200d, code2), `${label} (${label2})`),
     )
   })
 })
 
+const f = (l, l2) => `${l2} ${l.replace(/person:?\s?/g, '')}`
+
 Object.entries(data.people_skintone_gender).forEach(([label, codes]) => {
   products.people.push(codes)
 
-  Object.entries(gendersSigns).forEach(([gendercode, genderlabel]) => {
+  if (supportsDirection.includes(label)) {
     products.people.push(
-      addEntry(
-        codes.concat(0x200d, gendercode, 0xfe0f),
-        `${label} ${genderlabel}`,
-      ),
+      addEntry(codes.concat(0x200d, 0x27a1, 0xfe0f), `${label} facing right`),
     )
+  }
+
+  Object.entries(gendersSigns).forEach(([code2, label2]) => {
+    const newCode = codes.concat(0x200d, code2, 0xfe0f)
+    const newLabel = f(label, label2)
+
+    products.people.push(addEntry(newCode, newLabel))
+
+    if (supportsDirection.includes(label)) {
+      products.people.push(
+        addEntry(
+          newCode.concat(0x200d, 0x27a1, 0xfe0f),
+          `${newLabel} facing right`,
+        ),
+      )
+    }
   })
 
-  Object.entries(skintones).forEach(([skincode, skinlabel]) => {
-    products.people.push(
-      addEntry(codes.concat(skincode), `${label} (${skinlabel})`),
-    )
+  Object.entries(skintones).forEach(([code2, label2]) => {
+    const newCode = codes.concat(code2)
+    const newLabel = `${label} (${label2})`
 
-    Object.entries(gendersSigns).forEach(([gendercode, genderlabel]) => {
-      const newCode = codes.concat(skincode, 0x200d, gendercode, 0xfe0f)
+    products.people.push(addEntry(newCode, newLabel))
 
+    if (supportsDirection.includes(label)) {
       products.people.push(
-        addEntry(newCode, `${label} ${genderlabel} (${skinlabel})`),
+        addEntry(
+          newCode.concat(0x200d, 0x27a1, 0xfe0f),
+          `${newLabel} facing right`,
+        ),
       )
+    }
 
-      // in practice there is only 1 direction supported for these joiners
+    Object.entries(gendersSigns).forEach(([code3, label3]) => {
+      const newCode = codes.concat(code2, 0x200d, code3, 0xfe0f)
+      const newLabel = `${f(label, label3)} (${label2})`
+
+      products.people.push(addEntry(newCode, newLabel))
+
       if (supportsDirection.includes(label)) {
         products.people.push(
           addEntry(
             newCode.concat(0x200d, 0x27a1, 0xfe0f),
-            `${label} ${genderlabel} facing right (${skinlabel})`,
+            `${newLabel} facing right`,
           ),
         )
       }
@@ -190,22 +234,35 @@ Object.entries(data.people_skintone_gender).forEach(([label, codes]) => {
 })
 
 Object.entries(data.people_modifiers).forEach(([label, codes]) => {
-  Object.entries(manWoman).forEach(([gendercode, genderlabel]) => {
-    products.people.push(
-      addEntry([gendercode, 0x200d, ...codes], `${genderlabel} (${label})`),
-    )
+  label = modifierMap[label] ?? label
 
-    Object.entries(skintones).forEach(([skincode, skinlabel]) => {
-      const newCode = [gendercode, skincode, 0x200d, ...codes]
+  Object.entries(manWoman).forEach(([code2, label2]) => {
+    const newCode = [code2, 0x200d, ...codes]
+    const newLabel = `${label2} ${label}`
+    products.people.push(addEntry([code2, 0x200d, ...codes], newLabel))
+
+    if (supportsDirection.includes(label)) {
       products.people.push(
-        addEntry(newCode, `${genderlabel} ${skinlabel} (${label})`),
+        addEntry(
+          newCode.concat(0x200d, 0x27a1, 0xfe0f),
+          `${newLabel} facing right`,
+        ),
       )
+    }
+  })
+
+  Object.entries(skintones).forEach(([code2, label2]) => {
+    Object.entries(manWoman).forEach(([code3, label3]) => {
+      const newCode = [code3, code2, 0x200d, ...codes]
+      const newLabel = `${label3} ${label} (${label2})`
+
+      products.people.push(addEntry(newCode, newLabel))
 
       if (supportsDirection.includes(label)) {
         products.people.push(
           addEntry(
             newCode.concat(0x200d, 0x27a1, 0xfe0f),
-            `${genderlabel} ${skinlabel} facing right (${label})`,
+            `${newLabel} facing right`,
           ),
         )
       }

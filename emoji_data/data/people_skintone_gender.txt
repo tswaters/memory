@@ -12,8 +12,8 @@
 1F647                                                  ; fully-qualified     # 🙇 E0.6 person bowing
 1F926                                                  ; fully-qualified     # 🤦 E3.0 person facepalming
 1F937                                                  ; fully-qualified     # 🤷 E3.0 person shrugging
-1F471                                                  ; fully-qualified     # 👱 E0.6 person: blond hair
-1F9D4                                                  ; fully-qualified     # 🧔 E5.0 person: beard
+1F471                                                  ; fully-qualified     # 👱 E0.6 person blond hair
+1F9D4                                                  ; fully-qualified     # 🧔 E5.0 person beard
 1F46E                                                  ; fully-qualified     # 👮 E0.6 police officer
 1F575 FE0F                                             ; fully-qualified     # 🕵️ E0.7 detective
 1F482                                                  ; fully-qualified     # 💂 E0.6 guard
