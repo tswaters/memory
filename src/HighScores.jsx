@@ -168,11 +168,7 @@ export default memo(function HighScoresProvider({ children }) {
     [highScoreState],
   )
 
-  return (
-    <HighScoresContext.Provider value={value}>
-      {children}
-    </HighScoresContext.Provider>
-  )
+  return <HighScoresContext value={value}>{children}</HighScoresContext>
 })
 
 export const HighScoresForm = memo(function HighScoresForm({

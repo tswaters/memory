@@ -1,11 +1,5 @@
 import cx from 'classnames'
-import {
-  memo,
-  forwardRef,
-  useRef,
-  useImperativeHandle,
-  useCallback,
-} from 'react'
+import { memo, useRef, useImperativeHandle, useCallback } from 'react'
 
 import { card, failure, success, offset } from './Card.css'
 
@@ -18,11 +12,11 @@ import { card, failure, success, offset } from './Card.css'
 // this is a strange section of react lore where mutations are OK, don't need to worry about props, state or events. (it's rather nice)
 // just make sure to keep track of things properly and the snakes won't jump out of pandora's box
 
-const _Card = forwardRef(function Card({ onReveal, ...props }, forwardRef) {
+const _Card = function Card({ onReveal, ref, ...props }) {
   const rotatedRef = useRef(false)
   const flippedRef = useRef(false)
 
-  useImperativeHandle(forwardRef, () => {
+  useImperativeHandle(ref, () => {
     return {
       rotate() {
         return rotateAnimation().finished
@@ -131,6 +125,6 @@ const _Card = forwardRef(function Card({ onReveal, ...props }, forwardRef) {
       ref={btnRef}
     />
   )
-})
+}
 
 export default memo(_Card)

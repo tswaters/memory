@@ -104,7 +104,7 @@ function App() {
           id,
           collate(node) {
             if (node) tilesRef.current.set(id, node)
-            else tilesRef.current.delete(id)
+            return () => tilesRef.current.delete(id)
           },
         }
       })

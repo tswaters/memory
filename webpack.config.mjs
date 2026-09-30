@@ -22,8 +22,8 @@ export default (env, argv) => {
       path: path.resolve('./dist'),
       module: true,
       html: {
-        integrity: true,
-        csp: true,
+        integrity: isProd,
+        csp: isProd,
       },
     },
     experiments: {

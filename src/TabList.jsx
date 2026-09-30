@@ -69,7 +69,7 @@ export default memo(function Tabs({ entries }) {
             id={`tab-${entry.id}`}
             ref={(node) => {
               if (node) tabsRef.current.set(`tab-${entry.id}`, node)
-              else tabsRef.current.delete(`tab-${entry.id}`)
+              return () => tabsRef.current.delete(`tab-${entry.id}`)
             }}
             type="button"
             role="tab"
@@ -102,7 +102,7 @@ export default memo(function Tabs({ entries }) {
           id={`panel-${entry.id}`}
           ref={(node) => {
             if (node) panelsRef.current.set(`panel-${entry.id}`, node)
-            else panelsRef.current.delete(`panel-${entry.id}`)
+            return () => panelsRef.current.delete(`panel-${entry.id}`)
           }}
           role="tabpanel"
           aria-labelledby={`tab-${entry.id}`}
