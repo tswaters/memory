@@ -309,7 +309,7 @@ const exports = []
 
 for (const [thing, newData] of Object.entries(outputs)) {
   exports.push(
-    `export {default as ${thing}} from './${path.basename(thing, '.txt')}'`,
+    `export {default as ${thing}} from './${path.basename(thing, '.txt')}.json' with { type: 'json' }`,
   )
 
   await fs.writeFile(
@@ -320,5 +320,16 @@ for (const [thing, newData] of Object.entries(outputs)) {
   process.stdout.write(`wrote ${path.join(outputPath, `${thing}.json`)}'\n`)
 }
 
-process.stdout.write(`wrote ${path.join(outputPath, 'index.js')}'\n`)
-await fs.writeFile(path.join(outputPath, 'index.js'), exports.join('\n'))
+process.stdout.write(`wrote ${path.join(outputPath, 'package.json')}'\n`)
+await fs.writeFile(
+  path.join(outputPath, 'package.json'),
+  JSON.stringify({
+    name: 'data-dir',
+    type: 'module',
+    version: '0.0.0',
+    sideEffects: false,
+  }),
+)
+
+process.stdout.write(`wrote ${path.join(outputPath, 'index.mjs')}'\n`)
+await fs.writeFile(path.join(outputPath, 'index.mjs'), exports.join('\n'))

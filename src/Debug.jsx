@@ -1,8 +1,8 @@
-import { memo, Fragment } from 'react'
-
-import * as tilesets from './data/index'
+import { memo, Fragment, useContext } from 'react'
+import { DataContext } from './DataProvider'
 
 export default memo(function Debug() {
+  const tilesets = useContext(DataContext)
   return (
     <>
       <details>

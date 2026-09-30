@@ -1,11 +1,16 @@
-import { useCallback, useState, useEffect, useRef, useMemo } from 'react'
+import {
+  useCallback,
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+  useMemo,
+} from 'react'
 import cx from 'classnames'
 
 import { darkMode, lightMode } from './index.css'
 import { gameState, game } from './App.css'
 import { game as gameCard } from './Card.css'
-
-import * as tilesets from './data'
 
 import { default as Settings, difficulties, getFallback } from './Settings'
 
@@ -16,6 +21,7 @@ import { HighScoresForm, HighScoresView } from './HighScores'
 
 import Card from './Card'
 import Dialog from './Dialog'
+import { DataContext } from './DataProvider'
 
 // minstd_rand
 // this is a pseudo-random number generator that needs an initial seed
@@ -37,6 +43,7 @@ const rnd = (s) => {
 }
 
 function App() {
+  const tilesets = useContext(DataContext)
   const [seed, setSeed] = useState(() => Math.floor(Math.random() * 500))
   const [score, setScore] = useState('')
   const [debugMode, setDebugMode] = useState(false)
@@ -77,6 +84,10 @@ function App() {
     const TOTAL_TILES = parseInt(difficulties[difficulty], 10)
     const emojis = new Map()
 
+    if (tilesets[tileset].length < TOTAL_TILES) {
+      throw new Error('no emoji')
+    }
+
     while (emojis.size < TOTAL_TILES) {
       const index = random.range(0, tilesets[tileset].length - 1)
       const entry = tilesets[tileset][index]
@@ -98,7 +109,7 @@ function App() {
         }
       })
       .sort((a, b) => a.id.localeCompare(b.id))
-  }, [tileset, difficulty, seed])
+  }, [tilesets, tileset, difficulty, seed])
 
   const handleReveal = useCallback(
     (e) => {

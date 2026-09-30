@@ -19,9 +19,9 @@ import {
 // there might be some benefit to keeping most of local storage impl in this provider,
 // might get there eventually for now this will be isolated , exposed via specific api for high scores
 
-import * as tilesets from './data/index'
 import { difficulties } from './Settings'
 import { rainbow } from './index.css'
+import { DataContext } from './DataProvider'
 
 /* tileset + difficulty + sort by score asc */
 
@@ -77,7 +77,8 @@ const deserializeKey = (str) => {
 //   (c) and: pulling data from refs to power render functions. not allowed to do that normally (doesn't make sense for dom nodes; these are not!!)
 // the docs actively advise against using refs like this, so if things break, we'll know why.
 
-export const HighScoresProvider = ({ children }) => {
+export default memo(function HighScoresProvider({ children }) {
+  const tilesets = useContext(DataContext)
   const highScoreDataRef = useRef(null)
 
   const [highScoreState, setHighScoreState] = useState(() => {
@@ -172,7 +173,7 @@ export const HighScoresProvider = ({ children }) => {
       {children}
     </HighScoresContext.Provider>
   )
-}
+})
 
 export const HighScoresForm = memo(function HighScoresForm({
   difficulty,

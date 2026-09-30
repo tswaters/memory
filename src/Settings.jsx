@@ -1,8 +1,7 @@
-import { memo, useState } from 'react'
-
-import * as tilesets from './data/index'
+import { memo, useContext, useState } from 'react'
 
 import { DebouncedRangeInput, MultiSelectOption } from './Forms'
+import { DataContext } from './DataProvider'
 
 export const difficulties = {
   easy: '3',
@@ -30,6 +29,7 @@ export const getFallback = (key, options) => {
 }
 
 export default memo(function Settings({ onSettingChange, seed }) {
+  const tilesets = useContext(DataContext)
   const [settings, setSettings] = useState(() => {
     let storageValue
     try {

@@ -1,15 +1,11 @@
 import path from 'node:path'
 import webpack from 'webpack'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import CssMinimizerWebpackPlugin from 'css-minimizer-webpack-plugin'
 import WorkboxPlugin from 'workbox-webpack-plugin'
 import packageJson from './package.json' with { type: 'json' }
 
 export default (env, argv) => {
   const isProd = argv.mode === 'production'
   const OFFLINE_PLUGIN_ENABLED = isProd
-  const chunkhash = isProd ? '.[chunkhash]' : ''
   const devtool = isProd ? 'hidden-source-map' : 'eval-source-map'
   const localIdentName = isProd
     ? '[hash:base64:5]'
@@ -18,24 +14,55 @@ export default (env, argv) => {
     name: 'memory',
     devtool,
     entry: {
-      memory: './src/index.jsx',
+      memory: './src/index.html',
     },
     target: 'web',
     output: {
+      crossOriginLoading: 'anonymous',
       path: path.resolve('./dist'),
-      filename: `memory${chunkhash}.js`,
+      module: true,
+      html: {
+        integrity: true,
+        csp: true,
+      },
     },
-    externals: {
-      react: 'React',
-      'react-dom': 'ReactDOM',
+    experiments: {
+      asset: true,
+      css: true,
+      html: true,
     },
     optimization: {
-      minimizer: [new CssMinimizerWebpackPlugin({}), '...'],
+      minimize: {
+        html: {
+          collapseWhitespace: isProd,
+        },
+      },
+      splitChunks: {
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendor',
+            chunks: 'all',
+          },
+        },
+      },
     },
     resolve: {
       extensions: ['.webpack.js', '.web.js', '.js', '.jsx', '.less', '.json'],
     },
     module: {
+      parser: {
+        'css/module': {
+          namedExports: true,
+          dashedIdents: false,
+        },
+      },
+      generator: {
+        'css/module': {
+          localIdentName,
+          exportsConvention: 'camel-case-only',
+        },
+      },
       rules: [
         {
           test: /\.jsx?$/,
@@ -53,24 +80,7 @@ export default (env, argv) => {
         },
         {
           test: /\.(css|less)$/,
-          use: [
-            {
-              loader: MiniCssExtractPlugin.loader,
-            },
-            {
-              loader: 'css-loader',
-              options: {
-                sourceMap: true,
-                esModule: true,
-                modules: {
-                  namedExport: true,
-                  localIdentName,
-                  exportLocalsConvention: 'camelCaseOnly',
-                },
-                importLoaders: 1,
-              },
-            },
-          ],
+          type: 'css/module',
         },
       ],
     },
@@ -78,17 +88,6 @@ export default (env, argv) => {
       new webpack.DefinePlugin({
         'window.APP_VERSION': JSON.stringify(packageJson.version),
         'window.OFFLINE_PLUGIN_ENABLED': JSON.stringify(OFFLINE_PLUGIN_ENABLED),
-      }),
-      new HtmlWebpackPlugin({
-        template: './src/App.html',
-        filename: './index.html',
-        minify: {
-          collapseWhitespace: isProd,
-        },
-      }),
-      new MiniCssExtractPlugin({
-        filename: `[name]${chunkhash}.css`,
-        chunkFilename: `[id]${chunkhash}.css`,
       }),
       OFFLINE_PLUGIN_ENABLED &&
         new WorkboxPlugin.GenerateSW({
