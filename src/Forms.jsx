@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
+import cx from 'classnames'
 
 import { radio, vertical, formGroup } from './Forms.css'
-import cx from 'classnames'
 
 export function MultiSelectOption({
   name,

@@ -1,14 +1,8 @@
-import {
-  memo,
-  createContext,
-  useContext,
-  useMemo,
-  useState,
-  useRef,
-} from 'react'
+import { memo, createContext, use, useMemo, useState, useRef } from 'react'
 
 import { form } from './HighScores.css'
 import { formGroup } from './Forms.css'
+import { rainbow } from './index.css'
 
 // so there's a lot of fun we can do here with different backends, etc
 // for now keep it simple stupid, just use local storage
@@ -22,8 +16,6 @@ import { formGroup } from './Forms.css'
 // there might be some benefit to keeping most of local storage impl in this provider,
 // might get there eventually for now this will be isolated , exposed via specific api for high scores
 
-import { difficulties } from './Settings'
-import { rainbow } from './index.css'
 import { DataContext } from './DataProvider'
 
 /* tileset + difficulty + sort by score asc */
@@ -81,7 +73,7 @@ const deserializeKey = (str) => {
 // the docs actively advise against using refs like this, so if things break, we'll know why.
 
 export default memo(function HighScoresProvider({ children }) {
-  const tilesets = useContext(DataContext)
+  const { tilesets, difficulties } = use(DataContext)
   const highScoreDataRef = useRef(null)
 
   const [highScoreState, setHighScoreState] = useState(() => {
@@ -181,7 +173,7 @@ export const HighScoresForm = memo(function HighScoresForm({
   tileset,
   onSubmitNewScore,
 }) {
-  const ctx = useContext(HighScoresContext)
+  const ctx = use(HighScoresContext)
   const [name, setName] = useState('')
 
   const handleSubmit = (e) => {
@@ -237,7 +229,7 @@ export const HighScoresView = memo(function HighScoresView({
   tileset,
   difficulty,
 }) {
-  const ctx = useContext(HighScoresContext)
+  const ctx = use(HighScoresContext)
   return (
     <table key={ctx.highScoreState} width="100%" border={1}>
       <caption style={{ captionSide: 'bottom' }}>

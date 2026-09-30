@@ -1,19 +1,7 @@
-import { memo, useContext, useState } from 'react'
+import { memo, use, useState } from 'react'
 
 import { DebouncedRangeInput, MultiSelectOption } from './Forms'
 import { DataContext } from './DataProvider'
-
-export const difficulties = {
-  easy: '3',
-  medium: '12',
-  hard: '30',
-}
-
-export const themeOptions = {
-  unset: 'OS Default',
-  LIGHT: 'Light',
-  DARK: 'Dark',
-}
 
 // this is used as a set-state initializer, working with useLocalStorage, e.g.
 //
@@ -29,7 +17,7 @@ export const getFallback = (key, options) => {
 }
 
 export default memo(function Settings({ onSettingChange, seed }) {
-  const tilesets = useContext(DataContext)
+  const { tilesets, difficulties, themeOptions } = use(DataContext)
   const [settings, setSettings] = useState(() => {
     let storageValue
     try {

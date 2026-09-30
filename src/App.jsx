@@ -1,18 +1,11 @@
-import {
-  useCallback,
-  useContext,
-  useState,
-  useEffect,
-  useRef,
-  useMemo,
-} from 'react'
+import { useCallback, use, useState, useEffect, useRef, useMemo } from 'react'
 import cx from 'classnames'
 
 import { darkMode, lightMode } from './index.css'
 import { gameState, game } from './App.css'
 import { game as gameCard } from './Card.css'
 
-import { default as Settings, difficulties, getFallback } from './Settings'
+import { default as Settings, getFallback } from './Settings'
 
 import Help from './Help'
 import Debug from './Debug'
@@ -43,7 +36,7 @@ const rnd = (s) => {
 }
 
 function App() {
-  const tilesets = useContext(DataContext)
+  const { tilesets, difficulties } = use(DataContext)
   const [seed, setSeed] = useState(() => Math.floor(Math.random() * 500))
   const [score, setScore] = useState('')
   const [debugMode, setDebugMode] = useState(false)

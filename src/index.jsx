@@ -12,6 +12,18 @@ if (window.OFFLINE_PLUGIN_ENABLED) {
 const theme = window.localStorage.getItem('THEME')
 if (theme) document.body.classList.add(theme === 'DARK' ? darkMode : lightMode)
 
+const difficulties = {
+  easy: '3',
+  medium: '12',
+  hard: '30',
+}
+
+const themeOptions = {
+  unset: 'OS Default',
+  LIGHT: 'Light',
+  DARK: 'Dark',
+}
+
 import('./data/index.mjs').then((tilesets) => {
   const testHeight = 32
   const canvas = document.createElement('canvas')
@@ -34,7 +46,7 @@ import('./data/index.mjs').then((tilesets) => {
   }
   const root = createRoot(document.getElementById('root'))
   root.render(
-    <DataContextProvider tilesets={tilesets}>
+    <DataContextProvider value={{ tilesets, difficulties, themeOptions }}>
       <HighScoresProvider>
         <App />
       </HighScoresProvider>
