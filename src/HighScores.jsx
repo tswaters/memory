@@ -7,6 +7,9 @@ import {
   useRef,
 } from 'react'
 
+import { form } from './HighScores.css'
+import { formGroup } from './Forms.css'
+
 // so there's a lot of fun we can do here with different backends, etc
 // for now keep it simple stupid, just use local storage
 // there's a chance this gets corrupted or cheated, that's fine
@@ -196,30 +199,36 @@ export const HighScoresForm = memo(function HighScoresForm({
 
   if (!ctx.qualifiesForNewHighScore({ tileset, difficulty, score })) {
     return (
-      <form method="dialog">
+      <form method="dialog" className={form}>
         <button>New Game</button>
       </form>
     )
   }
 
   return (
-    <>
-      <p>
-        You scored {score} on seed #{seed} and difficulty {difficulty}
-      </p>
-      <form method="dialog" onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name" />
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <button type="submit">Add new high score</button>
-      </form>
-    </>
+    <form
+      method="dialog"
+      className={form}
+      onSubmit={handleSubmit}
+      style={{ display: 'flex', alignItems: 'end', marginBottom: '5rem' }}
+    >
+      <div className={formGroup}>
+        <label htmlFor="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </div>
+      <button
+        type="submit"
+        aria-label="Add New Score"
+        style={{ border: 'none' }}
+      >
+        ☑️
+      </button>
+    </form>
   )
 })
 

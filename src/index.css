@@ -74,13 +74,15 @@ body {
   line-height: 1.618;
 }
 
-button {
+button,
+input[type='input'] {
   min-width: 80px;
   min-height: 80px;
 }
 
 dialog {
   margin: auto;
+  padding: 1rem;
 }
 
 dialog button[aria-label='Close'] {

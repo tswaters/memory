@@ -251,6 +251,9 @@ function App() {
 
       <Dialog ref={victoryDialogRef} onClose={reset}>
         <h2>You win!</h2>
+        <p>
+          You scored {score} on seed #{seed} and difficulty {difficulty}
+        </p>
         <hr />
         <HighScoresForm
           seed={seed}
