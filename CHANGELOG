@@ -1,3 +1,23 @@
+2.3.0
+
+- now using indexedDB for high scores, includes conversion function
+- atoned for some react crimes, using a few of the new apis.
+
+2.2.0
+
+- upgrade react ot version 19 (woo!)
+- a few style tweaks
+
+2.1.0
+
+- many missing emojis combos in person added/fixed
+- update to outputs to use native modules/css mostly.
+
+2.0.0
+
+- new ui, better responsive, more tile combos
+- now has high scores (!!) it's all local mind you
+
 1.2.1
 
 - update dependencies / dependency cleanup
