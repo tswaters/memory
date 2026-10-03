@@ -1,4 +1,5 @@
 import {
+  memo,
   Suspense,
   useCallback,
   use,
@@ -281,4 +282,4 @@ function App() {
   )
 }
 
-export default App
+export default memo(App)

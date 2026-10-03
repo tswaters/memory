@@ -105,7 +105,7 @@ async function getQualifies({ difficulty, tileset, score }) {
   return value
 }
 
-export async function postNewScore({ difficulty, tileset, ...record }) {
+async function postNewScore({ difficulty, tileset, ...record }) {
   const db = await open({ tileset, difficulty })
 
   const storeName = key(difficulty, tileset)
@@ -120,6 +120,58 @@ export async function postNewScore({ difficulty, tileset, ...record }) {
   })
   db.close()
   return value
+}
+
+// react expects the same function instances to be returned each render
+// this storeCache technically never gets emtied, but it's fine I think?
+
+const storeCache = new Map()
+
+export const highScoreStoreCache = (tileset, difficulty) => {
+  const storeKey = key(difficulty, tileset)
+  if (storeCache.has(storeKey)) return storeCache.get(storeKey)
+
+  const emitter = new ScoreEmitter(difficulty, tileset)
+  storeCache.set(storeKey, emitter)
+
+  // react wants these to be pure, rips away this binding :()
+  emitter.getSnapshot = emitter.getSnapshot.bind(emitter)
+  emitter.subscribe = emitter.subscribe.bind(emitter)
+  return emitter
+}
+
+class ScoreEmitter extends EventTarget {
+  constructor(difficulty, tileset) {
+    super()
+    this.options = { difficulty, tileset }
+    this.scores = []
+    this.populate()
+  }
+
+  populate() {
+    getScores(this.options)
+      .then((scores) => (this.scores = scores))
+      .then(() => this.dispatchEvent(new CustomEvent('change')))
+      .catch((error) =>
+        this.dispatchEvent(
+          new ErrorEvent('Failed to populate data', { error }),
+        ),
+      )
+  }
+
+  subscribe(listener) {
+    this.addEventListener('change', listener)
+    return () => this.removeEventListener('change', listener)
+  }
+
+  async postNewScore(record) {
+    await postNewScore(record)
+    this.populate()
+  }
+
+  getSnapshot() {
+    return this.scores
+  }
 }
 
 // react requires us to cache promises to use suspense

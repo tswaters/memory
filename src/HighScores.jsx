@@ -1,15 +1,13 @@
-import { memo, use, useState } from 'react'
+import { memo, use, useState, useSyncExternalStore } from 'react'
 
 import { form } from './HighScores.css'
 import { formGroup } from './Forms.css'
 import { rainbow } from './index.css'
 
 import {
-  postNewScore,
-  fetchScores,
-  clearScores,
   fetchQualifies,
   clearQualifies,
+  highScoreStoreCache,
 } from './HighScores.mjs'
 
 const dtf = new Intl.DateTimeFormat('en-CA', {
@@ -24,6 +22,7 @@ export const HighScoresForm = memo(function HighScoresForm({
   tileset,
   onSubmitNewScore,
 }) {
+  const store = highScoreStoreCache(tileset, difficulty)
   const [name, setName] = useState('')
 
   const qualifies = use(fetchQualifies({ difficulty, tileset, score }))
@@ -35,7 +34,7 @@ export const HighScoresForm = memo(function HighScoresForm({
     formData.append('tileset', tileset)
     formData.append('score', score)
 
-    await postNewScore(
+    await store.postNewScore(
       Object.fromEntries(
         Array.from(formData.entries()).map(([name, value]) => {
           if (['score', 'seed'].includes(name)) value = parseInt(value, 10)
@@ -46,7 +45,6 @@ export const HighScoresForm = memo(function HighScoresForm({
     )
 
     clearQualifies()
-    clearScores()
     onSubmitNewScore?.()
   }
 
@@ -81,13 +79,13 @@ export const HighScoresForm = memo(function HighScoresForm({
   )
 })
 
-export const HighScoresView = function HighScoresView({
+export const HighScoresView = memo(function HighScoresView({
   seed,
   tileset,
   difficulty,
 }) {
-  const scores = use(fetchScores({ difficulty, tileset }))
-
+  const store = highScoreStoreCache(tileset, difficulty)
+  const scores = useSyncExternalStore(store.subscribe, store.getSnapshot)
   return (
     <table width="100%" border={1}>
       <caption style={{ captionSide: 'bottom' }}>
@@ -117,4 +115,4 @@ export const HighScoresView = function HighScoresView({
       </tbody>
     </table>
   )
-}
+})
