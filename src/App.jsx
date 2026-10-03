@@ -102,7 +102,7 @@ function App() {
         }
       })
       .sort((a, b) => a.id.localeCompare(b.id))
-  }, [tilesets, tileset, difficulty, seed])
+  }, [tilesets, tileset, difficulty, difficulties, seed])
 
   const handleReveal = useCallback(
     (e) => {
