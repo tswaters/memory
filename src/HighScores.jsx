@@ -81,7 +81,7 @@ export const HighScoresForm = memo(function HighScoresForm({
   )
 })
 
-export const HighScoresView = memo(function HighScoresView({
+export const HighScoresView = function HighScoresView({
   seed,
   tileset,
   difficulty,
@@ -117,4 +117,4 @@ export const HighScoresView = memo(function HighScoresView({
       </tbody>
     </table>
   )
-})
+}
