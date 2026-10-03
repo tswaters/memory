@@ -1,4 +1,12 @@
-import { useCallback, use, useState, useEffect, useRef, useMemo } from 'react'
+import {
+  Suspense,
+  useCallback,
+  use,
+  useState,
+  useEffect,
+  useRef,
+  useMemo,
+} from 'react'
 import cx from 'classnames'
 
 import { darkMode, lightMode } from './index.css'
@@ -34,6 +42,8 @@ const rnd = (s) => {
     },
   }
 }
+
+const Loading = () => <>Loading!!</>
 
 function App() {
   const { tilesets, difficulties } = use(DataContext)
@@ -168,7 +178,11 @@ function App() {
         {
           id: 'high-scores',
           label: 'high scores',
-          panel: <HighScoresView difficulty={difficulty} tileset={tileset} />,
+          panel: (
+            <Suspense fallback={<Loading />}>
+              <HighScoresView difficulty={difficulty} tileset={tileset} />
+            </Suspense>
+          ),
         },
         debugMode && {
           id: 'debug',
@@ -255,7 +269,13 @@ function App() {
           score={score}
           onSubmitNewScore={() => setScore('')}
         />
-        <HighScoresView tileset={tileset} difficulty={difficulty} seed={seed} />
+        <Suspense fallback={<Loading />}>
+          <HighScoresView
+            tileset={tileset}
+            difficulty={difficulty}
+            seed={seed}
+          />
+        </Suspense>
       </Dialog>
     </>
   )

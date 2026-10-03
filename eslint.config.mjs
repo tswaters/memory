@@ -28,7 +28,7 @@ export default defineConfig([
     },
   },
   {
-    files: ['src/**/*.{js,jsx}'],
+    files: ['src/*.{mjs,jsx}'],
     extends: [eslintReact.configs.recommended],
     languageOptions: {
       globals: {

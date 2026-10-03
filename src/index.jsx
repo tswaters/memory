@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import { darkMode, lightMode } from './index.css'
 import DataContextProvider from './DataProvider.jsx'
-import HighScoresProvider from './HighScores.jsx'
 
 if (window.OFFLINE_PLUGIN_ENABLED) {
   navigator.serviceWorker?.register?.('sw.js', {})
@@ -47,9 +46,7 @@ import('./data/index.mjs').then((tilesets) => {
   const root = createRoot(document.getElementById('root'))
   root.render(
     <DataContextProvider value={{ tilesets, difficulties, themeOptions }}>
-      <HighScoresProvider>
-        <App />
-      </HighScoresProvider>
+      <App />
     </DataContextProvider>,
   )
 })
