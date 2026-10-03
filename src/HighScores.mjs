@@ -4,6 +4,45 @@ const HIGH_SCORES_TO_KEEP = 10
 
 const DATA_STORE = 'high-scores'
 
+// 1-time conversion routine into new format
+if ('high-scores' in localStorage) {
+  const highScores = localStorage.getItem('high-scores')
+  try {
+    for (const [oldkey, scores] of JSON.parse(highScores)) {
+      const [difficulty, tileset] = oldkey.replace('v1$', '').split('$')
+
+      const db = await open({ tileset, difficulty })
+      const storeName = key(difficulty, tileset)
+      const transaction = db.transaction([storeName], 'readwrite')
+
+      await Promise.all(
+        scores.map(
+          ({ name, score, seed }) =>
+            new Promise((resolve, reject) => {
+              const req = transaction.objectStore(storeName).add({
+                tileset,
+                difficulty,
+                name,
+                score,
+                seed,
+                when: new Date(),
+              })
+              req.onerror = () => reject(req.error)
+              req.onsuccess = () => resolve(req.result)
+            }),
+        ),
+      )
+      transaction.commit()
+      db.close()
+    }
+  } catch (err) {
+    console.error(err)
+  } finally {
+    localStorage.setItem('hs-backup', highScores)
+    localStorage.removeItem('high-scores')
+  }
+}
+
 // identifies if the tables resulting from options is different
 // if so, bumps the version & re-opens the connection forcing upgrade
 
