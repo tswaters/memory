@@ -1,46 +1,27 @@
-export const difficulties = ['easy', 'medium', 'hard']
-
-const tilesets = [
-  'faces',
-  'flags',
-  'food',
-  'plants',
-  'places',
-  'animals',
-  'body_parts',
-  'people',
-]
-
 const key = (...args) => args.join('_')
-
-const getAllStores = () =>
-  difficulties.flatMap((d) => tilesets.map((t) => key(d, t)))
 
 const HIGH_SCORES_TO_KEEP = 10
 
 const DATA_STORE = 'high-scores'
 
-let db
-
-await openAndUpgrade()
-
 // identifies if the tables resulting from options is different
 // if so, bumps the version & re-opens the connection forcing upgrade
 
-async function openAndUpgrade() {
-  const indexes = [['score', 'score', { unique: false }]]
-
+async function open({ tileset, difficulty } = {}) {
   const databases = await window.indexedDB.databases()
   const version = databases.find((d) => d.name === DATA_STORE)?.version ?? 1
 
-  db = await openDb(version)
+  const storeName = key(difficulty, tileset)
+  let db = await openDb(version)
 
-  if (!getAllStores().every((n) => db.objectStoreNames.contains(n))) {
+  if (!db.objectStoreNames.contains(storeName)) {
     db.close()
-    return openDb(version + 1)
+    db = openDb(version + 1)
   }
 
   db.onversionchange = () => db.close() // take off ya hoser
+
+  return db
 
   function openDb(version) {
     const { resolve, reject, promise } = Promise.withResolvers()
@@ -48,44 +29,33 @@ async function openAndUpgrade() {
     const req = window.indexedDB.open(DATA_STORE, version)
     req.onerror = () => reject(req.error)
     req.onsuccess = (e) => resolve(e.target.result)
-    req.onupgradeneeded = (e) =>
-      getAllStores()
-        .map((s) =>
-          e.target.result.objectStoreNames.contains(s)
-            ? e.target.transaction.objectStore(s)
-            : e.target.result.createObjectStore(s, {
-                keyPath: 'id',
-                autoIncrement: true,
-              }),
-        )
-        .forEach((store) =>
-          indexes
-            .filter(([index]) => !store.indexNames.contains(index))
-            .forEach(([index, columns, options]) =>
-              store.createIndex(index, columns, options),
-            ),
-        )
-
+    req.onupgradeneeded = (e) => {
+      const store = e.target.result.createObjectStore(storeName, {
+        keyPath: 'id',
+        autoIncrement: true,
+      })
+      store.createIndex('score', 'score', { unique: false })
+    }
     return promise
   }
 }
 
 async function getScores({ difficulty, tileset }) {
-  const { resolve, reject, promise } = Promise.withResolvers()
-  let result
-
+  const db = await open({ tileset, difficulty })
   const storeName = key(difficulty, tileset)
-
   const transaction = db.transaction([storeName], 'readonly')
-  transaction.onerror = () => reject(transaction.error)
-  transaction.oncomplete = () => resolve(result)
 
-  const found = await new Promise((resolve, reject) => {
-    const store = transaction.objectStore(storeName)
-    const req = store.index('score').openCursor()
+  const result = await new Promise((resolve, reject) => {
     const res = []
-    let max_score = Infinity
+    transaction.onerror = () => reject(transaction.error)
+    transaction.oncomplete = () => resolve(res)
+
+    const store = transaction.objectStore(storeName)
+
     let count = 0
+    let max_score = Infinity
+
+    const req = store.index('score').openCursor()
     req.onerror = () => reject(req.error)
     req.onsuccess = (evt) => {
       const cursor = evt.target.result
@@ -94,11 +64,13 @@ async function getScores({ difficulty, tileset }) {
         if (++count === HIGH_SCORES_TO_KEEP) max_score = cursor.value.score
         if (cursor.value.score <= max_score) return cursor.continue()
       }
-      resolve(res)
+      transaction.commit()
     }
   })
 
-  found.sort((a, b) => {
+  db.close()
+
+  result.sort((a, b) => {
     if (a.score > b.score) return 1
     if (a.score < b.score) return -1
     if (a.when < b.when) return 1
@@ -106,46 +78,48 @@ async function getScores({ difficulty, tileset }) {
     return 0
   })
 
-  result = found.slice(0, HIGH_SCORES_TO_KEEP)
-  transaction.commit()
-
-  return promise
+  return result.slice(0, HIGH_SCORES_TO_KEEP)
 }
 
 async function getQualifies({ difficulty, tileset, score }) {
-  const { resolve, reject, promise } = Promise.withResolvers()
-  let result
+  const db = await open({ tileset, difficulty })
   if (score === '') score = Infinity
 
   const storeName = key(difficulty, tileset)
   const transaction = db.transaction([storeName], 'readonly')
-  transaction.onerror = () => reject(transaction.error)
-  transaction.oncomplete = () => resolve(result)
 
-  const index = transaction.objectStore(storeName).index('score')
-  const req = index.count(IDBKeyRange.upperBound(score, true))
-  req.onerror = () => reject(req.error)
-  req.onsuccess = () => {
-    result = req.result < HIGH_SCORES_TO_KEEP
-    transaction.commit()
-  }
+  const value = await new Promise((resolve, reject) => {
+    let result
+    transaction.onerror = () => reject(transaction.error)
+    transaction.oncomplete = () => resolve(result)
+    const index = transaction.objectStore(storeName).index('score')
+    const req = index.count(IDBKeyRange.upperBound(score, true))
+    req.onerror = () => reject(req.error)
+    req.onsuccess = () => {
+      result = req.result < HIGH_SCORES_TO_KEEP
+      transaction.commit()
+    }
+  })
 
-  return promise
+  db.close()
+  return value
 }
 
-async function addScore({ difficulty, tileset, ...record }) {
-  const { resolve, reject, promise } = Promise.withResolvers()
+export async function postNewScore({ difficulty, tileset, ...record }) {
+  const db = await open({ tileset, difficulty })
 
   const storeName = key(difficulty, tileset)
-
   const transaction = db.transaction([storeName], 'readwrite')
-  transaction.onerror = () => reject(transaction.error)
-  transaction.oncomplete = () => resolve(transaction.result)
 
-  const req = transaction.objectStore(storeName).add(record)
-  req.onerror = () => reject(req.error)
-  req.onsuccess = () => transaction.commit()
-  return promise
+  const value = await new Promise((resolve, reject) => {
+    transaction.onerror = () => reject(transaction.error)
+    transaction.oncomplete = () => resolve(transaction.result)
+    const req = transaction.objectStore(storeName).add(record)
+    req.onerror = () => reject(req.error)
+    req.onsuccess = () => transaction.commit()
+  })
+  db.close()
+  return value
 }
 
 // react requires us to cache promises to use suspense
@@ -191,17 +165,3 @@ const suspensifiedQualifies = suspensify(getQualifies)
 
 export const fetchQualifies = suspensifiedQualifies.fetchData
 export const clearQualifies = suspensifiedQualifies.clear
-
-// actions are a bit different
-// react expects a reducer that is safe to call multiple times
-// we use a simple toggle to ensure it gets called once and only once.
-
-// const actionify = (promiseFactory) => {
-//   return async (prevState, payload) => {
-//     if (prevState) return prevState
-//     await promiseFactory(payload)
-//     return true
-//   }
-// }
-
-export const postNewScore = addScore // actionify(addScore)
