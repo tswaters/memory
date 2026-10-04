@@ -144,7 +144,7 @@ async function getQualifies({ difficulty, tileset, score }) {
   return value
 }
 
-async function postNewScore({ difficulty, tileset, ...record }) {
+export async function postNewScore({ difficulty, tileset, ...record }) {
   const db = await open({ tileset, difficulty })
 
   const storeName = key(difficulty, tileset)
@@ -170,47 +170,31 @@ export const highScoreStoreCache = (tileset, difficulty) => {
   const storeKey = key(difficulty, tileset)
   if (storeCache.has(storeKey)) return storeCache.get(storeKey)
 
-  const emitter = new ScoreEmitter(difficulty, tileset)
-  storeCache.set(storeKey, emitter)
+  const emitter = new EventTarget()
 
-  // react wants these to be pure, rips away this binding :()
-  emitter.getSnapshot = emitter.getSnapshot.bind(emitter)
-  emitter.subscribe = emitter.subscribe.bind(emitter)
-  return emitter
-}
+  let value = []
 
-class ScoreEmitter extends EventTarget {
-  constructor(difficulty, tileset) {
-    super()
-    this.options = { difficulty, tileset }
-    this.scores = []
-    this.populate()
+  const store = {
+    subscribe(listener) {
+      emitter.addEventListener('change', listener)
+      return () => emitter.removeEventListener('change', listener)
+    },
+
+    getSnapshot() {
+      return value
+    },
+
+    repopulate() {
+      getScores({ difficulty, tileset })
+        .then((scores) => (value = scores))
+        .then(() => emitter.dispatchEvent(new CustomEvent('change')))
+        .catch((error) => emitter.dispatchEvent('error', { error }))
+    },
   }
 
-  populate() {
-    getScores(this.options)
-      .then((scores) => (this.scores = scores))
-      .then(() => this.dispatchEvent(new CustomEvent('change')))
-      .catch((error) =>
-        this.dispatchEvent(
-          new ErrorEvent('Failed to populate data', { error }),
-        ),
-      )
-  }
-
-  subscribe(listener) {
-    this.addEventListener('change', listener)
-    return () => this.removeEventListener('change', listener)
-  }
-
-  async postNewScore(record) {
-    await postNewScore(record)
-    this.populate()
-  }
-
-  getSnapshot() {
-    return this.scores
-  }
+  storeCache.set(storeKey, store)
+  store.repopulate()
+  return store
 }
 
 // react requires us to cache promises to use suspense

@@ -7,6 +7,7 @@ import { rainbow } from './index.css'
 import {
   fetchQualifies,
   clearQualifies,
+  postNewScore,
   highScoreStoreCache,
 } from './HighScores.mjs'
 
@@ -34,7 +35,7 @@ export const HighScoresForm = memo(function HighScoresForm({
     formData.append('tileset', tileset)
     formData.append('score', score)
 
-    await store.postNewScore(
+    await postNewScore(
       Object.fromEntries(
         Array.from(formData.entries()).map(([name, value]) => {
           if (['score', 'seed'].includes(name)) value = parseInt(value, 10)
@@ -45,6 +46,7 @@ export const HighScoresForm = memo(function HighScoresForm({
     )
 
     clearQualifies()
+    store.repopulate()
     onSubmitNewScore?.()
   }
 
