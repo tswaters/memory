@@ -121,8 +121,8 @@ async function getScores({ difficulty, tileset }) {
 }
 
 async function getQualifies({ difficulty, tileset, score }) {
+  if (score === '') return false
   const db = await open({ tileset, difficulty })
-  if (score === '') score = Infinity
 
   const storeName = key(difficulty, tileset)
   const transaction = db.transaction([storeName], 'readonly')
