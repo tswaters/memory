@@ -1,3 +1,8 @@
+2.3.1
+
+- bug fixes with new high scores impl
+- first pass at viewport, will need to see how well this works.
+
 2.3.0
 
 - now using indexedDB for high scores, includes conversion function
