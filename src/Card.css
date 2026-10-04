@@ -32,13 +32,13 @@ even using "view heights" is weird, "there's no rule in the book here that says 
   --lg-total: round(sqrt((sibling-count() - 1) / 1.618) * 1.618);
 
   @media (orientation: portrait) {
-    width: calc(100% / var(--sm-total) - 2px);
-    height: calc(100% / var(--lg-total) - 2px);
+    width: calc(100% / var(--sm-total) - 0.5vh);
+    height: calc(100% / var(--lg-total) - 0.5vh);
     font-size: clamp(72pt, calc(50vh / var(--lg-total) - 10vh), 40vh);
   }
   @media (orientation: landscape) {
-    width: calc(100% / var(--lg-total) - 2px);
-    height: calc(100% / var(--sm-total) - 2px);
+    width: calc(100% / var(--lg-total) - 0.5vh);
+    height: calc(100% / var(--sm-total) - 0.5vh);
     font-size: clamp(72pt, calc(50vh / var(--sm-total) - 10vh), 40vh);
   }
 }

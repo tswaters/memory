@@ -32,7 +32,7 @@
 :root {
   --rainbow: linear-gradient(45deg, magenta, rebeccapurple, dodgerblue, green);
   --rainbow-offset: linear-gradient(45deg, #e2f5e9, #ffea00, #ff6b00, #f29199);
-  --border-width: 4px;
+  --border-width: 2px;
 
   @media (prefers-color-scheme: dark) {
     --global-color-primary: black;
