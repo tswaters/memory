@@ -55,6 +55,7 @@ even using "view heights" is weird, "there's no rule in the book here that says 
   border: var(--border-width) solid var(--global-color-primary);
   cursor: pointer;
   line-height: 100%;
+  will-change: transform;
   transform-style: preserve-3d;
   backface-visibility: hidden;
   background: repeating-linear-gradient(
