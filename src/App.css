@@ -2,30 +2,49 @@ h1 {
   display: none;
 }
 
-.game-state {
+:global(#root) {
+  position: fixed;
+  inset: 0;
   display: flex;
-  gap: 20px;
+  flex-direction: column;
 }
 
-fieldset.game {
-  border-width: var(--border-width);
-  height: calc(100vh - 2rem);
-  width: calc(100vw - 2rem);
-  margin: 1rem;
-  padding: 1rem;
+header {
+  padding: 1rem 1rem 0;
+  background-color: var(--global-color-background);
 
   display: flex;
-  flex-flow: row wrap;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  justify-content: space-evenly;
 
-  > legend {
-    width: 100%;
-    .game-state {
-      display: flex;
-      gap: 20px;
+  .game-state {
+    display: flex;
+
+    dt {
+      margin-right: 5px;
+      &:after {
+        content: ': ';
+      }
+    }
+    dd {
+      margin-right: 10px;
+      &:after {
+        content: '; ';
+      }
     }
   }
+
+  .menu-button {
+    font-size: 25px;
+    min-width: 40px;
+    background-color: var(--global-color-background);
+  }
+}
+
+.game {
+  flex-grow: 1;
+  padding: 1rem;
 
   /*
 the w/h calculations here work out to lay things out based on # of tiles (sibling count)
@@ -55,6 +74,11 @@ i think 10+ failures might overflow the button.
 also it's *font-sizing* it's going to be different based on so many different variables: os + browser + fonts, etc.
 even using "view heights" is weird, "there's no rule in the book here that says the viewport can't define font size!"
 */
+
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-evenly;
 
   --sm-total: round(sqrt((sibling-count() - 1) / 1.618));
   --lg-total: round(sqrt((sibling-count() - 1) / 1.618) * 1.618);

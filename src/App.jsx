@@ -11,7 +11,7 @@ import {
 import cx from 'classnames'
 
 import { darkMode, lightMode } from './index.css'
-import { gameState, game } from './App.css'
+import { gameState, game, menuButton } from './App.css'
 
 import { default as Settings, getFallback } from './Settings'
 
@@ -195,55 +195,30 @@ function App() {
 
   return (
     <>
-      <h1>Memory</h1>
+      <header>
+        <h1>Memory</h1>
+        <dl className={gameState}>
+          <dt>version</dt>
+          <dd>{window.APP_VERSION}</dd>
+          <dt>game id</dt>
+          <dd>{seed}</dd>
+          {score !== '' && (
+            <>
+              <dt>score</dt>
+              <dd>{score}</dd>
+            </>
+          )}
+        </dl>
+        <button
+          className={menuButton}
+          onClick={() => mainMenuDialogRef.current.showModal()}
+          aria-label="Settings Menu / New Game / Etc"
+        >
+          ⋮
+        </button>
+      </header>
 
-      <fieldset className={game}>
-        <legend>
-          <button
-            onClick={() => mainMenuDialogRef.current.showModal()}
-            aria-label="Settings Menu / New Game / Etc"
-            style={{ float: 'right' }}
-          >
-            ⋮
-          </button>
-          <Dialog ref={mainMenuDialogRef}>
-            <TabList entries={dialogEntries} />
-            <p>Memory {window.APP_VERSION}</p>
-            <p>
-              <a
-                rel="noreferrer noopener"
-                target="_blank"
-                href="https://github.com/tswaters/memory"
-              >
-                Fork me on GitHub!
-              </a>
-            </p>
-            <button
-              style={{
-                position: 'fixed',
-                right: '5px',
-                bottom: '5px',
-                border: 0,
-                backgroundColor: 'transparent',
-                textShadow: '1px 1px 2px var(--global-color-background)',
-              }}
-              onClick={() => setDebugMode(true)}
-            >
-              π
-            </button>
-          </Dialog>
-          <dl className={gameState}>
-            <dt>game id</dt>
-            <dd>{seed}</dd>
-            {score !== '' && (
-              <>
-                <dt>score</dt>
-                <dd>{score}</dd>
-              </>
-            )}
-          </dl>
-        </legend>
-
+      <main className={game}>
         {tiles.map(({ id, emoji, label, collate }) => (
           <Card
             key={id}
@@ -254,7 +229,34 @@ function App() {
             onReveal={handleReveal}
           />
         ))}
-      </fieldset>
+      </main>
+
+      <Dialog ref={mainMenuDialogRef}>
+        <TabList entries={dialogEntries} />
+        <p>Memory {window.APP_VERSION}</p>
+        <p>
+          <a
+            rel="noreferrer noopener"
+            target="_blank"
+            href="https://github.com/tswaters/memory"
+          >
+            Fork me on GitHub!
+          </a>
+        </p>
+        <button
+          style={{
+            position: 'fixed',
+            right: '5px',
+            bottom: '5px',
+            border: 0,
+            backgroundColor: 'transparent',
+            textShadow: '1px 1px 2px var(--global-color-background)',
+          }}
+          onClick={() => setDebugMode(true)}
+        >
+          π
+        </button>
+      </Dialog>
 
       <Dialog ref={victoryDialogRef} onClose={reset}>
         <h2>You win!</h2>

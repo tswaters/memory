@@ -69,17 +69,6 @@ dialog {
   color: var(--global-color-primary);
 }
 
-body {
-  font-size: clamp(1rem, 2.5vw + 1rem, 2.5rem);
-  line-height: 1.618;
-}
-
-button,
-input[type='input'] {
-  min-width: 80px;
-  min-height: 80px;
-}
-
 dialog {
   margin: auto;
   padding: 1rem;
@@ -91,10 +80,11 @@ dialog button[aria-label='Close'] {
   text-align: center;
   top: 1rem;
   right: 1rem;
+  font-size: 25px;
+  min-width: 40px;
   &::after {
     color: red;
-    content: '🗙';
-    position: inline-block;
+    content: '❌';
   }
 }
 
