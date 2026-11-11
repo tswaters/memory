@@ -12,7 +12,6 @@ import cx from 'classnames'
 
 import { darkMode, lightMode } from './index.css'
 import { gameState, game } from './App.css'
-import { game as gameCard } from './Card.css'
 
 import { default as Settings, getFallback } from './Settings'
 
@@ -198,7 +197,7 @@ function App() {
     <>
       <h1>Memory</h1>
 
-      <fieldset className={cx(game, gameCard)}>
+      <fieldset className={game}>
         <legend>
           <button
             onClick={() => mainMenuDialogRef.current.showModal()}

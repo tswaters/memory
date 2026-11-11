@@ -1,48 +1,3 @@
-/*
-the w/h calculations here work out to lay things out based on # of tiles (sibling count)
-there's a <legend /> in the fieldset with buttons, subtract 1 from sibling count
-
-rows = sqrt( $total / $ratio )
-cols = $rows * $ratio
-
-based on a given orientation, flip the h/w properties
-this was calculated manually, it's a static list, other values don't fit.
-
-total    portrait    landscape     in use
-6        2 x 3       3 x 2            yes
-24       4 x 6       6 x 4            yes
-40       5 x 8       8 x 5             no
-60       6 x 10      10 x 6           yes
-104      8 x 13      13 x 8            no
-160      10 x 16     16 x 10           no
-
-probably not enough room for the prohibitively difficult total values anyway!
-
-100% has different meaning for font size, so use vh's instead, it's around half available height's value
-(100% for others already accounts for labels & borders and padding, etc. `v` will not, eyeball it!)
-this is also "font height", setting it to *exactly* the height of the button results in width overflows
-too small and it doesn't work. "about half" works out, because we need 2-3 glyphs potentially (failure counts)
-i think 10+ failures might overflow the button.
-also it's *font-sizing* it's going to be different based on so many different variables: os + browser + fonts, etc.
-even using "view heights" is weird, "there's no rule in the book here that says the viewport can't define font size!"
-*/
-
-.game .card {
-  --sm-total: round(sqrt((sibling-count() - 1) / 1.618));
-  --lg-total: round(sqrt((sibling-count() - 1) / 1.618) * 1.618);
-
-  @media (orientation: portrait) {
-    width: calc(100% / var(--sm-total) - 0.5vh);
-    height: calc(100% / var(--lg-total) - 0.5vh);
-    font-size: clamp(72pt, calc(50vh / var(--lg-total) - 10vh), 40vh);
-  }
-  @media (orientation: landscape) {
-    width: calc(100% / var(--lg-total) - 0.5vh);
-    height: calc(100% / var(--sm-total) - 0.5vh);
-    font-size: clamp(72pt, calc(50vh / var(--sm-total) - 10vh), 40vh);
-  }
-}
-
 .help .card {
   width: 175px;
   height: 175px;
@@ -98,12 +53,7 @@ even using "view heights" is weird, "there's no rule in the book here that says 
 
   position: absolute;
   box-sizing: content-box;
-  width: 100%;
-  height: 100%;
-  top: calc(var(--border-width) * -1);
-  right: calc(var(--border-width) * -1);
-  bottom: calc(var(--border-width) * -1);
-  left: calc(var(--border-width) * -1);
+  inset: calc(var(--border-width) * -1);
 }
 
 .success,
