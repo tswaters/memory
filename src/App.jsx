@@ -11,7 +11,7 @@ import {
 import cx from 'classnames'
 
 import { darkMode, lightMode } from './index.css'
-import { gameState, game, menuButton } from './App.css'
+import { easy, medium, hard, gameState, game, menuButton } from './App.css'
 
 import { default as Settings, getFallback } from './Settings'
 
@@ -58,9 +58,10 @@ function App() {
   const tilesRef = useRef(new Map())
   const selectionRef = useRef(null)
 
-  const [difficulty, setDifficulty] = useState(() =>
+  const [difficulty_, setDifficulty] = useState(() =>
     getFallback('difficulty', difficulties),
   )
+  const difficulty = difficulties[difficulty_]
   const [tileset, setTileset] = useState(() => getFallback('tileset', tilesets))
 
   useEffect(() => {
@@ -84,7 +85,7 @@ function App() {
 
   const tiles = useMemo(() => {
     const random = rnd(seed)
-    const TOTAL_TILES = parseInt(difficulties[difficulty], 10)
+    const TOTAL_TILES = parseInt(difficulty, 10)
     const emojis = new Map()
 
     if (tilesets[tileset].length < TOTAL_TILES) {
@@ -112,7 +113,7 @@ function App() {
         }
       })
       .sort((a, b) => a.id.localeCompare(b.id))
-  }, [tilesets, tileset, difficulty, difficulties, seed])
+  }, [tilesets, tileset, difficulty, seed])
 
   const handleReveal = useCallback(
     (e) => {
@@ -218,7 +219,13 @@ function App() {
         </button>
       </header>
 
-      <main className={game}>
+      <main
+        className={cx(game, {
+          [easy]: difficulty === difficulties.easy,
+          [medium]: difficulty === difficulties.medium,
+          [hard]: difficulty === difficulties.hard,
+        })}
+      >
         {tiles.map(({ id, emoji, label, collate }) => (
           <Card
             key={id}

@@ -42,20 +42,7 @@ header {
   }
 }
 
-.game {
-  flex-grow: 1;
-  padding: 1rem;
-
-  /*
-the w/h calculations here work out to lay things out based on # of tiles (sibling count)
-there's a <legend /> in the fieldset with buttons, subtract 1 from sibling count
-
-rows = sqrt( $total / $ratio )
-cols = $rows * $ratio
-
-based on a given orientation, flip the h/w properties
-this was calculated manually, it's a static list, other values don't fit.
-
+/* these have been calculated ahead of time and uses grid display
 total    portrait    landscape     in use
 6        2 x 3       3 x 2            yes
 24       4 x 6       6 x 4            yes
@@ -63,36 +50,41 @@ total    portrait    landscape     in use
 60       6 x 10      10 x 6           yes
 104      8 x 13      13 x 8            no
 160      10 x 16     16 x 10           no
-
-probably not enough room for the prohibitively difficult total values anyway!
-
-100% has different meaning for font size, so use vh's instead, it's around half available height's value
-(100% for others already accounts for labels & borders and padding, etc. `v` will not, eyeball it!)
-this is also "font height", setting it to *exactly* the height of the button results in width overflows
-too small and it doesn't work. "about half" works out, because we need 2-3 glyphs potentially (failure counts)
-i think 10+ failures might overflow the button.
-also it's *font-sizing* it's going to be different based on so many different variables: os + browser + fonts, etc.
-even using "view heights" is weird, "there's no rule in the book here that says the viewport can't define font size!"
 */
 
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: space-evenly;
+.game {
+  flex-grow: 1;
+  padding: 1rem;
+  display: grid;
+  gap: 0.25rem;
 
-  --sm-total: round(sqrt((sibling-count() - 1) / 1.618));
-  --lg-total: round(sqrt((sibling-count() - 1) / 1.618) * 1.618);
-
-  > button {
+  &.easy {
+    font-size: 72pt;
     @media (orientation: portrait) {
-      width: calc(100% / var(--sm-total) - 0.5vh);
-      height: calc(100% / var(--lg-total) - 0.5vh);
-      font-size: clamp(72pt, calc(50vh / var(--lg-total) - 10vh), 40vh);
+      grid-template-columns: repeat(2, 1fr);
     }
     @media (orientation: landscape) {
-      width: calc(100% / var(--lg-total) - 0.5vh);
-      height: calc(100% / var(--sm-total) - 0.5vh);
-      font-size: clamp(72pt, calc(50vh / var(--sm-total) - 10vh), 40vh);
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &.medium {
+    font-size: 36pt;
+    @media (orientation: portrait) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    @media (orientation: landscape) {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
+  &.hard {
+    font-size: 24pt;
+    @media (orientation: portrait) {
+      grid-template-columns: repeat(6, 1fr);
+    }
+    @media (orientation: landscape) {
+      grid-template-columns: repeat(10, 1fr);
     }
   }
 }
