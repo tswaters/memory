@@ -1,7 +1,14 @@
 import cx from 'classnames'
-import { memo, useRef, useImperativeHandle, useCallback } from 'react'
+import { memo, useRef, useImperativeHandle } from 'react'
 
 import { card, failure, success, offset } from './Card.css'
+
+// the sum of durations here adds an element to difficulty
+// it's however long the user has to see an incorrect selection before it flips back
+
+const DURATION_PULSE = 200
+const DURATION_ROTATE = 500
+const DURATION_FLIP = 500
 
 // this component is almost the antithesis of good react component. it doesn't use state at all
 // if it ever re-renders, there's probably a bug somewhere with one of the props
@@ -19,15 +26,15 @@ const _Card = function Card({ onReveal, ref, ...props }) {
   useImperativeHandle(ref, () => {
     return {
       rotate() {
-        return rotateAnimation().finished
+        return rotateAnimation()
       },
       fail(_disable = false) {
         btnRef.current.classList.add(failure)
         return pulseAnimation()
-          .finished.then(() => {
+          .then(() => {
             btnRef.current.classList.remove(failure)
             btnRef.current.disabled = _disable
-            return flipAnimation(false).finished
+            return flipAnimation(false)
           })
           .then(() => {
             btnRef.current.dataset.failures =
@@ -37,7 +44,7 @@ const _Card = function Card({ onReveal, ref, ...props }) {
       success(_disable = true) {
         btnRef.current.classList.add(success)
         btnRef.current.disabled = true
-        return pulseAnimation().finished.then(() => {
+        return pulseAnimation().then(() => {
           btnRef.current.classList.remove(success)
           btnRef.current.disabled = _disable
           return parseInt(btnRef.current.dataset.failures ?? '0', 10)
@@ -49,49 +56,64 @@ const _Card = function Card({ onReveal, ref, ...props }) {
   const btnRef = useRef(null)
 
   function pulseAnimation() {
+    const { resolve, reject, promise } = Promise.withResolvers()
+
     const animation = btnRef.current.animate(
       [
         { offset: 0.0, transform: 'scale(1)' },
         { offset: 0.5, transform: 'scale(1.1)' },
         { offset: 1.0, transform: 'scale(1)' },
       ],
-      { duration: 200, composite: 'add', id: 'pulse' },
+      { duration: DURATION_PULSE, composite: 'add', id: 'pulse' },
     )
-    return animation
+    animation.finished.then(resolve, reject)
+
+    return promise
   }
 
   function rotateAnimation(shouldRotate = !rotatedRef.current) {
-    const spec = !shouldRotate ? '0' : '180'
+    const { resolve, reject, promise } = Promise.withResolvers()
+
+    const transform = `rotate(${!shouldRotate ? '0' : '180'}deg)`
     rotatedRef.current = !rotatedRef.current
 
+    btnRef.current.classList.remove(offset)
+
     const animation = btnRef.current.animate(
-      { transform: `rotate(${spec}deg)` },
-      { duration: 500, composite: 'add', id: 'rotate' },
+      { transform },
+      { duration: DURATION_ROTATE, composite: 'add', id: 'rotate' },
     )
 
-    btnRef.current.classList.remove(offset)
-    animation.finished.then(() => {
+    animation.finished
+      .then(() => animation.commitStyles())
+      .then(resolve, reject)
+
+    promise.then(() => {
       if (flippedRef.current) btnRef.current.classList.add(offset)
-      animation.commitStyles()
     })
 
-    return animation
+    return promise
   }
 
   function flipAnimation(shouldFlip = !flippedRef.current) {
+    const { resolve, reject, promise } = Promise.withResolvers()
+
     const prevDisabled = btnRef.current.disabled
     btnRef.current.disabled = true
 
-    const spec = !shouldFlip ? '0' : '180'
+    const transform = `rotateY(${!shouldFlip ? '0' : '180'}deg)`
     flippedRef.current = !flippedRef.current
 
     const animation = btnRef.current.animate(
-      { transform: `rotateY(${spec}deg)` },
-      { duration: 500, id: 'flip' },
+      { transform },
+      { duration: DURATION_FLIP, id: 'flip' },
     )
 
-    animation.finished.then(() => {
-      animation.commitStyles()
+    animation.finished
+      .then(() => animation.commitStyles())
+      .then(resolve, reject)
+
+    promise.then(() => {
       btnRef.current.ariaExpanded = flippedRef.current
       btnRef.current.ariaLabel = flippedRef.current
         ? `${btnRef.current.dataset.label} ${btnRef.current.dataset.failures ?? ''}`
@@ -99,20 +121,17 @@ const _Card = function Card({ onReveal, ref, ...props }) {
       btnRef.current.disabled = prevDisabled
     })
 
-    return animation
+    return promise
   }
 
-  const handleClick = useCallback(
-    (e) => {
-      if (btnRef.current.disabled) return
-      e.persist()
-      flipAnimation().finished.then(() => {
-        btnRef.current.disabled = true
-        onReveal?.(e)
-      })
-    },
-    [onReveal],
-  )
+  const handleClick = (e) => {
+    if (btnRef.current.disabled) return
+    e.persist()
+    flipAnimation().then(() => {
+      btnRef.current.disabled = true
+      return onReveal?.(e)
+    })
+  }
 
   return (
     <button
