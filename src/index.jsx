@@ -18,9 +18,9 @@ const difficulties = {
 }
 
 const themeOptions = {
-  unset: 'OS Default',
-  LIGHT: 'Light',
-  DARK: 'Dark',
+  unset: 'os default',
+  LIGHT: 'light',
+  DARK: 'dark',
 }
 
 import('./data/index.mjs').then((tilesets) => {
