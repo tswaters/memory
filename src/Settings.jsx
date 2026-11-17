@@ -17,7 +17,8 @@ export const getFallback = (key, options) => {
 }
 
 export default memo(function Settings({ onSettingChange, seed }) {
-  const { tilesets, difficulties, themeOptions } = use(DataContext)
+  const { tilesets, difficulties, themeOptions, reducedMotionOptions } =
+    use(DataContext)
   const [settings, setSettings] = useState(() => {
     let storageValue
     try {
@@ -39,6 +40,10 @@ export default memo(function Settings({ onSettingChange, seed }) {
       storageValue.tileset = 'animals'
     }
 
+    if (storageValue.reduced_motion == null) {
+      storageValue.reduced_motion = 'unset'
+    }
+
     return storageValue
   })
 
@@ -55,7 +60,7 @@ export default memo(function Settings({ onSettingChange, seed }) {
     e.target.form.submit()
   }
 
-  const { difficulty, tileset, theme } = settings
+  const { difficulty, tileset, theme, reduced_motion } = settings
 
   return (
     <form method="dialog">
@@ -88,6 +93,16 @@ export default memo(function Settings({ onSettingChange, seed }) {
         name="theme"
         options={themeOptions}
         value={theme}
+        onChange={handleValueUpdate}
+      />
+
+      <hr />
+
+      <MultiSelectOption
+        label="Reduced Motion"
+        name="reduced_motion"
+        options={reducedMotionOptions}
+        value={reduced_motion}
         onChange={handleValueUpdate}
       />
 

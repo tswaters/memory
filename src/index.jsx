@@ -23,6 +23,12 @@ const themeOptions = {
   DARK: 'dark',
 }
 
+const reducedMotionOptions = {
+  unset: 'os default',
+  reduced_motion: 'reduced motion',
+  no_preference: 'no preference',
+}
+
 import('./data/index.mjs').then((tilesets) => {
   const testHeight = 32
   const canvas = document.createElement('canvas')
@@ -45,7 +51,14 @@ import('./data/index.mjs').then((tilesets) => {
   }
   const root = createRoot(document.getElementById('root'))
   root.render(
-    <DataContextProvider value={{ tilesets, difficulties, themeOptions }}>
+    <DataContextProvider
+      value={{
+        tilesets,
+        difficulties,
+        themeOptions,
+        reducedMotionOptions,
+      }}
+    >
       <App />
     </DataContextProvider>,
   )

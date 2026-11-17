@@ -19,7 +19,7 @@ const DURATION_FLIP = 500
 // this is a strange section of react lore where mutations are OK, don't need to worry about props, state or events. (it's rather nice)
 // just make sure to keep track of things properly and the snakes won't jump out of pandora's box
 
-const _Card = function Card({ onReveal, ref, ...props }) {
+const _Card = function Card({ onReveal, ref, noMotion = false, ...props }) {
   const rotatedRef = useRef(false)
   const flippedRef = useRef(false)
 
@@ -58,15 +58,19 @@ const _Card = function Card({ onReveal, ref, ...props }) {
   function pulseAnimation() {
     const { resolve, reject, promise } = Promise.withResolvers()
 
-    const animation = btnRef.current.animate(
-      [
-        { offset: 0.0, transform: 'scale(1)' },
-        { offset: 0.5, transform: 'scale(1.1)' },
-        { offset: 1.0, transform: 'scale(1)' },
-      ],
-      { duration: DURATION_PULSE, composite: 'add', id: 'pulse' },
-    )
-    animation.finished.then(resolve, reject)
+    if (noMotion) {
+      setTimeout(resolve, DURATION_PULSE)
+    } else {
+      const animation = btnRef.current.animate(
+        [
+          { offset: 0.0, transform: 'scale(1)' },
+          { offset: 0.5, transform: 'scale(1.1)' },
+          { offset: 1.0, transform: 'scale(1)' },
+        ],
+        { duration: DURATION_PULSE, composite: 'add', id: 'pulse' },
+      )
+      animation.finished.then(resolve, reject)
+    }
 
     return promise
   }
@@ -79,14 +83,19 @@ const _Card = function Card({ onReveal, ref, ...props }) {
 
     btnRef.current.classList.remove(offset)
 
-    const animation = btnRef.current.animate(
-      { transform },
-      { duration: DURATION_ROTATE, composite: 'add', id: 'rotate' },
-    )
+    if (noMotion) {
+      btnRef.current.style.transform = transform
+      setTimeout(resolve, DURATION_ROTATE)
+    } else {
+      const animation = btnRef.current.animate(
+        { transform },
+        { duration: DURATION_ROTATE, composite: 'add', id: 'rotate' },
+      )
 
-    animation.finished
-      .then(() => animation.commitStyles())
-      .then(resolve, reject)
+      animation.finished
+        .then(() => animation.commitStyles())
+        .then(resolve, reject)
+    }
 
     promise.then(() => {
       if (flippedRef.current) btnRef.current.classList.add(offset)
@@ -104,14 +113,19 @@ const _Card = function Card({ onReveal, ref, ...props }) {
     const transform = `rotateY(${!shouldFlip ? '0' : '180'}deg)`
     flippedRef.current = !flippedRef.current
 
-    const animation = btnRef.current.animate(
-      { transform },
-      { duration: DURATION_FLIP, id: 'flip' },
-    )
+    if (noMotion) {
+      btnRef.current.style.transform = transform
+      setTimeout(resolve, DURATION_FLIP)
+    } else {
+      const animation = btnRef.current.animate(
+        { transform },
+        { duration: DURATION_FLIP, id: 'flip' },
+      )
 
-    animation.finished
-      .then(() => animation.commitStyles())
-      .then(resolve, reject)
+      animation.finished
+        .then(() => animation.commitStyles())
+        .then(resolve, reject)
+    }
 
     promise.then(() => {
       btnRef.current.ariaExpanded = flippedRef.current

@@ -43,10 +43,13 @@ const rnd = (s) => {
   }
 }
 
+const defaultNoMotion = () =>
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
 const Loading = () => <>Loading!!</>
 
 function App() {
-  const { tilesets, difficulties } = use(DataContext)
+  const { tilesets, difficulties, reducedMotionOptions } = use(DataContext)
   const [seed, setSeed] = useState(() => Math.floor(Math.random() * 500))
   const [score, setScore] = useState('')
   const [debugMode, setDebugMode] = useState(false)
@@ -63,6 +66,17 @@ function App() {
   )
   const difficultyValue = difficulties[difficultyKey]
   const [tileset, setTileset] = useState(() => getFallback('tileset', tilesets))
+
+  const [noMotion, setNoMotion] = useState(() =>
+    getFallback('reduced_motion', reducedMotionOptions),
+  )
+
+  const prefersNoMotion =
+    noMotion == 'unset'
+      ? defaultNoMotion()
+      : noMotion === 'reduced_motion'
+        ? true
+        : false
 
   useEffect(() => {
     function handleKeyDown(e) {
@@ -158,6 +172,14 @@ function App() {
       if (key === 'difficulty') setDifficultyKey(value)
       if (key === 'tileset') setTileset(value)
       if (key === 'seed') setSeed(value)
+      if (key === 'reduced_motion')
+        setNoMotion(
+          value == 'unset'
+            ? defaultNoMotion()
+            : value === 'reduced_motion'
+              ? true
+              : false,
+        )
       reset(false)
     },
     [reset],
@@ -238,6 +260,7 @@ function App() {
             data-label={label}
             ref={collate}
             onReveal={handleReveal}
+            noMotion={prefersNoMotion}
           />
         ))}
       </main>
