@@ -55,7 +55,6 @@ export function DebouncedRangeInput({
     // anyway, if the range picker ever breaks with a new version of react, we'll know why :D
     if (timerIdRef.current) return
 
-    // eslint-disable-next-line @eslint-react/set-state-in-effect
     setInternalValue(value)
   }, [value])
 
