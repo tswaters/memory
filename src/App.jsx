@@ -203,6 +203,8 @@ function App() {
           <dd>{window.APP_VERSION}</dd>
           <dt>game id</dt>
           <dd>{seed}</dd>
+          <dt>difficulty</dt>
+          <dd>{difficultyKey}</dd>
           {score !== '' && (
             <>
               <dt>score</dt>
