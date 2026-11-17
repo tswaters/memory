@@ -205,6 +205,8 @@ function App() {
           <dd>{seed}</dd>
           <dt>difficulty</dt>
           <dd>{difficultyKey}</dd>
+          <dt>tileset</dt>
+          <dd>{tileset}</dd>
           {score !== '' && (
             <>
               <dt>score</dt>
