@@ -10,6 +10,7 @@ export function MultiSelectOption({
   value,
   className = cx(radio, vertical),
   onChange,
+  transpose = false,
 }) {
   return (
     <fieldset className={className}>
@@ -24,7 +25,9 @@ export function MultiSelectOption({
             onChange={onChange}
           />
           {typeof optionValue === 'string'
-            ? optionValue
+            ? transpose
+              ? optionKey
+              : optionValue
             : (optionValue?.label ?? optionKey)}
         </label>
       ))}

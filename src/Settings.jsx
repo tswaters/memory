@@ -73,11 +73,12 @@ export default memo(function Settings({ onSettingChange, seed }) {
       <hr />
 
       <MultiSelectOption
-        label="Number of Matches"
+        label="Difficulty"
         name="difficulty"
         options={difficulties}
         value={difficulty}
         onChange={handleValueUpdate}
+        transpose={true}
       />
 
       <hr />
