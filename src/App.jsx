@@ -58,10 +58,10 @@ function App() {
   const tilesRef = useRef(new Map())
   const selectionRef = useRef(null)
 
-  const [difficulty_, setDifficulty] = useState(() =>
+  const [difficultyKey, setDifficultyKey] = useState(() =>
     getFallback('difficulty', difficulties),
   )
-  const difficulty = difficulties[difficulty_]
+  const difficultyValue = difficulties[difficultyKey]
   const [tileset, setTileset] = useState(() => getFallback('tileset', tilesets))
 
   useEffect(() => {
@@ -85,7 +85,7 @@ function App() {
 
   const tiles = useMemo(() => {
     const random = rnd(seed)
-    const TOTAL_TILES = parseInt(difficulty, 10)
+    const TOTAL_TILES = parseInt(difficultyValue, 10)
     const emojis = new Map()
 
     if (tilesets[tileset].length < TOTAL_TILES) {
@@ -113,7 +113,7 @@ function App() {
         }
       })
       .sort((a, b) => a.id.localeCompare(b.id))
-  }, [tilesets, tileset, difficulty, seed])
+  }, [tilesets, tileset, difficultyValue, seed])
 
   const handleReveal = useCallback(
     (e) => {
@@ -155,7 +155,7 @@ function App() {
         }
         return
       }
-      if (key === 'difficulty') setDifficulty(value)
+      if (key === 'difficulty') setDifficultyKey(value)
       if (key === 'tileset') setTileset(value)
       if (key === 'seed') setSeed(value)
       reset(false)
@@ -181,7 +181,7 @@ function App() {
           label: 'high scores',
           panel: (
             <Suspense fallback={<Loading />}>
-              <HighScoresView difficulty={difficulty} tileset={tileset} />
+              <HighScoresView difficulty={difficultyKey} tileset={tileset} />
             </Suspense>
           ),
         },
@@ -191,7 +191,7 @@ function App() {
           panel: <Debug />,
         },
       ].filter(Boolean),
-    [seed, onSettingChange, tileset, difficulty, debugMode],
+    [seed, onSettingChange, tileset, difficultyKey, debugMode],
   )
 
   return (
@@ -221,9 +221,9 @@ function App() {
 
       <main
         className={cx(game, {
-          [easy]: difficulty === difficulties.easy,
-          [medium]: difficulty === difficulties.medium,
-          [hard]: difficulty === difficulties.hard,
+          [easy]: difficultyValue === difficulties.easy,
+          [medium]: difficultyValue === difficulties.medium,
+          [hard]: difficultyValue === difficulties.hard,
         })}
       >
         {tiles.map(({ id, emoji, label, collate }) => (
@@ -268,20 +268,20 @@ function App() {
       <Dialog ref={victoryDialogRef} onClose={reset}>
         <h2>You win!</h2>
         <p>
-          You scored {score} on seed #{seed} and difficulty {difficulty}
+          You scored {score} on seed #{seed} and difficulty {difficultyKey}
         </p>
         <hr />
         <HighScoresForm
           seed={seed}
           tileset={tileset}
-          difficulty={difficulty}
+          difficulty={difficultyKey}
           score={score}
           onSubmitNewScore={() => setScore('')}
         />
         <Suspense fallback={<Loading />}>
           <HighScoresView
             tileset={tileset}
-            difficulty={difficulty}
+            difficulty={difficultyKey}
             seed={seed}
           />
         </Suspense>
