@@ -20,6 +20,8 @@ header {
 
   .game-state {
     display: flex;
+    max-width: calc(100% - 60px);
+    overflow-x: auto;
 
     dt {
       margin-right: 5px;
