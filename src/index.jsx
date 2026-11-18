@@ -1,4 +1,5 @@
 import { createRoot } from 'react-dom/client'
+import cx from 'classnames'
 
 import App from './App.jsx'
 import { darkMode, lightMode } from './index.css'
@@ -8,8 +9,21 @@ if (window.OFFLINE_PLUGIN_ENABLED) {
   navigator.serviceWorker?.register?.('sw.js', {})
 }
 
-const theme = window.localStorage.getItem('THEME')
-if (theme) document.body.classList.add(theme === 'DARK' ? darkMode : lightMode)
+const theme = (() => {
+  try {
+    return JSON.parse(window.localStorage.getItem('settings') ?? '{}')?.theme
+  } catch (err) {
+    console.error({ err }, 'Failed to parse initial settings for theme')
+    return ''
+  }
+})()
+
+const bodyClass = cx({
+  [darkMode]: theme === 'DARK',
+  [lightMode]: theme === 'LIGHT',
+})
+
+if (bodyClass) document.body.classList.add(bodyClass)
 
 const difficulties = {
   easy: '3',
