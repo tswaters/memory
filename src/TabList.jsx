@@ -4,7 +4,10 @@ import { tabList } from './TabList.css'
 
 /*
 
-const entries = useMemo(() => [
+will render a button for each panel, and handle keyboard focus between tabs
+it handles all the aria-roles for a "tablist" component, aria-selected, etc.
+
+<Tabs entries={[
     {
         id: 'panel1',
         label: 'panel1',
@@ -16,9 +19,7 @@ const entries = useMemo(() => [
         panel: <Panel2 />,
         selected: true,
     },
-], [])
-
-<Tabs entries={entries} />
+]} />
 */
 
 export default memo(function Tabs({ entries }) {

@@ -64,12 +64,16 @@ function App() {
   const [difficultyKey, setDifficultyKey] = useState(() =>
     getFallback('difficulty', difficulties),
   )
-  const difficultyValue = difficulties[difficultyKey]
-  const [tileset, setTileset] = useState(() => getFallback('tileset', tilesets))
+
+  const [tilesetKey, setTilesetKey] = useState(() =>
+    getFallback('tileset', tilesets),
+  )
 
   const [noMotion, setNoMotion] = useState(() =>
     getFallback('reduced_motion', reducedMotionOptions),
   )
+
+  const difficultyValue = difficulties[difficultyKey]
 
   const prefersNoMotion =
     noMotion == 'unset'
@@ -102,13 +106,13 @@ function App() {
     const TOTAL_TILES = parseInt(difficultyValue, 10)
     const emojis = new Map()
 
-    if (tilesets[tileset].length < TOTAL_TILES) {
+    if (tilesets[tilesetKey].length < TOTAL_TILES) {
       throw new Error('no emoji')
     }
 
     while (emojis.size < TOTAL_TILES) {
-      const index = random.range(0, tilesets[tileset].length - 1)
-      const entry = tilesets[tileset][index]
+      const index = random.range(0, tilesets[tilesetKey].length - 1)
+      const entry = tilesets[tilesetKey][index]
       emojis.set(entry.emoji, entry.label)
     }
 
@@ -120,101 +124,39 @@ function App() {
           emoji,
           label: emojis.get(emoji),
           id,
-          collate(node) {
+          handleRef(node) {
             if (node) tilesRef.current.set(id, node)
             return () => tilesRef.current.delete(id)
+          },
+          handleReveal() {
+            if (selectionRef.current == null) {
+              selectionRef.current = { id, emoji }
+            } else if (selectionRef.current.emoji === emoji) {
+              return Promise.all([
+                tilesRef.current.get(id).success(),
+                tilesRef.current.get(selectionRef.current.id).success(),
+              ]).then((failures) => {
+                selectionRef.current = null
+                setScore((prev) =>
+                  failures.reduce(
+                    (total, item) => total + item,
+                    prev === '' ? 0 : prev,
+                  ),
+                )
+                if (tiles.length / 2 === ++flippedCountRef.current) {
+                  victoryDialogRef.current.showModal()
+                }
+              })
+            } else {
+              tilesRef.current.get(id).fail()
+              tilesRef.current.get(selectionRef.current.id).fail()
+              selectionRef.current = null
+            }
           },
         }
       })
       .sort((a, b) => a.id.localeCompare(b.id))
-  }, [tilesets, tileset, difficultyValue, seed])
-
-  const handleReveal = useCallback(
-    (e) => {
-      const id = e.target.id
-      const value = e.target.dataset.emoji
-      if (selectionRef.current == null) {
-        selectionRef.current = { id, value }
-      } else if (selectionRef.current.value === value) {
-        return Promise.all([
-          tilesRef.current.get(id).success(),
-          tilesRef.current.get(selectionRef.current.id).success(),
-        ]).then((failures) => {
-          selectionRef.current = null
-          setScore((prev) =>
-            failures.reduce(
-              (total, item) => total + item,
-              prev === '' ? 0 : prev,
-            ),
-          )
-          if (tiles.length / 2 === ++flippedCountRef.current) {
-            victoryDialogRef.current.showModal()
-          }
-        })
-      } else {
-        tilesRef.current.get(id).fail()
-        tilesRef.current.get(selectionRef.current.id).fail()
-        selectionRef.current = null
-      }
-    },
-    [tiles.length],
-  )
-
-  const onSettingChange = useCallback(
-    (key, value) => {
-      if (key === 'theme') {
-        document.body.classList.remove(darkMode, lightMode)
-        if (value != null) {
-          document.body.classList.add(value === 'DARK' ? darkMode : lightMode)
-        }
-        return
-      }
-      if (key === 'difficulty') setDifficultyKey(value)
-      if (key === 'tileset') setTileset(value)
-      if (key === 'seed') setSeed(value)
-      if (key === 'reduced_motion')
-        setNoMotion(
-          value == 'unset'
-            ? defaultNoMotion()
-            : value === 'reduced_motion'
-              ? true
-              : false,
-        )
-      reset(false)
-    },
-    [reset],
-  )
-
-  const dialogEntries = useMemo(
-    () =>
-      [
-        {
-          id: 'settings',
-          label: 'settings',
-          panel: <Settings seed={seed} onSettingChange={onSettingChange} />,
-        },
-        {
-          id: 'help',
-          label: 'help',
-          panel: <Help />,
-        },
-        {
-          id: 'high-scores',
-          label: 'high scores',
-          panel: (
-            <Suspense fallback={<Loading />}>
-              <HighScoresView difficulty={difficultyKey} tileset={tileset} />
-            </Suspense>
-          ),
-        },
-        debugMode && {
-          id: 'debug',
-          label: 'debug',
-          panel: <Debug />,
-        },
-      ].filter(Boolean),
-    [seed, onSettingChange, tileset, difficultyKey, debugMode],
-  )
+  }, [tilesets, tilesetKey, difficultyValue, seed])
 
   return (
     <>
@@ -228,7 +170,7 @@ function App() {
           <dt>difficulty</dt>
           <dd>{difficultyKey}</dd>
           <dt>tileset</dt>
-          <dd>{tileset}</dd>
+          <dd>{tilesetKey}</dd>
           {score !== '' && (
             <>
               <dt>score</dt>
@@ -252,13 +194,13 @@ function App() {
           [hard]: difficultyValue === difficulties.hard,
         })}
       >
-        {tiles.map(({ id, emoji, label, collate }) => (
+        {tiles.map(({ id, emoji, label, handleRef, handleReveal }) => (
           <Card
             key={id}
             id={id}
             data-emoji={emoji}
             data-label={label}
-            ref={collate}
+            ref={handleRef}
             onReveal={handleReveal}
             noMotion={prefersNoMotion}
           />
@@ -266,7 +208,64 @@ function App() {
       </main>
 
       <Dialog ref={mainMenuDialogRef}>
-        <TabList entries={dialogEntries} />
+        <TabList
+          entries={[
+            {
+              id: 'settings',
+              label: 'settings',
+              panel: (
+                <Settings
+                  seed={seed}
+                  onSettingChange={(key, value) => {
+                    if (key === 'theme') {
+                      document.body.classList.remove(darkMode, lightMode)
+                      if (value != null) {
+                        document.body.classList.add(
+                          value === 'DARK' ? darkMode : lightMode,
+                        )
+                      }
+                      return
+                    }
+                    if (key === 'difficulty') setDifficultyKey(value)
+                    if (key === 'tileset') setTilesetKey(value)
+                    if (key === 'seed') setSeed(value)
+                    if (key === 'reduced_motion')
+                      setNoMotion(
+                        value == 'unset'
+                          ? defaultNoMotion()
+                          : value === 'reduced_motion'
+                            ? true
+                            : false,
+                      )
+                    reset(false)
+                  }}
+                />
+              ),
+            },
+            {
+              id: 'help',
+              label: 'help',
+              panel: <Help />,
+            },
+            {
+              id: 'high-scores',
+              label: 'high scores',
+              panel: (
+                <Suspense fallback={<Loading />}>
+                  <HighScoresView
+                    difficulty={difficultyKey}
+                    tileset={tilesetKey}
+                  />
+                </Suspense>
+              ),
+            },
+            debugMode && {
+              id: 'debug',
+              label: 'debug',
+              panel: <Debug />,
+            },
+          ].filter(Boolean)}
+        />
         <p>Memory {window.APP_VERSION}</p>
         <p>
           <a
@@ -300,14 +299,14 @@ function App() {
         <hr />
         <HighScoresForm
           seed={seed}
-          tileset={tileset}
+          tileset={tilesetKey}
           difficulty={difficultyKey}
           score={score}
           onSubmitNewScore={() => setScore('')}
         />
         <Suspense fallback={<Loading />}>
           <HighScoresView
-            tileset={tileset}
+            tileset={tilesetKey}
             difficulty={difficultyKey}
             seed={seed}
           />

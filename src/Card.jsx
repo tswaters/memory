@@ -10,14 +10,15 @@ const DURATION_PULSE = 200
 const DURATION_ROTATE = 500
 const DURATION_FLIP = 500
 
-// this component is almost the antithesis of good react component. it doesn't use state at all
-// if it ever re-renders, there's probably a bug somewhere with one of the props
-// we keep the dom updated via refs in various web animation api handlers, and use data-* for state (failure count)
-// the aria-expanded & aria-labels are technically dynamic here and could benefit from doing react things
+// keep dom updated via refs in various web animation api handlers, and use data-* for state (failure count)
+// enabled, disabled, aria-expanded & aria-labels are technically dynamic here and could benefit from doing react things
 // problem with that is one of trust - what can and will react do with this element while my transform should be playing
 // I've decided in this case to not trust react with non-static data, in theory it should do nothing (and has proven to)
 // this is a strange section of react lore where mutations are OK, don't need to worry about props, state or events. (it's rather nice)
 // just make sure to keep track of things properly and the snakes won't jump out of pandora's box
+// the previous version was slow AF , each click required re-rendering each tile. `onReveal` can still technically call `setState`
+// and it should more or less do the right thing. not calling `setState` is a choice here, the only thing that does it is updating score
+// and updating score should not touch any of the cards.
 
 const _Card = function Card({ onReveal, ref, noMotion = false, ...props }) {
   const rotatedRef = useRef(false)
@@ -138,15 +139,6 @@ const _Card = function Card({ onReveal, ref, noMotion = false, ...props }) {
     return promise
   }
 
-  const handleClick = (e) => {
-    if (btnRef.current.disabled) return
-    e.persist()
-    flipAnimation().then(() => {
-      btnRef.current.disabled = true
-      return onReveal?.(e)
-    })
-  }
-
   return (
     <button
       {...props}
@@ -154,7 +146,14 @@ const _Card = function Card({ onReveal, ref, noMotion = false, ...props }) {
       aria-expanded="false"
       aria-label="Card"
       className={cx(card, props.className ?? '')}
-      onClick={handleClick}
+      onClick={(e) => {
+        if (btnRef.current.disabled) return
+        e.persist()
+        flipAnimation().then(() => {
+          btnRef.current.disabled = true
+          return onReveal?.(e)
+        })
+      }}
       ref={btnRef}
     />
   )
