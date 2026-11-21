@@ -283,7 +283,7 @@ function App() {
             bottom: '5px',
             border: 0,
             backgroundColor: 'transparent',
-            textShadow: '1px 1px 2px var(--global-color-background)',
+            textShadow: '1px 1px 2px var(--background-color)',
           }}
           onClick={() => setDebugMode(true)}
         >

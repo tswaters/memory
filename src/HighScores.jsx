@@ -89,7 +89,7 @@ export const HighScoresView = memo(function HighScoresView({
   const store = highScoreStoreCache(tileset, difficulty)
   const scores = useSyncExternalStore(store.subscribe, store.getSnapshot)
   return (
-    <table width="100%" border={1}>
+    <table width="100%" border={1} cellPadding={2} cellSpacing={0}>
       <caption style={{ captionSide: 'bottom' }}>
         <p>
           high scores for {tileset} and {difficulty}

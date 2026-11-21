@@ -7,19 +7,13 @@
 .card {
   position: relative;
   user-select: none;
-  border: var(--border-width) solid var(--global-color-primary);
+  border: var(--border-width) solid var(--border-color);
   cursor: pointer;
   line-height: 100%;
   will-change: transform;
   transform-style: preserve-3d;
   backface-visibility: hidden;
-
-  background-image: repeating-conic-gradient(
-    var(--light-stripe),
-    var(--light-stripe) 5%,
-    var(--dark-stripe) 5%,
-    var(--dark-stripe) 10%
-  );
+  background-image: var(--card-background);
 
   &.offset {
     transform: rotate(180deg);
@@ -36,13 +30,13 @@
 
   /*
   this is a little hacky ; there's two elements here, the button & it's after pseudo element
-  they should both be the same size exactly, and only 1 is visible at the same time, swap one in for the other using transforms
+  they should both be the same size exactly, and only 1 is visible at the same time, swap one in for the other using 3d transforms
   problem is , ::after is the child of the button, and absolute positioning is based on the padding-box (doesn't include border)
   so, if both are showing a border, when it swaps out, the :after appears -Npx off, based on size of the parent's border
   to fix that, apply negative positioning to the element, same size as the border. this has the side effect of pulling borders too
   it winds up slightly "off" , less than it should be.  reset the box-sizing of the pseudo element back to content-box so it doesn't do that
   setting border-box is part of reset stylesheet... this may be the first case I've seen where content-box actually makes sense.
-  anyway, this makes the two of the line up exactly, height/width & borders.
+  this makes the two of them line up exactly, height/width & borders.
   */
 
   position: absolute;
@@ -52,10 +46,10 @@
 
 .success,
 .success:after {
-  border-color: green;
+  border-color: var(--success);
 }
 
 .failure,
 .failure:after {
-  border-color: red;
+  border-color: var(--failure);
 }

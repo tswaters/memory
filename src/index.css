@@ -30,43 +30,81 @@
 }
 
 :root {
+  --border-width: 2px;
+  --success: green;
+  --failure: red;
+  --primary: #606dbc;
+
+  --button-raised: #ddd #888888 #888888 #ddd;
+  --button-depressed: #888888 #ddd #ddd #888888;
+
+  --global-color-darker: #000; /* lch(from var(--global-color-dark) calc(l - 20) c h); */
+  --global-color-dark: #333;
+  --global-color-light: #ccc;
+  --global-color-lighter: #fff; /* lch(from var(--global-color-light) calc(l + 20) c h); */
+
   --rainbow: linear-gradient(45deg, magenta, rebeccapurple, dodgerblue, green);
   --rainbow-offset: linear-gradient(45deg, #e2f5e9, #ffea00, #ff6b00, #f29199);
-  --border-width: 2px;
+  --card-background: repeating-conic-gradient(
+    var(--light-stripe),
+    var(--light-stripe) 5%,
+    var(--dark-stripe) 5%,
+    var(--dark-stripe) 10%
+  );
 
   @media (prefers-color-scheme: dark) {
-    --global-color-primary: black;
-    --global-color-background: white;
+    --font-color: var(--global-color-light);
+    --offset-color: var(--global-color-lighter);
+    --background-color: var(--global-color-dark);
+    --border-color: var(--global-color-darker);
     --light-stripe: #606dbc;
     --dark-stripe: #465298;
   }
 
   @media (prefers-color-scheme: light) {
-    --global-color-primary: black;
-    --global-color-background: white;
+    --font-color: var(--global-color-dark);
+    --offset-color: var(--global-color-darker);
+    --background-color: var(--global-color-lighter);
+    --border-color: var(--global-color-light);
     --light-stripe: #606dbc;
     --dark-stripe: #465298;
   }
 }
 
 .dark-mode {
-  --global-color-primary: white;
-  --global-color-background: black;
+  --font-color: var(--global-color-light);
+  --background-color: var(--global-color-dark);
+  --border-color: var(--global-color-darker);
   --light-stripe: #404dac;
   --dark-stripe: #263278;
 }
 
 .light-mode {
-  --global-color-primary: black;
-  --global-color-background: white;
+  --font-color: var(--global-color-dark);
+  --background-color: var(--global-color-lighter);
+  --border-color: var(--global-color-light);
   --light-stripe: #606dbc;
   --dark-stripe: #465298;
 }
 
 body,
 dialog {
-  background-color: var(--global-color-background);
-  color: var(--global-color-primary);
+  background-color: var(--background-color);
+  color: var(--font-color);
+}
+
+a {
+  text-decoration: underline;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+a,
+a:visited,
+a:hover,
+a:active {
+  color: var(--font-color);
 }
 
 dialog {
@@ -83,9 +121,13 @@ dialog button[aria-label='Close'] {
   font-size: 25px;
   min-width: 40px;
   &::after {
-    color: red;
+    color: var(--failure);
     content: '❌';
   }
+}
+
+table[cellpadding='2'] td {
+  padding: 2px;
 }
 
 .rainbow {

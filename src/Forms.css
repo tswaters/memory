@@ -37,11 +37,12 @@ fieldset.radio {
 
     &:hover,
     &:has(input:focus) {
-      border-color: #ddd #888888 #888888 #ddd;
+      background-color: var(--border-color);
     }
 
     &:has(input:checked) {
-      border-color: #888888 #ddd #ddd #888888;
+      background-color: var(--font-color);
+      color: var(--background-color);
     }
   }
 }
