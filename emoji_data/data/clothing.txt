@@ -1,0 +1,56 @@
+
+# subgroup: arts & crafts
+
+1F9F5                                                  ; fully-qualified     # 🧵 E11.0 thread
+1FAA1                                                  ; fully-qualified     # 🪡 E13.0 sewing needle
+1F9F6                                                  ; fully-qualified     # 🧶 E11.0 yarn
+
+# subgroup: clothing
+
+1F453                                                  ; fully-qualified     # 👓 E0.6 glasses
+1F576 FE0F                                             ; fully-qualified     # 🕶️ E0.7 sunglasses
+1F97D                                                  ; fully-qualified     # 🥽 E11.0 goggles
+1F97C                                                  ; fully-qualified     # 🥼 E11.0 lab coat
+1F9BA                                                  ; fully-qualified     # 🦺 E12.0 safety vest
+1F454                                                  ; fully-qualified     # 👔 E0.6 necktie
+1F455                                                  ; fully-qualified     # 👕 E0.6 t-shirt
+1F456                                                  ; fully-qualified     # 👖 E0.6 jeans
+1F9E3                                                  ; fully-qualified     # 🧣 E5.0 scarf
+1F9E4                                                  ; fully-qualified     # 🧤 E5.0 gloves
+1F9E5                                                  ; fully-qualified     # 🧥 E5.0 coat
+1F9E6                                                  ; fully-qualified     # 🧦 E5.0 socks
+1F457                                                  ; fully-qualified     # 👗 E0.6 dress
+1F458                                                  ; fully-qualified     # 👘 E0.6 kimono
+1F97B                                                  ; fully-qualified     # 🥻 E12.0 sari
+1FA71                                                  ; fully-qualified     # 🩱 E12.0 one-piece swimsuit
+1FA72                                                  ; fully-qualified     # 🩲 E12.0 briefs
+1FA73                                                  ; fully-qualified     # 🩳 E12.0 shorts
+1F459                                                  ; fully-qualified     # 👙 E0.6 bikini
+1F45A                                                  ; fully-qualified     # 👚 E0.6 woman’s clothes
+1FAAD                                                  ; fully-qualified     # 🪭 E15.0 folding hand fan
+1F45B                                                  ; fully-qualified     # 👛 E0.6 purse
+1F45C                                                  ; fully-qualified     # 👜 E0.6 handbag
+1F45D                                                  ; fully-qualified     # 👝 E0.6 clutch bag
+1F6CD FE0F                                             ; fully-qualified     # 🛍️ E0.7 shopping bags
+1F392                                                  ; fully-qualified     # 🎒 E0.6 backpack
+1FA74                                                  ; fully-qualified     # 🩴 E13.0 thong sandal
+1F45E                                                  ; fully-qualified     # 👞 E0.6 man’s shoe
+1F45F                                                  ; fully-qualified     # 👟 E0.6 running shoe
+1F97E                                                  ; fully-qualified     # 🥾 E11.0 hiking boot
+1F97F                                                  ; fully-qualified     # 🥿 E11.0 flat shoe
+1F460                                                  ; fully-qualified     # 👠 E0.6 high-heeled shoe
+1F461                                                  ; fully-qualified     # 👡 E0.6 woman’s sandal
+1FA70                                                  ; fully-qualified     # 🩰 E12.0 ballet shoes
+1F462                                                  ; fully-qualified     # 👢 E0.6 woman’s boot
+1FAAE                                                  ; fully-qualified     # 🪮 E15.0 hair pick
+1F451                                                  ; fully-qualified     # 👑 E0.6 crown
+1F452                                                  ; fully-qualified     # 👒 E0.6 woman’s hat
+1F3A9                                                  ; fully-qualified     # 🎩 E0.6 top hat
+1F393                                                  ; fully-qualified     # 🎓 E0.6 graduation cap
+1F9E2                                                  ; fully-qualified     # 🧢 E5.0 billed cap
+1FA96                                                  ; fully-qualified     # 🪖 E13.0 military helmet
+26D1 FE0F                                              ; fully-qualified     # ⛑️ E0.7 rescue worker’s helmet
+1F4FF                                                  ; fully-qualified     # 📿 E1.0 prayer beads
+1F484                                                  ; fully-qualified     # 💄 E0.6 lipstick
+1F48D                                                  ; fully-qualified     # 💍 E0.6 ring
+1F48E                                                  ; fully-qualified     # 💎 E0.6 gem stone

@@ -1,5 +1,25 @@
-import { memo, Fragment, use } from 'react'
+import { memo, use } from 'react'
 import { DataContext } from './DataProvider'
+
+function PrintEmoji({ item: { emoji, label } }) {
+  return (
+    <figure>
+      <span>{emoji}</span>
+      <figcaption>
+        {label} [
+        {Array.from(emoji)
+          .map((char) => `0x${char.codePointAt(0).toString(16).toLowerCase()}`)
+          .join(', ')}
+        ]
+      </figcaption>
+    </figure>
+  )
+}
+
+const tileGrid = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(6, 1fr)',
+}
 
 export default memo(function Debug() {
   const { tilesets } = use(DataContext)
@@ -7,43 +27,24 @@ export default memo(function Debug() {
     <>
       <details>
         <summary>Removed Tiles</summary>
-        <dl>
+        <div style={tileGrid}>
           {window.REMOVED_TILES.map((item) => (
-            <Fragment key={item.label}>
-              <dd>{item.label}</dd>
-              <dt>
-                {item.emoji} [
-                {Array.from(item.emoji)
-                  .map(
-                    (char) =>
-                      `0x${char.codePointAt(0).toString(16).toUpperCase()}`,
-                  )
-                  .join(',')}
-                ]
-              </dt>
-            </Fragment>
+            <PrintEmoji key={item.emoji} item={item} />
           ))}
-        </dl>
+        </div>
       </details>
-      <details>
-        <summary>All available tiles</summary>
-        <dl>
-          {Object.entries(tilesets).map(([label, data]) => (
-            <Fragment key={label}>
-              <dt>
-                {label} ({data.length})
-              </dt>
-              <dd>
-                {data.map((item) => (
-                  <span key={item.emoji} title={item.label}>
-                    {item.emoji}
-                  </span>
-                ))}
-              </dd>
-            </Fragment>
-          ))}
-        </dl>
-      </details>
+      {Object.entries(tilesets).map(([label, data]) => (
+        <details key={label}>
+          <summary>
+            {label} ({data.length})
+          </summary>
+          <div style={tileGrid}>
+            {data.map((item) => (
+              <PrintEmoji key={item.emoji} item={item} />
+            ))}
+          </div>
+        </details>
+      ))}
     </>
   )
 })

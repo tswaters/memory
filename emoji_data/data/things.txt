@@ -1,0 +1,58 @@
+
+
+# subgroup: musical-instrument
+1F3B7                                                  ; fully-qualified     # 🎷 E0.6 saxophone
+1F3BA                                                  ; fully-qualified     # 🎺 E0.6 trumpet
+1FA8A                                                  ; fully-qualified     # 🪊 E17.0 trombone
+1FA97                                                  ; fully-qualified     # 🪗 E13.0 accordion
+1F3B8                                                  ; fully-qualified     # 🎸 E0.6 guitar
+1F3B9                                                  ; fully-qualified     # 🎹 E0.6 musical keyboard
+1F3BB                                                  ; fully-qualified     # 🎻 E0.6 violin
+1FA95                                                  ; fully-qualified     # 🪕 E12.0 banjo
+1F941                                                  ; fully-qualified     # 🥁 E3.0 drum
+1FA98                                                  ; fully-qualified     # 🪘 E13.0 long drum
+1FA87                                                  ; fully-qualified     # 🪇 E15.0 maracas
+1FA88                                                  ; fully-qualified     # 🪈 E15.0 flute
+1FA89                                                  ; fully-qualified     # 🪉 E16.0 harp
+
+# subgroup: phone
+1F4F1                                                  ; fully-qualified     # 📱 E0.6 mobile phone
+1F4F2                                                  ; fully-qualified     # 📲 E0.6 mobile phone with arrow
+260E FE0F                                              ; fully-qualified     # ☎️ E0.6 telephone
+1F4DE                                                  ; fully-qualified     # 📞 E0.6 telephone receiver
+1F4DF                                                  ; fully-qualified     # 📟 E0.6 pager
+1F4E0                                                  ; fully-qualified     # 📠 E0.6 fax machine
+
+# subgroup: computer
+1F50B                                                  ; fully-qualified     # 🔋 E0.6 battery
+1FAAB                                                  ; fully-qualified     # 🪫 E14.0 low battery
+1F50C                                                  ; fully-qualified     # 🔌 E0.6 electric plug
+1F4BB                                                  ; fully-qualified     # 💻 E0.6 laptop
+1F5A5 FE0F                                             ; fully-qualified     # 🖥️ E0.7 desktop computer
+1F5A8 FE0F                                             ; fully-qualified     # 🖨️ E0.7 printer
+2328 FE0F                                              ; fully-qualified     # ⌨️ E1.0 keyboard
+1F5B1 FE0F                                             ; fully-qualified     # 🖱️ E0.7 computer mouse
+1F5B2 FE0F                                             ; fully-qualified     # 🖲️ E0.7 trackball
+1F4BD                                                  ; fully-qualified     # 💽 E0.6 computer disk
+1F4BE                                                  ; fully-qualified     # 💾 E0.6 floppy disk
+1F4BF                                                  ; fully-qualified     # 💿 E0.6 optical disk
+1F4C0                                                  ; fully-qualified     # 📀 E0.6 dvd
+1F9EE                                                  ; fully-qualified     # 🧮 E11.0 abacus
+
+# subgroup: light & video
+1F3A5                                                  ; fully-qualified     # 🎥 E0.6 movie camera
+1F39E FE0F                                             ; fully-qualified     # 🎞️ E0.7 film frames
+1F4FD FE0F                                             ; fully-qualified     # 📽️ E0.7 film projector
+1F3AC                                                  ; fully-qualified     # 🎬 E0.6 clapper board
+1F4FA                                                  ; fully-qualified     # 📺 E0.6 television
+1F4F7                                                  ; fully-qualified     # 📷 E0.6 camera
+1F4F8                                                  ; fully-qualified     # 📸 E1.0 camera with flash
+1F4F9                                                  ; fully-qualified     # 📹 E0.6 video camera
+1F4FC                                                  ; fully-qualified     # 📼 E0.6 videocassette
+1F50D                                                  ; fully-qualified     # 🔍 E0.6 magnifying glass tilted left
+1F50E                                                  ; fully-qualified     # 🔎 E0.6 magnifying glass tilted right
+1F56F FE0F                                             ; fully-qualified     # 🕯️ E0.7 candle
+1F4A1                                                  ; fully-qualified     # 💡 E0.6 light bulb
+1F526                                                  ; fully-qualified     # 🔦 E0.6 flashlight
+1F3EE                                                  ; fully-qualified     # 🏮 E0.6 red paper lantern
+1FA94                                                  ; fully-qualified     # 🪔 E12.0 diya lamp

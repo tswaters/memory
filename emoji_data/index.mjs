@@ -51,7 +51,18 @@ const products = {}
 
 // some of these are really simple
 
-;['faces', 'flags', 'food', 'plants', 'places', 'animals'].forEach((thing) => {
+;[
+  'animals',
+  'clothing',
+  'faces',
+  'flags',
+  'food',
+  'geometric',
+  'places',
+  'plants',
+  'stellar',
+  'things',
+].forEach((thing) => {
   products[thing] = Object.values(data[thing])
 })
 
