@@ -10,10 +10,11 @@ import { DataContext } from './DataProvider'
 // if settings ever change this will fix broken local storage entries,
 // it will reset to first option if whatever saved is no longer available
 
-export const getFallback = (key, options) => {
-  const fallback = Object.keys(options)[0]
+export const getFallback = (key, options, defaultFn) => {
+  const fallback = defaultFn?.() ?? Object.keys(options)[0]
   const settings = JSON.parse(window.localStorage.getItem('settings') ?? '{}')
-  return settings[key] ?? fallback
+  const value = settings[key] ?? fallback
+  return value === 'unset' ? null : value
 }
 
 export default memo(function Settings({ onSettingChange, seed }) {
@@ -56,7 +57,7 @@ export default memo(function Settings({ onSettingChange, seed }) {
       window.localStorage.setItem('settings', JSON.stringify(newSettings))
       return newSettings
     })
-    onSettingChange(name, newValue)
+    onSettingChange(name, newValue === 'unset' ? null : newValue)
     e.target.form.submit()
   }
 

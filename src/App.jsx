@@ -70,17 +70,10 @@ function App() {
   )
 
   const [noMotion, setNoMotion] = useState(() =>
-    getFallback('reduced_motion', reducedMotionOptions),
+    getFallback('reduced_motion', reducedMotionOptions, defaultNoMotion),
   )
 
   const difficultyValue = difficulties[difficultyKey]
-
-  const prefersNoMotion =
-    noMotion == 'unset'
-      ? defaultNoMotion()
-      : noMotion === 'reduced_motion'
-        ? true
-        : false
 
   useEffect(() => {
     function handleKeyDown(e) {
@@ -202,7 +195,7 @@ function App() {
             data-label={label}
             ref={handleRef}
             onReveal={handleReveal}
-            noMotion={prefersNoMotion}
+            noMotion={noMotion}
           />
         ))}
       </main>
@@ -231,7 +224,7 @@ function App() {
                     if (key === 'seed') setSeed(value)
                     if (key === 'reduced_motion')
                       setNoMotion(
-                        value == 'unset'
+                        value == null
                           ? defaultNoMotion()
                           : value === 'reduced_motion'
                             ? true
